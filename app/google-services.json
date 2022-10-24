@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "965184424508",
+    "project_id": "homeshare-b5e07",
+    "storage_bucket": "homeshare-b5e07.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:965184424508:android:0edfe564772406dd321139",
+        "android_client_info": {
+          "package_name": "com.example.homeshare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "965184424508-9u9aha393orq4rk0vflhcrt1v1cgfhka.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1ryfPm1eCMuO6YvDtPY8RuFpQTsM0UxE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "965184424508-9u9aha393orq4rk0vflhcrt1v1cgfhka.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

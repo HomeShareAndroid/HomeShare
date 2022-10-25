@@ -1,114 +1,70 @@
 package com.example.homeshare.Model;
 
-
-import android.net.Uri;
-
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
+public class User {
+    private String userImageLink;
+    private String name;
+    private String graduationClass;
+    private String major;
+    private String email;
+    private String Uid;
 
-public class User  {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    static FirebaseUser fbUser;
-    static FirebaseFirestore db;
-    static {
-        fbUser = FirebaseAuth.getInstance().getCurrentUser();
-        db = FirebaseFirestore.getInstance();
+    public User(){
+
     }
 
-    public static String getEmail() {
-        return fbUser.getEmail();
+    public String getUserImageLink() {
+        return userImageLink;
     }
 
     public String getName() {
-        return fbUser.getDisplayName();
+        return name;
     }
 
-    public Uri getPhotoUrl() {
-        return fbUser.getPhotoUrl();
+    public String getGraduationClass() {
+        return graduationClass;
     }
 
-    public static String getMajor() {
-        final String[] major = new String[1];
-        try {
-        Query query = db.collection("users").whereEqualTo("email", getEmail());
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-
-                        major[0] = (String) document.getData().get("major");
-
-                    }
-                }
-            }
-        });
-
-        } catch (Exception ignored) {
-
-        }
-        return major[0];
+    public String getMajor() {
+        return major;
     }
 
-    public static String getGraduationClass() {
-        final String[] grad = new String[1];
-        try {
-            Query query = db.collection("users").whereEqualTo("email", getEmail());
-            query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            grad[0] = (String) document.getData().get("graduationClass");
-
-                        }
-                    }
-                }
-            });
-
-        } catch (Exception ignored) {
-
-        }
-        return grad[0];
+    public String getEmail() {
+        return email;
     }
 
-    public static User getOtherUser(String email) {
-        final User[] user = new User[1];
-        try {
-            Query query = FirebaseFirestore.getInstance().collection("users").whereEqualTo("email", email);
-            query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            user[0] = document.toObject(User.class);
-
-                        }
-                    }
-                }
-            });
-        } catch (Exception e) {
-
-        }
-        return user[0];
-
+    public String getUid() {
+        return Uid;
     }
 
+    public void setUserImageLink(String userImageLink) {
+        this.userImageLink = userImageLink;
+        db.collection("users")
+                .document(getUid())
+                .update("userImageLink",userImageLink);
+    }
 
+    public void setName(String name) {
+        this.name = name;
+        db.collection("users")
+                .document(getUid())
+                .update("name",name);
+    }
 
+    public void setGraduationClass(String graduationClass) {
+        this.graduationClass = graduationClass;
+        db.collection("users")
+                .document(getUid())
+                .update("graduationClass",graduationClass);
+    }
 
-
-
-
-
-
+    public void setMajor(String major) {
+        this.major = major;
+        db.collection("users")
+                .document(getUid())
+                .update("major",major);
+    }
 }

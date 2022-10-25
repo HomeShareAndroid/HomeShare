@@ -11,9 +11,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     @Override
@@ -27,15 +33,23 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-    public void signUp(String email, String password) {
+    public void signUp(String name, String email, String password) {
+
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            //Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            user.updateProfile(new UserProfileChangeRequest
+                                    .Builder().setDisplayName(name).build());
+                            Map<String, Object> docData = new HashMap<>();
+                            docData.put("email", email);
+                            docData.put("name", name);
+                            docData.put("Uid", user.getUid());
+                            db.collection("users").document(user.getUid()).set(docData);
+
 
                             /* IMPLEMENT THIS LATER*/
                             //updateUI(user);

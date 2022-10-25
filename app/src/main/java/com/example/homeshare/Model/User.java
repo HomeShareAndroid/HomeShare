@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -81,7 +82,7 @@ public class User {
         Invitation.deleteExpiredInvitations();
         List<Invitation> invites = new ArrayList<>();
         db.collection("invitations")
-                .whereNotEqualTo("posterUid", getUid())
+                .whereGreaterThan("deadline", FieldValue.serverTimestamp())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -89,7 +90,9 @@ public class User {
 
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                invites.add(document.toObject(Invitation.class));
+                                if (!document.get("posterUid").equals(getUid())) {
+                                    invites.add(document.toObject(Invitation.class));
+                                }
                             }
                         }
                     }
@@ -102,7 +105,8 @@ public class User {
         Invitation.deleteExpiredInvitations();
         List<Invitation> invites = new ArrayList<>();
         db.collection("invitations")
-                .whereNotEqualTo("posterUid", getUid()).orderBy(orderBy)
+                .whereGreaterThan("deadline", FieldValue.serverTimestamp())
+                .orderBy(orderBy)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -110,11 +114,37 @@ public class User {
 
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                invites.add(document.toObject(Invitation.class));
+                                if (!document.get("posterUid").equals(getUid())) {
+                                    invites.add(document.toObject(Invitation.class));
+                                }
                             }
                         }
                     }
                 });
         return invites;
+    }
+    public void acceptInvitation(Invitation inv) {
+
+    }
+    public void rejectInvitation(Invitation inv) {
+
+    }
+    public void acceptResponse(InvitationResponse response) {
+
+    }
+    public void rejectResponse(InvitationResponse response){
+
+    }
+
+    public List<InvitationResponse> getOutgoingNoResponses() {
+        return new ArrayList<>();
+    }
+
+    public List<InvitationResponse> getOutgoingYesResponses() {
+        return new ArrayList<>();
+    }
+
+    public List<InvitationResponse> getIncomingYesResponses() {
+        return new ArrayList<>();
     }
 }

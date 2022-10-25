@@ -1,6 +1,10 @@
 package com.example.homeshare;
 
+import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,15 +26,24 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
+    EditText inputName;
     @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_home);
+
+
+
+        //Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
+        if (currentUser != null) {
             currentUser.reload();
         }
+
+        inputName = (EditText) findViewById(R.id.inputName);
     }
+
+
 
 
     public void signUp(String name, String email, String password) {

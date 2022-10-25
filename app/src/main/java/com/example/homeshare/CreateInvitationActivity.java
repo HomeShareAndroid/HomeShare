@@ -52,8 +52,7 @@ public class CreateInvitationActivity extends AppCompatActivity {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
             Date parsedDate = dateFormat.parse(deadline);
-            java.sql.Timestamp result = new Timestamp(parsedDate.getTime());
-            docData.put("deadline", result);
+            docData.put("deadline", parsedDate);
         } catch (Exception e) {
             System.out.println("Invalid Timestamp/Deadline");
         }

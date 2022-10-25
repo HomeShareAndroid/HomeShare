@@ -1,6 +1,21 @@
 package com.example.homeshare.Model;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.ServerTimestamp;
+
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 public class Invitation {
@@ -9,7 +24,9 @@ public class Invitation {
 
     }
 
-    private Timestamp deadline;
+    @ServerTimestamp
+    private Date deadline;
+
     private String posterUid;
 
 
@@ -28,11 +45,11 @@ public class Invitation {
     private String otherDetails;
 
 
-    public Timestamp getDeadline() {
+    public Date getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Timestamp deadline) {
+    public void setDeadline(Date deadline) {
         this.deadline = deadline;
     }
 
@@ -114,5 +131,26 @@ public class Invitation {
 
     public void setOtherDetails(String otherDetails) {
         this.otherDetails = otherDetails;
+    }
+
+    public static void deleteExpiredInvitations() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference invites = db.collection("invitations");
+
+        invites.whereLessThan("deadline", FieldValue.serverTimestamp())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                document.getReference().delete();
+
+                            }
+                        }
+                    }
+                });
+
     }
 }

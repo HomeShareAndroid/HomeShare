@@ -1,6 +1,15 @@
 package com.example.homeshare.Model;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class User {
     private String userImageLink;
@@ -66,5 +75,46 @@ public class User {
         db.collection("users")
                 .document(getUid())
                 .update("major",major);
+    }
+
+    public List<Invitation> getFeed() {
+        Invitation.deleteExpiredInvitations();
+        List<Invitation> invites = new ArrayList<>();
+        db.collection("invitations")
+                .whereNotEqualTo("posterUid", getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                invites.add(document.toObject(Invitation.class));
+                            }
+                        }
+                    }
+                });
+        return invites;
+    }
+
+
+    public List<Invitation> getFeed(String orderBy) {
+        Invitation.deleteExpiredInvitations();
+        List<Invitation> invites = new ArrayList<>();
+        db.collection("invitations")
+                .whereNotEqualTo("posterUid", getUid()).orderBy(orderBy)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                invites.add(document.toObject(Invitation.class));
+                            }
+                        }
+                    }
+                });
+        return invites;
     }
 }

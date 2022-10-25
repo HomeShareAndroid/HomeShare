@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     public void printName(View texv) {
         TextView tv = (TextView) findViewById(R.id.text_home);
         tv.setText("Hi " + inputName.getText());
-        signUp(String.valueOf(inputName.getText()), "email@gmail.com", "samplePass");
+        signUp(String.valueOf(inputName.getText()), "e@gmail.com", "samplePass");
         signOutUser();
 
     }

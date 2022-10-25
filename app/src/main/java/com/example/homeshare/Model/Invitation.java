@@ -133,24 +133,5 @@ public class Invitation {
         this.otherDetails = otherDetails;
     }
 
-    public static void deleteExpiredInvitations() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference invites = db.collection("invitations");
 
-        invites.whereLessThan("deadline", FieldValue.serverTimestamp())
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                document.getReference().delete();
-
-                            }
-                        }
-                    }
-                });
-
-    }
 }

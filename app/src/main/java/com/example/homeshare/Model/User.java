@@ -79,7 +79,7 @@ public class User {
     }
 
     public List<Invitation> getFeed() {
-        Invitation.deleteExpiredInvitations();
+
         List<Invitation> invites = new ArrayList<>();
         db.collection("invitations")
                 .whereGreaterThan("deadline", FieldValue.serverTimestamp())
@@ -102,7 +102,7 @@ public class User {
 
 
     public List<Invitation> getFeed(String orderBy) {
-        Invitation.deleteExpiredInvitations();
+
         List<Invitation> invites = new ArrayList<>();
         db.collection("invitations")
                 .whereGreaterThan("deadline", FieldValue.serverTimestamp())

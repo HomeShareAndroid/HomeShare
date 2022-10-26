@@ -37,21 +37,14 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private Calendar date;
+
 
     private ActivityMainBinding binding;
-    EditText inputName;
-    EditText inputPassword;
-    EditText inputEmail;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mAuth =   FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-
-
 
         super.onCreate(savedInstanceState);
 
@@ -67,9 +60,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
-        inputName = (EditText) findViewById(R.id.inputName);
-        inputPassword = (EditText) findViewById(R.id.inputPassword);
-        inputEmail = (EditText) findViewById(R.id.inputEmail);
+
 
     }
 
@@ -77,19 +68,23 @@ public class MainActivity extends AppCompatActivity {
 
     public void signUp(View text) {
         TextView tv = (TextView) findViewById(R.id.text_home);
-        tv.setText("Hi " +inputName.getText());
-        signUp(String.valueOf(inputName.getText()),
-                String.valueOf(inputEmail.getText()),
-                String.valueOf(inputPassword.getText()));
+        tv.setText("Hi " +((EditText)findViewById(R.id.inputName)).getText());
+        signUp(String.valueOf(((EditText)findViewById(R.id.inputName)).getText()),
+                String.valueOf(((EditText)findViewById(R.id.inputEmail)).getText()),
+                String.valueOf(((EditText)findViewById(R.id.inputPassword)).getText()));;
         //signOutUser();
 
 
     }
+    public void signIn(View text) {
+        signIn(String.valueOf(((EditText)findViewById(R.id.signInEmail)).getText()),
+                String.valueOf(((EditText)findViewById(R.id.signInPassword)).getText()));
+    }
 
 
 
-    public void signOutUser() {
-        FirebaseAuth.getInstance().signOut();
+    public void signOutUser(View view) {
+        mAuth.signOut();
     }
 
     public void signUp(String name, String email, String password) {

@@ -15,15 +15,49 @@
         android:layout_height="match_parent"
         >
 
+        <TextView
+            android:id="@+id/deadlineBanner"
+            android:layout_width="367dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="Set A Deadline For This Invitation to Expire:"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.714"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.526" />
+
+        <TextView
+            android:id="@+id/text_home"
+            android:layout_width="367dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Invite Someone to Share Housing With You!"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.005" />
 
         <EditText
             android:id="@+id/address"
-            android:layout_width="135dp"
+            android:layout_width="171dp"
             android:layout_height="65dp"
+            android:layout_marginTop="24dp"
             android:ems="10"
+            android:hint="Address"
             android:inputType="textPersonName"
             android:text=""
-            android:textSize="25dp"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
@@ -38,7 +72,8 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text=""
-            android:textSize="25dp"
+            android:hint="Rent"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,12 +82,13 @@
 
         <EditText
             android:id="@+id/utilities"
-            android:layout_width="133dp"
+            android:layout_width="171dp"
             android:layout_height="81dp"
             android:ems="10"
+            android:hint="Utilities"
             android:inputType="textPersonName"
             android:text=""
-            android:textSize="25dp"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.507"
@@ -62,12 +98,13 @@
 
         <EditText
             android:id="@+id/numBeds"
-            android:layout_width="131dp"
+            android:layout_width="171dp"
             android:layout_height="56dp"
             android:ems="10"
+            android:hint="Number of Beds"
             android:inputType="textPersonName"
             android:text=""
-            android:textSize="25dp"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
@@ -77,12 +114,13 @@
 
         <EditText
             android:id="@+id/otherInfo"
-            android:layout_width="143dp"
+            android:layout_width="171dp"
             android:layout_height="51dp"
             android:ems="10"
+            android:hint="Other Housing Info"
             android:inputType="textPersonName"
             android:text=""
-            android:textSize="25dp"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -91,12 +129,13 @@
 
         <EditText
             android:id="@+id/dailySchedule"
-            android:layout_width="137dp"
+            android:layout_width="171dp"
             android:layout_height="51dp"
             android:ems="10"
+            android:hint="Your Daily Schedule"
             android:inputType="textPersonName"
             android:text=""
-            android:textSize="25dp"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -105,12 +144,13 @@
 
         <EditText
             android:id="@+id/academicFocus"
-            android:layout_width="131dp"
+            android:layout_width="171dp"
             android:layout_height="62dp"
             android:ems="10"
+            android:hint="Your Academic Focus"
             android:inputType="textPersonName"
             android:text=""
-            android:textSize="25dp"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
@@ -121,12 +161,13 @@
 
         <EditText
             android:id="@+id/personality"
-            android:layout_width="131dp"
+            android:layout_width="171dp"
             android:layout_height="56dp"
             android:ems="10"
+            android:hint="Your Personality"
             android:inputType="textPersonName"
             android:text=""
-            android:textSize="25dp"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
@@ -137,12 +178,13 @@
 
         <EditText
             android:id="@+id/otherDetails"
-            android:layout_width="115dp"
+            android:layout_width="171dp"
             android:layout_height="43dp"
             android:ems="10"
+            android:hint="Other Details About You"
             android:inputType="textPersonName"
             android:text=""
-            android:textSize="25dp"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -156,7 +198,7 @@
             android:layout_marginStart="8dp"
 
 
-            android:layout_marginTop="716dp"
+            android:layout_marginTop="796dp"
             android:layout_weight="4"
             android:calendarViewShown="true"
             android:spinnersShown="false"
@@ -167,12 +209,12 @@
             android:id="@+id/button"
             android:layout_width="176dp"
             android:layout_height="90dp"
+
+
             android:layout_marginStart="100dp"
-
-
-            android:layout_marginTop="1176dp"
+            android:layout_marginTop="1300dp"
             android:onClick="addInvitation"
-            android:text="Submit"
+            android:text="Create Invitation"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

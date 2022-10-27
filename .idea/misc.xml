@@ -5,7 +5,9 @@
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.13399280575539568" />
         <entry key="app/src/main/res/layout/activity.xml" value="0.13043478260869565" />
+        <entry key="app/src/main/res/layout/activity_invitationfeed.xml" value="0.4517832530909638" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_profilepage.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.17675628662109377" />

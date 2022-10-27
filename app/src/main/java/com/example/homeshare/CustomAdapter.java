@@ -3,17 +3,24 @@ package com.example.homeshare;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.homeshare.Model.Invitation;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
     private List<Invitation> data;
+    private Map<ViewHolder, String> viewHolderToUID = new HashMap<>();
     public CustomAdapter (List<Invitation> data){
         this.data = data;
     }
@@ -27,6 +34,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     @Override
     public void onBindViewHolder(CustomAdapter.ViewHolder holder, int position) {
         Invitation invitation = data.get(position);
+        holder.invitation = invitation;
         holder.address.setText("Address: " + invitation.getAddress());
         holder.academicFocus.setText("Academic Focus of Poster: " + invitation.getAcademicFocus());
         holder.dailySchedule.setText("Poster's Daily Schedule: " + invitation.getDailySchedule());
@@ -45,7 +53,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView textView;
         private TextView address;
         private TextView academicFocus;
         private TextView dailySchedule;
@@ -56,6 +63,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         private TextView personality;
         private TextView rent;
         private TextView utilities;
+        private Button acceptButton;
+        private Button rejectButton;
+        private Invitation invitation;
 
         public ViewHolder(View view) {
             super(view);
@@ -69,13 +79,48 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             personality = view.findViewById(R.id.personality);
             rent = view.findViewById(R.id.rent);
             utilities = view.findViewById(R.id.utilities);
+            acceptButton = view.findViewById(R.id.acceptInvitation);
+            rejectButton = view.findViewById(R.id.rejectInvitation);
+            acceptButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    try {
+                        DocumentReference posterDoc = FirebaseFirestore
+                                .getInstance()
+                                .collection("users")
+                                .document(invitation.getPosterUid());
+                        DocumentReference responderDoc = FirebaseFirestore.getInstance()
+                                .collection("users")
+                                .document(FirebaseAuth.getInstance().getUid());
+                        Map<String, Object> docData = new HashMap<>();
+                        docData.put("invitationRef", InvitationFeedActivity.invToRef.get(invitation));
+                        docData.put("posterRef", posterDoc);
+                        docData.put("responderRef", responderDoc);
+                        docData.put("response", true);
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        db.collection("invitationresponses").add(docData);
+
+
+                    } catch (Exception e) {
+                        System.out.println(e.toString());
+                        System.out.println("Something went wrong accepting invitation");
+                    }
+
+
+                }
+            });
+            rejectButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                }
+            });
             view.setOnClickListener(this);
+
             //this.textView = view.findViewById(R.id.textview);
         }
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(view.getContext(), "poster Uid : " + this.textView.getText(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(view.getContext(), "Must Click Accept or Reject", Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -104,12 +104,31 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                         System.out.println(e.toString());
                         System.out.println("Something went wrong accepting invitation");
                     }
-
-
                 }
             });
             rejectButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
+                    try {
+                        DocumentReference posterDoc = FirebaseFirestore
+                                .getInstance()
+                                .collection("users")
+                                .document(invitation.getPosterUid());
+                        DocumentReference responderDoc = FirebaseFirestore.getInstance()
+                                .collection("users")
+                                .document(FirebaseAuth.getInstance().getUid());
+                        Map<String, Object> docData = new HashMap<>();
+                        docData.put("invitationRef", InvitationFeedActivity.invToRef.get(invitation));
+                        docData.put("posterRef", posterDoc);
+                        docData.put("responderRef", responderDoc);
+                        docData.put("response", false);
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        db.collection("invitationresponses").add(docData);
+
+
+                    } catch (Exception e) {
+                        System.out.println(e.toString());
+                        System.out.println("Something went wrong rejecting invitation");
+                    }
 
                 }
             });

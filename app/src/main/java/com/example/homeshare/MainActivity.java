@@ -130,6 +130,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
         } catch (Exception e) {
+            Toast.makeText(MainActivity.this, "Sign Up Failed. Make sure email is valid and password length > 5",
+                    Toast.LENGTH_LONG).show();
             System.out.println(e.toString());
         }
 
@@ -176,32 +178,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void signIn(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            //Log.d(TAG, "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+        if (email == null || email.equals("") || password == null || password.equals("")) {
+            Toast.makeText(MainActivity.this, "Email / Password Fields Cannot Be Empty",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+        try {
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (!task.isSuccessful()) {
+                                // If sign in fails, display a message to the user.
+                                //Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                Toast.makeText(MainActivity.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                                System.out.println(task.getException().toString());
 
-
-                            /* IMPLEMENT THIS LATER*/
-                            //updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            //Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(MainActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            System.out.println(task.getException().toString());
-
-                            /* IMPLEMENT THIS LATER*/
-                            //updateUI(null);
+                                /* IMPLEMENT THIS LATER*/
+                                //updateUI(null);
+                            } else {
+                                Intent myIntent = new Intent(getApplicationContext(), InvitationFeedActivity.class);
+                                startActivity(myIntent);
+                            }
                         }
-                    }
-                });
-        Intent myIntent = new Intent(this, InvitationFeedActivity.class);
-        startActivity(myIntent);
+                    });
+
+        } catch (Exception e) {
+            Toast.makeText(MainActivity.this, "Authentication failed.",
+                    Toast.LENGTH_SHORT).show();
+            System.out.println(e.toString());
+
+        }
     }
 
     public void getFeedPage(View view) {

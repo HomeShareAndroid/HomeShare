@@ -158,6 +158,8 @@ public class MainActivity extends AppCompatActivity {
             db.collection("invitations").add(docData);
         } else {
             // NOT LOGGED IN!
+            Toast.makeText(MainActivity.this, "You Must Be Logged In to Create An Invitation",
+                    Toast.LENGTH_LONG).show();
             System.out.println("NOT LOGGED IN");
         }
     }

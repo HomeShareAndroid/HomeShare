@@ -17,9 +17,9 @@ import java.util.List;
 
 public class User {
     //private String userImageLink;
-    private String name;
     // private String graduationClass;
     //private String major;
+    private String name;
     private String email;
     private String Uid;
 
@@ -28,44 +28,7 @@ public class User {
 
     public User(){
 
-    }
-/*
-    public String getUserImageLink() {
-        return userImageLink;
-    }
-
-    public String getGraduationClass() {
-        return graduationClass;
-    }
-
-    public String getMajor() {
-        return major;
-    }
-    public void setUserImageLink(String userImageLink) {
-        this.userImageLink = userImageLink;
-        db.collection("users")
-                .document(getUid())
-                .update("userImageLink",userImageLink);
-    }
-
-
-
-
-    public void setGraduationClass(String graduationClass) {
-        this.graduationClass = graduationClass;
-        db.collection("users")
-                .document(getUid())
-                .update("graduationClass",graduationClass);
-    }
-
-    public void setMajor(String major) {
-        this.major = major;
-        db.collection("users")
-                .document(getUid())
-                .update("major",major);
-    }
-    */
-    public String getUid() {
+    }    public String getUid() {
         return Uid;
     }
     public String getEmail() {
@@ -114,4 +77,41 @@ public class User {
     public void setUid(String uid) {
         Uid = uid;
     }
+/*
+    public String getUserImageLink() {
+        return userImageLink;
+    }
+
+    public String getGraduationClass() {
+        return graduationClass;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+    public void setUserImageLink(String userImageLink) {
+        this.userImageLink = userImageLink;
+        db.collection("users")
+                .document(getUid())
+                .update("userImageLink",userImageLink);
+    }
+
+
+
+
+    public void setGraduationClass(String graduationClass) {
+        this.graduationClass = graduationClass;
+        db.collection("users")
+                .document(getUid())
+                .update("graduationClass",graduationClass);
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
+        db.collection("users")
+                .document(getUid())
+                .update("major",major);
+    }
+    */
+
 }

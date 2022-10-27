@@ -27,16 +27,16 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     @Override
     public void onBindViewHolder(CustomAdapter.ViewHolder holder, int position) {
         Invitation invitation = data.get(position);
-        holder.address.setText(invitation.getAddress());
-        holder.academicFocus.setText(invitation.getAcademicFocus());
-        holder.dailySchedule.setText(invitation.getDailySchedule());
-        holder.deadline.setText(invitation.getDeadline().toString());
-        holder.numBeds.setText(invitation.getNumBeds());
-        holder.otherDetails.setText(invitation.getOtherDetails());
-        holder.otherInfo.setText(invitation.getOtherInfo());
-        holder.personality.setText(invitation.getPersonality());
-        holder.rent.setText(invitation.getRent());
-        holder.utilities.setText(invitation.getUtilities());
+        holder.address.setText("Address: " + invitation.getAddress());
+        holder.academicFocus.setText("Academic Focus of Poster: " + invitation.getAcademicFocus());
+        holder.dailySchedule.setText("Poster's Daily Schedule: " + invitation.getDailySchedule());
+        holder.deadline.setText("Deadline to Respond: " + invitation.getDeadline().toString());
+        holder.numBeds.setText("Number of Beds Available: " + invitation.getNumBeds());
+        holder.otherDetails.setText("Other Housing Details: " + invitation.getOtherDetails());
+        holder.otherInfo.setText("Other Info about the Poster: " + invitation.getOtherInfo());
+        holder.personality.setText("Poster's Personality: " + invitation.getPersonality());
+        holder.rent.setText("Rent Details: " + invitation.getRent());
+        holder.utilities.setText("Utilities Details: " +invitation.getUtilities());
     }
 
     @Override

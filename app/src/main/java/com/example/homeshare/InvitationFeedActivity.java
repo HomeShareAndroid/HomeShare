@@ -1,6 +1,8 @@
 package com.example.homeshare;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -89,5 +91,11 @@ public class InvitationFeedActivity extends AppCompatActivity {
         if (usr[0] == null) {
             System.out.println("We couldn't get the User");
         }
+    }
+
+    public void signOut(View view) {
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

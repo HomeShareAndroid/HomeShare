@@ -4,34 +4,34 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class User {
-    private String userImageLink;
+    //private String userImageLink;
     private String name;
-    private String graduationClass;
-    private String major;
+    // private String graduationClass;
+    //private String major;
     private String email;
     private String Uid;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     public User(){
 
     }
-
+/*
     public String getUserImageLink() {
         return userImageLink;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getGraduationClass() {
@@ -41,15 +41,6 @@ public class User {
     public String getMajor() {
         return major;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getUid() {
-        return Uid;
-    }
-
     public void setUserImageLink(String userImageLink) {
         this.userImageLink = userImageLink;
         db.collection("users")
@@ -57,12 +48,8 @@ public class User {
                 .update("userImageLink",userImageLink);
     }
 
-    public void setName(String name) {
-        this.name = name;
-        db.collection("users")
-                .document(getUid())
-                .update("name",name);
-    }
+
+
 
     public void setGraduationClass(String graduationClass) {
         this.graduationClass = graduationClass;
@@ -77,52 +64,24 @@ public class User {
                 .document(getUid())
                 .update("major",major);
     }
-
-    public List<Invitation> getFeed() {
-
-        List<Invitation> invites = new ArrayList<>();
-        db.collection("invitations")
-                .whereGreaterThan("deadline", FieldValue.serverTimestamp())
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                if (!document.get("posterUid").equals(getUid())) {
-                                    invites.add(document.toObject(Invitation.class));
-                                }
-                            }
-                        }
-                    }
-                });
-        return invites;
+    */
+    public String getUid() {
+        return Uid;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public String getName() {
+        return name;
     }
 
-
-    public List<Invitation> getFeed(String orderBy) {
-
-        List<Invitation> invites = new ArrayList<>();
-        db.collection("invitations")
-                .whereGreaterThan("deadline", FieldValue.serverTimestamp())
-                .orderBy(orderBy)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                if (!document.get("posterUid").equals(getUid())) {
-                                    invites.add(document.toObject(Invitation.class));
-                                }
-                            }
-                        }
-                    }
-                });
-        return invites;
+    public void setName(String name) {
+        this.name = name;
+        /*db.collection("users")
+                .document(getUid())
+                .update("name",name);*/
     }
+
     public void acceptInvitation(Invitation inv) {
 
     }
@@ -146,5 +105,13 @@ public class User {
 
     public List<InvitationResponse> getIncomingYesResponses() {
         return new ArrayList<>();
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setUid(String uid) {
+        Uid = uid;
     }
 }

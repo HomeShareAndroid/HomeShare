@@ -37,13 +37,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/header_cover_image"
-            android:background="#ebca0707"
+            android:background="#EB71D6E3"
             android:elevation="4dp"
             android:paddingBottom="24dp">
 
 
-
-<!--
+            <!--
             <ImageView
                 android:id="@+id/drop_down_option_menu"
                 android:layout_width="30dp"
@@ -54,26 +53,16 @@
                 android:src="@drawable/ic_action_overflow" />-->
 
             <TextView
-                android:id="@+id/user_profile_name"
+                android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="76dp"
                 android:text="Viral Android"
                 android:textColor="#fff"
-                android:textSize="24sp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/user_profile_short_bio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/user_profile_name"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="12dp"
-                android:text="Android free tutorials and example"
-                android:textColor="#fff"
-                android:textSize="14sp" />
         </RelativeLayout>
 
 
@@ -85,6 +74,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/profileEmail"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
@@ -92,51 +82,64 @@
                 android:clickable="true"
                 android:elevation="4dp"
                 android:padding="20dp"
-                android:text="Android Profile UI Design" />
+                android:textColor="#000000"
+                android:textSize="18sp" />
 
-            <TextView
+            <EditText
+                android:id="@+id/profilePhone"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:layout_marginBottom="3dp"
                 android:layout_marginTop="3dp"
-                android:background="#fff"
-                android:clickable="true"
-                android:elevation="4dp"
-                android:padding="20dp"
-                android:text="Android Profile XMl UI Design" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="#fff"
-                android:clickable="true"
-                android:elevation="4dp"
-                android:padding="20dp"
-                android:text="Android Profile UI Design" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_marginBottom="3dp"
-                android:layout_marginTop="3dp"
                 android:background="#fff"
                 android:clickable="true"
                 android:elevation="4dp"
-                android:padding="20dp"
-                android:text="Android Profile XMl UI Design" />
+                android:padding="20dp" />
 
-            <TextView
+            <EditText
+                android:id="@+id/profileMajor"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:background="#fff"
                 android:clickable="true"
                 android:elevation="4dp"
-                android:padding="20dp"
-                android:text="Android Profile UI Design" />
+                android:padding="20dp" />
+
+            <EditText
+                android:id="@+id/profileAboutMe"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:background="#fff"
+                android:clickable="true"
+                android:elevation="4dp"
+                android:padding="20dp" />
+
+            <Button
+                android:id="@+id/saveInfoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="saveInfo"
+                android:text="Save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.023" />
+
+            <Button
+                android:id="@+id/profileGoHome"
+                android:onClick="goHome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Home" />
+
+
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

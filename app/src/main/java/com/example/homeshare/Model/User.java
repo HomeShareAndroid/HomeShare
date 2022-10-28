@@ -22,6 +22,10 @@ public class User {
     private String name;
     private String email;
     private String Uid;
+    private String major;
+    private String phone;
+    private String aboutMe;
+    private String photoUri;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -77,6 +81,38 @@ public class User {
 
     public void setUid(String uid) {
         Uid = uid;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAboutMe() {
+        return aboutMe;
+    }
+
+    public void setAboutMe(String aboutMe) {
+        this.aboutMe = aboutMe;
+    }
+
+    public String getPhotoUri() {
+        return photoUri;
+    }
+
+    public void setPhotoUri(String photoUri) {
+        this.photoUri = photoUri;
     }
 /*
     public String getUserImageLink() {

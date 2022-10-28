@@ -28,7 +28,8 @@ public class User {
 
     public User(){
 
-    }    public String getUid() {
+    }
+    public String getUid() {
         return Uid;
     }
     public String getEmail() {

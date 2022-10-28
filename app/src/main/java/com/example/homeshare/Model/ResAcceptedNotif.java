@@ -10,7 +10,7 @@ public class ResAcceptedNotif extends Notification {
         super();
         super.message = message1;
         List<User> recipients = new ArrayList<>();
-        recipients.add(accepted.responder);
+        //recipients.add(accepted.responder);
         super.recipients = recipients;
         // do stuff
     }

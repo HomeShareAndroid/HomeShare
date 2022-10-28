@@ -12,7 +12,7 @@ public class InvAcceptedNotif extends Notification{
         super();
         super.message = message1;
         List<User> recipients = new ArrayList<>();
-        recipients.add(response.poster);
+        //recipients.add(response.poster);
         super.recipients = recipients;
     }
 

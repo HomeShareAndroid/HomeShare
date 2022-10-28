@@ -72,6 +72,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void gotoProfilePage(View view) {
+        Intent intent = new Intent(getApplicationContext(), ProfilePageActivity.class);
+        startActivity(intent);
+    }
 
 
     public void signUp(View text) {
@@ -200,8 +204,8 @@ public class MainActivity extends AppCompatActivity {
                                 /* IMPLEMENT THIS LATER*/
                                 //updateUI(null);
                             } else {
-                                Intent myIntent = new Intent(getApplicationContext(), InvitationFeedActivity.class);
-                                startActivity(myIntent);
+                                //Intent myIntent = new Intent(getApplicationContext(), InvitationFeedActivity.class);
+                                //startActivity(myIntent);
                             }
                         }
                     });
@@ -214,10 +218,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void getFeedPage(View view) {
 
-
-
+    public void gotoResponseFeed(View view) {
+        Intent intent = new Intent(getApplicationContext(), ResponseFeedActivity.class);
+        startActivity(intent);
     }
 
+    public void gotoInvitationFeed(View view) {
+        Intent intent = new Intent(getApplicationContext(), InvitationFeedActivity.class);
+        startActivity(intent);
+    }
 }

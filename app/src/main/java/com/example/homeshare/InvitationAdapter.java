@@ -18,21 +18,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
+public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.ViewHolder> {
     private List<Invitation> data;
     private Map<ViewHolder, String> viewHolderToUID = new HashMap<>();
-    public CustomAdapter (List<Invitation> data){
+    public InvitationAdapter(List<Invitation> data){
         this.data = data;
     }
 
     @Override
-    public CustomAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public InvitationAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rowItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_view, parent, false);
         return new ViewHolder(rowItem);
     }
 
     @Override
-    public void onBindViewHolder(CustomAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(InvitationAdapter.ViewHolder holder, int position) {
         Invitation invitation = data.get(position);
         holder.invitation = invitation;
         holder.address.setText("Address: " + invitation.getAddress());

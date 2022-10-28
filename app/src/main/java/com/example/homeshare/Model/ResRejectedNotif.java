@@ -11,9 +11,9 @@ public class ResRejectedNotif extends Notification{
         super();
         super.message = message1;
         List<User> recipients = new ArrayList<>();
-        for (InvitationResponse invitationResponse : rejected) {
+        /*for (InvitationResponse invitationResponse : rejected) {
             recipients.add(invitationResponse.responder);
-        }
+        }*/
         super.recipients = recipients;
 
     }

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.homeshare.Model.Invitation;
+import com.example.homeshare.Model.InvitationResponse;
 import com.example.homeshare.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,15 +27,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-public class InvitationFeedActivity extends AppCompatActivity {
+public class ResponseFeedActivity extends AppCompatActivity {
     User user;
     private RecyclerView recyclerView;
-    public static HashMap<Invitation, DocumentReference> invToRef = new HashMap<>();
+    public static HashMap<InvitationResponse, DocumentReference> responseToRef = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_invitationfeed);
+        setContentView(R.layout.activity_responsefeed);
 
         FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
         if (fbUser == null) {
@@ -52,15 +53,14 @@ public class InvitationFeedActivity extends AppCompatActivity {
             System.out.println(fbUser.getUid());
 
             documentReference.get().addOnSuccessListener(documentSnapshot -> {
-                System.out.println("We got a Document!");
                 usr[0] = documentSnapshot.toObject(User.class);
                 user = usr[0];
-                RecyclerView recyclerView = findViewById(R.id.recycler_view);
+                RecyclerView recyclerView = findViewById(R.id.response_recycler_view);
                 Date date = new Date();
 
-                List<Invitation> invites = new ArrayList<>();
-                FirebaseFirestore.getInstance().collection("invitations")
-                        .whereGreaterThan("deadline", new Timestamp(date))
+                List<InvitationResponse> responses = new ArrayList<>();
+                FirebaseFirestore.getInstance().collection("invitationresponses")
+                        .whereEqualTo("posterRef", documentReference)
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
@@ -68,14 +68,14 @@ public class InvitationFeedActivity extends AppCompatActivity {
 
                                 if (task.isSuccessful()) {
                                     for (QueryDocumentSnapshot document : task.getResult()) {
-
-                                        if (!document.get("posterUid").equals(user.getUid())) {
-                                            Invitation i = document.toObject(Invitation.class);
-                                            invites.add(i);
-                                            invToRef.put(i, document.getReference());
+                                        InvitationResponse r = document.toObject(InvitationResponse.class);
+                                        if (r.isResponse()) {
+                                            responses.add(r);
+                                            responseToRef.put(r, document.getReference());
                                         }
+
                                     }
-                                    recyclerView.setAdapter(new InvitationAdapter(invites));
+                                    recyclerView.setAdapter(new ResponseAdapter(responses));
 
                                 } else {
                                     System.out.println("Getting Feed Not Successful");
@@ -83,7 +83,7 @@ public class InvitationFeedActivity extends AppCompatActivity {
                             }
                         });
                 System.out.println("Got Feed For User: " + user.getUid());
-                System.out.println("Feed is of Length: " + invites.size() );
+                System.out.println("Feed is of Length: " + responses.size() );
 
 
             });

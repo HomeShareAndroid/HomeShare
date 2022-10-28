@@ -1,10 +1,14 @@
 package com.example.homeshare;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,12 +26,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Date;
 
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,11 +43,13 @@ import org.w3c.dom.Text;
 public class ProfilePageActivity extends AppCompatActivity {
     User user;
     private RecyclerView recyclerView;
+    private ImageButton changeProfileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profilepage);
+        changeProfileImage = (ImageButton) findViewById(R.id.user_profile_photo);
 
 
         FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -50,6 +59,16 @@ public class ProfilePageActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
+
+        changeProfileImage.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // open gallery
+                Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(openGallery, 1000);
+
+            }
+        });
 
         try {
             DocumentReference documentReference = FirebaseFirestore
@@ -76,7 +95,8 @@ public class ProfilePageActivity extends AppCompatActivity {
 
                 } else {((EditText) findViewById(R.id.profilePhone)).setText(user.getPhone());}
 
-                if (user.getPhotoUri() == null) {
+                if (user.getPhotoUri() != null) {
+                    changeProfileImage.setImageURI(Uri.parse(user.getPhotoUri()));
 
                 } //else {((EditText) findViewById(R.id.profileAboutMe)).setText(user.getAboutMe());}
             });
@@ -85,6 +105,34 @@ public class ProfilePageActivity extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(this, "Unable to Load User Info",
                     Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1000) {
+            if (resultCode == Activity.RESULT_OK) {
+                Uri imageUri = data.getData();
+                changeProfileImage.setImageURI(imageUri);
+                FirebaseFirestore
+                        .getInstance()
+                        .collection("users")
+                        .document(user.getUid())
+                        .get()
+                        .addOnCompleteListener((OnCompleteListener<DocumentSnapshot>) task -> {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                DocumentReference documentReference = document.getReference();
+                                documentReference.update("photoUri", imageUri.toString());
+
+
+                            } else {
+                                System.out.println("Could Not Add Profile Photo");
+                            }
+                        });
+            }
         }
     }
 

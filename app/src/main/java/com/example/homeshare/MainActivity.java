@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void signUp(View text) {
         TextView tv = (TextView) findViewById(R.id.text_home);
-        tv.setText("Hi " +((EditText)findViewById(R.id.inputName)).getText());
+        tv.setText("Hi " +((EditText)findViewById(R.id.inputName)).getText().toString());
         signUp(String.valueOf(((EditText)findViewById(R.id.inputName)).getText()),
                 String.valueOf(((EditText)findViewById(R.id.inputEmail)).getText()),
                 String.valueOf(((EditText)findViewById(R.id.inputPassword)).getText()));;
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         docData.put("address",String.valueOf(((EditText)findViewById(R.id.address)).getText()));
         docData.put("rent",String.valueOf(((EditText)findViewById(R.id.rent)).getText()));
         docData.put("utilities",String.valueOf(((EditText)findViewById(R.id.utilities)).getText()));
-        docData.put("numBeds",String.valueOf(((EditText)findViewById(R.id.numBeds)).getText()));
+        docData.put("numBeds", ((EditText) findViewById(R.id.numBeds)).getText().toString());
         docData.put("otherInfo",String.valueOf(((EditText)findViewById(R.id.otherInfo)).getText()));
         docData.put("dailySchedule",String.valueOf(((EditText)findViewById(R.id.dailySchedule)).getText()));
         docData.put("academicFocus",String.valueOf(((EditText)findViewById(R.id.academicFocus)).getText()));

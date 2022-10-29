@@ -3,6 +3,8 @@ package com.example.homeshare;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,10 +20,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firestore.admin.v1.Index;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -29,13 +34,14 @@ import java.util.List;
 public class InvitationFeedActivity extends AppCompatActivity {
     User user;
     private RecyclerView recyclerView;
+    InvitationAdapter mostRecent;
+    InvitationAdapter leastRecent;
     public static HashMap<Invitation, DocumentReference> invToRef = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitationfeed);
-
         FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
         if (fbUser == null) {
             System.out.println("No User Logged in");
@@ -43,6 +49,7 @@ public class InvitationFeedActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
+
         final User[] usr = new User[1];
         try {
             DocumentReference documentReference = FirebaseFirestore
@@ -55,38 +62,53 @@ public class InvitationFeedActivity extends AppCompatActivity {
                 System.out.println("We got a Document!");
                 usr[0] = documentSnapshot.toObject(User.class);
                 user = usr[0];
-                RecyclerView recyclerView = findViewById(R.id.recycler_view);
+                recyclerView = findViewById(R.id.recycler_view);
                 Date date = new Date();
-
                 List<Invitation> invites = new ArrayList<>();
                 FirebaseFirestore.getInstance().collection("invitations")
                         .whereGreaterThan("deadline", new Timestamp(date))
                         .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                                if (task.isSuccessful()) {
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-
-                                        if (!document.get("posterUid").equals(user.getUid())
-                                                && document.contains("available")
-                                                && (boolean) document.get("available")) {
-                                            Invitation i = document.toObject(Invitation.class);
-                                            invites.add(i);
-                                            invToRef.put(i, document.getReference());
-                                        }
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    if (!document.get("posterUid").equals(user.getUid())
+                                            && document.contains("available")
+                                            && (boolean) document.get("available")) {
+                                        Invitation i = document.toObject(Invitation.class);
+                                        invites.add(i);
+                                        invToRef.put(i, document.getReference());
                                     }
-                                    recyclerView.setAdapter(new InvitationAdapter(invites));
-
-                                } else {
-                                    System.out.println("Getting Feed Not Successful");
                                 }
+                                Collections.sort(invites);
+                                mostRecent = new InvitationAdapter(invites);
+                                //sorted = new InvitationAdapter(invites);
+                                recyclerView.setAdapter(mostRecent);
+                            } else {
+                                System.out.println("Getting Feed Not Successful");
+                            }
+                        });
+                List<Invitation> invites2 = new ArrayList<>();
+                FirebaseFirestore.getInstance().collection("invitations")
+                        .whereGreaterThan("deadline", new Timestamp(date))
+                        .get()
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    if (!document.get("posterUid").equals(user.getUid())
+                                            && document.contains("available")
+                                            && (boolean) document.get("available")) {
+                                        Invitation i = document.toObject(Invitation.class);
+                                        invites2.add(i);
+                                    }
+                                }
+                                Collections.sort(invites2, Collections.reverseOrder());
+                                leastRecent = new InvitationAdapter(invites2);
+                            } else {
+                                System.out.println("Getting Feed Not Successful");
                             }
                         });
                 System.out.println("Got Feed For User: " + user.getUid());
                 System.out.println("Feed is of Length: " + invites.size());
-
 
             });
 
@@ -97,6 +119,16 @@ public class InvitationFeedActivity extends AppCompatActivity {
         if (usr[0] == null) {
             System.out.println("We couldn't get the User");
         }
+
+        Switch sort = findViewById(R.id.Sort);
+        sort.setOnCheckedChangeListener((compoundButton, b) -> {
+            // sort by deadline
+            if (b) {
+                recyclerView.setAdapter(leastRecent);
+            } else {
+                recyclerView.setAdapter(mostRecent);
+            }
+        });
     }
 
     public void signOut(View view) {

@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class Invitation {
+public class Invitation implements Comparable<Invitation> {
 
     public Invitation() {
 
@@ -142,5 +142,10 @@ public class Invitation {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    @Override
+    public int compareTo(Invitation invitation) {
+        return deadline.compareTo(invitation.deadline);
     }
 }

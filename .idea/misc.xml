@@ -16,12 +16,14 @@
         <entry key="app/src/main/res/layout/activity_invitationfeed.xml" value="0.4517832530909638" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.12416992187499998" />
         <entry key="app/src/main/res/layout/activity_profilepage.xml" value="0.3506622314453125" />
-        <entry key="app/src/main/res/layout/activity_responsefeed.xml" value="0.19384057971014493" />
+        <entry key="app/src/main/res/layout/activity_responsefeed.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_roommatefeed.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.36826934814453127" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.17675628662109377" />
         <entry key="app/src/main/res/layout/list_item_view.xml" value="0.37555555555555553" />
         <entry key="app/src/main/res/layout/response_item_view.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/roommate_item_view.xml" value="0.33542175292968746" />
       </map>
     </option>
   </component>

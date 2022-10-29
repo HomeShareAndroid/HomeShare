@@ -235,4 +235,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), InvitationFeedActivity.class);
         startActivity(intent);
     }
+
+    public void gotoRoommateFeed(View view) {
+        Intent intent = new Intent(getApplicationContext(), RoommateFeedActivity.class);
+        startActivity(intent);
+    }
 }

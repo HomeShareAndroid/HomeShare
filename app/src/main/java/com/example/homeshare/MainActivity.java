@@ -73,7 +73,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void gotoProfilePage(View view) {
+        if (mAuth.getCurrentUser() == null) {
+            Toast.makeText(MainActivity.this, "Must Be Logged In to Visit Profile",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
         Intent intent = new Intent(getApplicationContext(), ProfilePageActivity.class);
+        intent.putExtra("Uid", mAuth.getUid());
         startActivity(intent);
     }
 
@@ -154,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
         docData.put("academicFocus",String.valueOf(((EditText)findViewById(R.id.academicFocus)).getText()));
         docData.put("personality",String.valueOf(((EditText)findViewById(R.id.personality)).getText()));
         docData.put("otherDetails",String.valueOf(((EditText)findViewById(R.id.otherDetails)).getText()));
+        docData.put("available" , true);
 
         FirebaseUser  fbUser = mAuth.getCurrentUser();
         if (fbUser != null) {

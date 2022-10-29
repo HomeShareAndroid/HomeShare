@@ -41,15 +41,19 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 public class ProfilePageActivity extends AppCompatActivity {
-    User user;
+    User userPage;
     private RecyclerView recyclerView;
     private ImageButton changeProfileImage;
+    String pageUid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profilepage);
-        changeProfileImage = (ImageButton) findViewById(R.id.user_profile_photo);
+        changeProfileImage = findViewById(R.id.user_profile_photo);
+
+        System.out.println("Inputted UID: "  + getIntent().getStringExtra("Uid"));
+        pageUid = getIntent().getStringExtra("Uid");
 
 
         FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -60,43 +64,43 @@ public class ProfilePageActivity extends AppCompatActivity {
             return;
         }
 
-        changeProfileImage.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
+        if (fbUser.getUid().equals(pageUid)) {
+            changeProfileImage.setOnClickListener(v -> {
                 // open gallery
                 Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(openGallery, 1000);
 
-            }
-        });
+            });
+        }
+
+
 
         try {
             DocumentReference documentReference = FirebaseFirestore
                     .getInstance()
                     .collection("users")
-                    .document(fbUser.getUid());
-            System.out.println(fbUser.getUid());
-
+                    .document(pageUid);
+            System.out.println("User document path: " + documentReference.getPath());
             documentReference.get().addOnSuccessListener(documentSnapshot -> {
-                user = documentSnapshot.toObject(User.class);
-                ((TextView) findViewById(R.id.userName)).setText(user.getName());
-                ((TextView) findViewById(R.id.profileEmail)).setText(user.getEmail());
-                if (user.getAboutMe() == null) {
+                userPage = documentSnapshot.toObject(User.class);
+                ((TextView) findViewById(R.id.userName)).setText(userPage.getName());
+                ((TextView) findViewById(R.id.profileEmail)).setText(userPage.getEmail());
+                if (userPage.getAboutMe() == null) {
                     ((EditText) findViewById(R.id.profileAboutMe)).setHint("About Me . . .");
 
-                } else {((EditText) findViewById(R.id.profileAboutMe)).setText(user.getAboutMe());}
+                } else {((EditText) findViewById(R.id.profileAboutMe)).setText(userPage.getAboutMe());}
 
-                if (user.getMajor() == null) {
+                if (userPage.getMajor() == null) {
                     ((EditText) findViewById(R.id.profileMajor)).setHint("Major");
-                } else {((EditText) findViewById(R.id.profileMajor)).setText(user.getMajor());}
+                } else {((EditText) findViewById(R.id.profileMajor)).setText(userPage.getMajor());}
 
-                if (user.getPhone() == null) {
+                if (userPage.getPhone() == null) {
                     ((EditText) findViewById(R.id.profilePhone)).setHint("Phone Number");
 
-                } else {((EditText) findViewById(R.id.profilePhone)).setText(user.getPhone());}
+                } else {((EditText) findViewById(R.id.profilePhone)).setText(userPage.getPhone());}
 
-                if (user.getPhotoUri() != null) {
-                    changeProfileImage.setImageURI(Uri.parse(user.getPhotoUri()));
+                if (userPage.getPhotoUri() != null) {
+                    changeProfileImage.setImageURI(Uri.parse(userPage.getPhotoUri()));
 
                 } //else {((EditText) findViewById(R.id.profileAboutMe)).setText(user.getAboutMe());}
             });
@@ -119,7 +123,7 @@ public class ProfilePageActivity extends AppCompatActivity {
                 FirebaseFirestore
                         .getInstance()
                         .collection("users")
-                        .document(user.getUid())
+                        .document(userPage.getUid())
                         .get()
                         .addOnCompleteListener((OnCompleteListener<DocumentSnapshot>) task -> {
                             if (task.isSuccessful()) {
@@ -137,13 +141,16 @@ public class ProfilePageActivity extends AppCompatActivity {
     }
 
     public void saveInfo (View view) {
+        if (!pageUid.equals(FirebaseAuth.getInstance().getUid())) {
+            return;
+        }
         String major = String.valueOf(((EditText) findViewById(R.id.profileMajor)).getText());
         String phone = String.valueOf(((EditText) findViewById(R.id.profilePhone)).getText());
         String aboutMe = String.valueOf(((EditText) findViewById(R.id.profileAboutMe)).getText());
         FirebaseFirestore
                 .getInstance()
                 .collection("users")
-                .document(user.getUid())
+                .document(userPage.getUid())
                 .get()
                 .addOnCompleteListener((OnCompleteListener<DocumentSnapshot>) task -> {
                     if (task.isSuccessful()) {

@@ -75,7 +75,7 @@ public class ResponseFeedActivity extends AppCompatActivity {
                                         }
 
                                     }
-                                    recyclerView.setAdapter(new ResponseAdapter(responses));
+                                    recyclerView.setAdapter(new ResponseAdapter(getApplicationContext(), responses));
 
                                 } else {
                                     System.out.println("Getting Feed Not Successful");

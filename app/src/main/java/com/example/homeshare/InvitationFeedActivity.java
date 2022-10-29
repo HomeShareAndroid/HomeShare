@@ -69,7 +69,9 @@ public class InvitationFeedActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                        if (!document.get("posterUid").equals(user.getUid())) {
+                                        if (!document.get("posterUid").equals(user.getUid())
+                                                && document.contains("available")
+                                                && (boolean) document.get("available")) {
                                             Invitation i = document.toObject(Invitation.class);
                                             invites.add(i);
                                             invToRef.put(i, document.getReference());
@@ -83,7 +85,7 @@ public class InvitationFeedActivity extends AppCompatActivity {
                             }
                         });
                 System.out.println("Got Feed For User: " + user.getUid());
-                System.out.println("Feed is of Length: " + invites.size() );
+                System.out.println("Feed is of Length: " + invites.size());
 
 
             });

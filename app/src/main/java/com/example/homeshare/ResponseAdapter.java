@@ -1,5 +1,6 @@
 package com.example.homeshare;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +31,9 @@ import java.util.Map;
 public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHolder> {
     private List<InvitationResponse> data;
     private Map<ViewHolder, String> viewHolderToUID = new HashMap<>();
-    public ResponseAdapter(List<InvitationResponse> data){
+    private static Context con;
+    public ResponseAdapter(Context con, List<InvitationResponse> data){
+        this.con = con;
         this.data = data;
     }
 
@@ -69,6 +72,7 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
         private Button acceptButton;
         private Button rejectButton;
         private InvitationResponse response;
+        private Button visitProfile;
 
         public ViewHolder(View view) {
             super(view);
@@ -76,6 +80,7 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
             responderName = view.findViewById(R.id.responderName);
             responderEmail = view.findViewById(R.id.responderEmail);
             responderUid = view.findViewById(R.id.responderUid);
+            visitProfile = view.findViewById(R.id.visitResponderProfile);
             acceptButton = view.findViewById(R.id.acceptResponse);
             rejectButton = view.findViewById(R.id.rejectResponse);
             acceptButton.setOnClickListener(v -> {
@@ -87,19 +92,39 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
                             .whereEqualTo("invitationRef", response.getInvitationRef())
                             .whereEqualTo("responderRef", response.getResponderRef())
                             .get()
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        for (QueryDocumentSnapshot document : task.getResult()) {
-                                            DocumentReference documentReference = document.getReference();
-                                            documentReference.update("accepted", true);
-                                        }
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        DocumentReference documentReference = document.getReference();
+                                        documentReference.update("accepted", true);
+                                    }
+                                } else {
+                                    System.out.println("Could Not Accept Response");
+                                }
+                            });
+                    FirebaseFirestore
+                            .getInstance()
+                            .document(String.valueOf(response.getInvitationRef().getPath()))
+                            .get()
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot snap = task.getResult();
+                                    Integer numberOfBeds;
+                                    try {
+                                        numberOfBeds = Integer.parseInt((String) snap.get("numBeds"));
+                                    } catch (Exception e) {numberOfBeds = 1;}
+
+                                    System.out.println("Number of Beds That Were Available: " + numberOfBeds);
+                                    // this was the last available slot
+                                    if (numberOfBeds <= 1)  {
+                                        snap.getReference().update("numBeds", "0");
+                                        snap.getReference().update("available", false);
                                     } else {
-                                        System.out.println("Could Not Accept Response");
+                                        snap.getReference().update("numBeds", numberOfBeds - 1);
                                     }
                                 }
                             });
+
                 } catch (Exception e) {
                     System.out.println(e.toString());
                     System.out.println("Something went wrong accepting invitation");
@@ -114,23 +139,27 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
                             .whereEqualTo("invitationRef", response.getInvitationRef())
                             .whereEqualTo("responderRef", response.getResponderRef())
                             .get()
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        for (QueryDocumentSnapshot document : task.getResult()) {
-                                            DocumentReference documentReference = document.getReference();
-                                            documentReference.update("accepted", false);
-                                        }
-                                    } else {
-                                        System.out.println("Could Not Reject Response");
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        DocumentReference documentReference = document.getReference();
+                                        documentReference.update("accepted", false);
                                     }
+                                } else {
+                                    System.out.println("Could Not Reject Response");
                                 }
                             });
                 } catch (Exception e) {
                     System.out.println(e.toString());
                     System.out.println("Something went wrong rejecting invitation");
                 }
+            });
+            visitProfile.setOnClickListener(c -> {
+                Intent intent = new Intent(con, ProfilePageActivity.class);
+                intent.putExtra("Uid", response.getResponderRef().getId());
+                con.startActivity(intent);
+
+
             });
             view.setOnClickListener(this);
         }

@@ -7,6 +7,7 @@ public class InvitationResponse {
     private DocumentReference posterRef;
     private DocumentReference responderRef;
     private boolean response;
+    private boolean accepted;
 
     public DocumentReference getInvitationRef() {
         return invitationRef;
@@ -38,5 +39,13 @@ public class InvitationResponse {
 
     public void setResponse(boolean response) {
         this.response = response;
+    }
+
+    public boolean isAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(boolean accepted) {
+        this.accepted = accepted;
     }
 }

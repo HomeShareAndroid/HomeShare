@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.homeshare.Model.Invitation;
@@ -25,6 +26,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
         this.data = data;
     }
 
+    @NonNull
     @Override
     public InvitationAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rowItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_view, parent, false);
@@ -106,35 +108,32 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
                     }
                 }
             });
-            rejectButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    try {
-                        DocumentReference posterDoc = FirebaseFirestore
-                                .getInstance()
-                                .collection("users")
-                                .document(invitation.getPosterUid());
-                        DocumentReference responderDoc = FirebaseFirestore.getInstance()
-                                .collection("users")
-                                .document(FirebaseAuth.getInstance().getUid());
-                        Map<String, Object> docData = new HashMap<>();
-                        docData.put("invitationRef", InvitationFeedActivity.invToRef.get(invitation));
-                        docData.put("posterRef", posterDoc);
-                        docData.put("responderRef", responderDoc);
-                        docData.put("response", false);
-                        FirebaseFirestore db = FirebaseFirestore.getInstance();
-                        db.collection("invitationresponses").add(docData);
+            rejectButton.setOnClickListener(v -> {
+                try {
+                    DocumentReference posterDoc = FirebaseFirestore
+                            .getInstance()
+                            .collection("users")
+                            .document(invitation.getPosterUid());
+                    DocumentReference responderDoc = FirebaseFirestore.getInstance()
+                            .collection("users")
+                            .document(FirebaseAuth.getInstance().getUid());
+                    Map<String, Object> docData = new HashMap<>();
+                    docData.put("invitationRef", InvitationFeedActivity.invToRef.get(invitation));
+                    docData.put("posterRef", posterDoc);
+                    docData.put("responderRef", responderDoc);
+                    docData.put("response", false);
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    db.collection("invitationresponses").add(docData);
 
 
-                    } catch (Exception e) {
-                        System.out.println(e.toString());
-                        System.out.println("Something went wrong rejecting invitation");
-                    }
-
+                } catch (Exception e) {
+                    System.out.println(e.toString());
+                    System.out.println("Something went wrong rejecting invitation");
                 }
+
             });
             view.setOnClickListener(this);
 
-            //this.textView = view.findViewById(R.id.textview);
         }
 
         @Override

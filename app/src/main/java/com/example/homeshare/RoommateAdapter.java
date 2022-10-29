@@ -69,7 +69,8 @@ public class RoommateAdapter extends RecyclerView.Adapter<RoommateAdapter.ViewHo
         private TextView posterEmail;
         private TextView posterUid;
         private InvitationResponse response;
-        private Button visitProfile;
+        private Button visitResponderProfile;
+        private Button visitPosterProfile;
 
         public ViewHolder(View view) {
 
@@ -82,10 +83,16 @@ public class RoommateAdapter extends RecyclerView.Adapter<RoommateAdapter.ViewHo
             posterName = view.findViewById(R.id.posterRoommateName);
             posterEmail = view.findViewById(R.id.posterRoommateEmail);
             posterUid = view.findViewById(R.id.posterRoommateUid);
-            visitProfile = view.findViewById(R.id.visitResponderRoommateProfile);
-            visitProfile.setOnClickListener(c -> {
+            visitResponderProfile = view.findViewById(R.id.visitResponderRoommateProfile);
+            visitPosterProfile = view.findViewById(R.id.visitPosterRoommateProfile);
+            visitResponderProfile.setOnClickListener(c -> {
                 Intent intent = new Intent(con, ProfilePageActivity.class);
                 intent.putExtra("Uid", response.getResponderRef().getId());
+                con.startActivity(intent);
+            });
+            visitPosterProfile.setOnClickListener(c -> {
+                Intent intent = new Intent(con, ProfilePageActivity.class);
+                intent.putExtra("Uid", response.getPosterRef().getId());
                 con.startActivity(intent);
             });
             view.setOnClickListener(this);

@@ -24,7 +24,7 @@
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2235687255859375" />
         <entry key="app/src/main/res/layout/activity_profilepage.xml" value="0.3506622314453125" />
-        <entry key="app/src/main/res/layout/activity_register_profile.xml" value="0.2206146240234375" />
+        <entry key="app/src/main/res/layout/activity_register_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_responsefeed.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_roommatefeed.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />

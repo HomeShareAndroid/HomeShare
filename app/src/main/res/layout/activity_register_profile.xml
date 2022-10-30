@@ -133,6 +133,7 @@
                     android:layout_centerInParent="true"
                     android:background="@drawable/btn_dark"
                     android:text="@string/REGISTER"
+                    android:onClick="signUp"
                     android:textColor="@color/colorBackground" />
 
                 <ProgressBar

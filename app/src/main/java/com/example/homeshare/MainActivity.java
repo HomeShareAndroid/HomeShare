@@ -104,9 +104,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Authentication failed.",
                     Toast.LENGTH_SHORT).show();
             System.out.println(e.toString());
-
-
-            10/30 16:13:37: Launching 'app' on Pixel 2 API 24 2.
         }
     }
 

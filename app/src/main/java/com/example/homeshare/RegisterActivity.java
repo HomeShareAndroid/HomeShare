@@ -88,32 +88,39 @@ public class RegisterActivity extends AppCompatActivity {
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            System.out.println(task.getResult().toString());
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                user.updateProfile(new UserProfileChangeRequest
-                                        .Builder().setDisplayName(name).build());
-                                Map<String, Object> docData = new HashMap<>();
-                                docData.put("email", email);
-                                docData.put("name", name);
-                                docData.put("Uid", user.getUid());
-                                db.collection("users").document(user.getUid()).set(docData);
+                            try{
+                                System.out.println(task.getResult().toString());
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    user.updateProfile(new UserProfileChangeRequest
+                                            .Builder().setDisplayName(name).build());
+                                    Map<String, Object> docData = new HashMap<>();
+                                    docData.put("email", email);
+                                    docData.put("name", name);
+                                    docData.put("Uid", user.getUid());
+                                    db.collection("users").document(user.getUid()).set(docData);
 
-                                Intent myIntent = new Intent(getApplicationContext(), HomepageActivity.class);
-                                startActivity(myIntent);
-                                /* IMPLEMENT THIS LATER*/
-                                //updateUI(user);
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                //Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(RegisterActivity.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
+                                    Intent myIntent = new Intent(getApplicationContext(), HomepageActivity.class);
+                                    startActivity(myIntent);
+                                    /* IMPLEMENT THIS LATER*/
+                                    //updateUI(user);
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    //Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                    Toast.makeText(RegisterActivity.this, "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
 
 
 
-                                /* IMPLEMENT THIS LATER*/
-                                //updateUI(null);
+                                    /* IMPLEMENT THIS LATER*/
+                                    //updateUI(null);
+                                }
+                            }
+                            catch(Exception e) {
+                                Toast.makeText(RegisterActivity.this, "Sign Up Failed. Make sure email is valid and password length > 5",
+                                        Toast.LENGTH_LONG).show();
+                                System.out.println(e.toString());
                             }
                         }
                     });

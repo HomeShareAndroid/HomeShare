@@ -5,7 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.homeshare.Model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,11 +21,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.homeshare.Model.User;
 import com.example.homeshare.databinding.ActivityMainBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,7 +34,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+
+public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
@@ -52,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        binding = ActivityMainBinding.inflate(getLayoutInflater());
 //        setContentView(binding.getRoot());
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register_profile);
 
 
 
@@ -68,50 +71,64 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void signIn(View text) {
-        signIn(String.valueOf(((EditText)findViewById(R.id.login_email)).getText()),
-                String.valueOf(((EditText)findViewById(R.id.login_password)).getText()));
+    public void signUp(View text) {
+//      TextView tv = (TextView) findViewById(R.id.text_home);
+//      tv.setText("Hi " +((EditText)findViewById(R.id.inputName)).getText().toString());
+        signUp(String.valueOf(((EditText)findViewById(R.id.reg_name)).getText()),
+                String.valueOf(((EditText)findViewById(R.id.reg_email)).getText()),
+                String.valueOf(((EditText)findViewById(R.id.reg_password)).getText()));;
+        //signOutUser();
+
+
     }
 
-    public void signIn(String email, String password) {
-        if (email == null || email.equals("") || password == null || password.equals("")) {
-            Toast.makeText(MainActivity.this, "Email / Password Fields Cannot Be Empty",
-                    Toast.LENGTH_LONG).show();
-            return;
-        }
+    public void signUp(String name, String email, String password) {
         try {
-            mAuth.signInWithEmailAndPassword(email, password)
+            mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (!task.isSuccessful()) {
+                            System.out.println(task.getResult().toString());
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                user.updateProfile(new UserProfileChangeRequest
+                                        .Builder().setDisplayName(name).build());
+                                Map<String, Object> docData = new HashMap<>();
+                                docData.put("email", email);
+                                docData.put("name", name);
+                                docData.put("Uid", user.getUid());
+                                db.collection("users").document(user.getUid()).set(docData);
+
+                                Intent myIntent = new Intent(getApplicationContext(), HomepageActivity.class);
+                                startActivity(myIntent);
+                                /* IMPLEMENT THIS LATER*/
+                                //updateUI(user);
+                            } else {
                                 // If sign in fails, display a message to the user.
-                                //Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                Toast.makeText(MainActivity.this, "Authentication failed.",
+                                //Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                Toast.makeText(RegisterActivity.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
-                                System.out.println(task.getException().toString());
+
+
 
                                 /* IMPLEMENT THIS LATER*/
                                 //updateUI(null);
-                            } else {
-                                Intent myIntent = new Intent(getApplicationContext(), HomepageActivity.class);
-                                startActivity(myIntent);
                             }
                         }
                     });
-
         } catch (Exception e) {
-            Toast.makeText(MainActivity.this, "Authentication failed.",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterActivity.this, "Sign Up Failed. Make sure email is valid and password length > 5",
+                    Toast.LENGTH_LONG).show();
             System.out.println(e.toString());
-
-
-            10/30 16:13:37: Launching 'app' on Pixel 2 API 24 2.
         }
+
+
+
     }
 
-    public void goToRegisterPage(View view) {
-        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+    public void goToLoginPage(View view) {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }
 

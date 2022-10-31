@@ -27,6 +27,8 @@
         <activity android:name=".ProfilePageActivity"></activity>
         <activity android:name=".ResponseFeedActivity"></activity>
         <activity android:name=".RoommateFeedActivity"></activity>
+        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".HomepageActivity"></activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>

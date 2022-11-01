@@ -45,11 +45,13 @@ public class ProfilePageActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ImageButton changeProfileImage;
     String pageUid;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profilepage);
+        mAuth =   FirebaseAuth.getInstance();
+        setContentView(R.layout.include_settings_content);
         changeProfileImage = findViewById(R.id.user_profile_photo);
 
         System.out.println("Inputted UID: "  + getIntent().getStringExtra("Uid"));
@@ -171,6 +173,12 @@ public class ProfilePageActivity extends AppCompatActivity {
         //startActivity(getIntent());
     }
     public void goHome(View view) {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void signOutUser(View view) {
+        mAuth.signOut();
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }

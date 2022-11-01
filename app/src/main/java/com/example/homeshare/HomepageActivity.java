@@ -240,4 +240,9 @@ public class HomepageActivity extends AppCompatActivity {
 //        Intent intent = new Intent(getApplicationContext(), RoommateFeedActivity.class);
 //        startActivity(intent);
 //    }
+
+    public void goToProfilePage(View view) {
+        Intent intent = new Intent(getApplicationContext(), ProfilePageActivity.class);
+        startActivity(intent);
+    }
 }

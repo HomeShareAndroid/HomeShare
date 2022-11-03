@@ -32,6 +32,8 @@ import java.util.Date;
 
 
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -45,10 +47,15 @@ public class ProfilePageActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ImageButton changeProfileImage;
     String pageUid;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
+        mAuth =   FirebaseAuth.getInstance();
         setContentView(R.layout.activity_profilepage);
         changeProfileImage = findViewById(R.id.user_profile_photo);
 
@@ -85,24 +92,30 @@ public class ProfilePageActivity extends AppCompatActivity {
                 userPage = documentSnapshot.toObject(User.class);
                 ((TextView) findViewById(R.id.userName)).setText(userPage.getName());
                 ((TextView) findViewById(R.id.profileEmail)).setText(userPage.getEmail());
-                if (userPage.getAboutMe() == null) {
-                    ((EditText) findViewById(R.id.profileAboutMe)).setHint("About Me . . .");
+                ((EditText) findViewById(R.id.profileAboutMe)).setText(userPage.getAboutMe());
+                ((EditText) findViewById(R.id.profileMajor)).setText(userPage.getMajor());
+                ((EditText) findViewById(R.id.profilePhone)).setText(userPage.getPhone());
 
-                } else {((EditText) findViewById(R.id.profileAboutMe)).setText(userPage.getAboutMe());}
+//                if (userPage.getAboutMe() == null) {
+//                    ((EditText) findViewById(R.id.profileAboutMe)).setHint("About Me . . .");
+//
+//                } else {((EditText) findViewById(R.id.profileAboutMe)).setText(userPage.getAboutMe());}
+//
+//                if (userPage.getMajor() == null) {
+//                    ((EditText) findViewById(R.id.profileMajor)).setHint("Major");
+//                } else {((EditText) findViewById(R.id.profileMajor)).setText(userPage.getMajor());}
+//
+//                if (userPage.getPhone() == null) {
+//                    ((EditText) findViewById(R.id.profilePhone)).setHint("Phone Number");
+//
+//                } else {((EditText) findViewById(R.id.profilePhone)).setText(userPage.getPhone());}
 
-                if (userPage.getMajor() == null) {
-                    ((EditText) findViewById(R.id.profileMajor)).setHint("Major");
-                } else {((EditText) findViewById(R.id.profileMajor)).setText(userPage.getMajor());}
-
-                if (userPage.getPhone() == null) {
-                    ((EditText) findViewById(R.id.profilePhone)).setHint("Phone Number");
-
-                } else {((EditText) findViewById(R.id.profilePhone)).setText(userPage.getPhone());}
-
-                if (userPage.getPhotoUri() != null) {
-                    changeProfileImage.setImageURI(Uri.parse(userPage.getPhotoUri()));
-
-                } //else {((EditText) findViewById(R.id.profileAboutMe)).setText(user.getAboutMe());}
+//                ((EditText) findViewById(R.id.profileMajor)).setText(userPage.getMajor());
+//                ((EditText) findViewById(R.id.profilePhone)).setText(userPage.getPhone());
+//                if (userPage.getPhotoUri() != null) {
+//                    changeProfileImage.setImageURI(Uri.parse(userPage.getPhotoUri()));
+//
+//                } //else {((EditText) findViewById(R.id.profileAboutMe)).setText(user.getAboutMe());}
             });
 
 
@@ -171,6 +184,12 @@ public class ProfilePageActivity extends AppCompatActivity {
         //startActivity(getIntent());
     }
     public void goHome(View view) {
+        Intent intent = new Intent(getApplicationContext(), InvitationFeedActivity.class);
+        startActivity(intent);
+    }
+
+    public void signOutUser(View view) {
+        mAuth.signOut();
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }

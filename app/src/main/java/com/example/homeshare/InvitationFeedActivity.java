@@ -3,12 +3,15 @@ package com.example.homeshare;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.homeshare.Model.Invitation;
@@ -33,6 +36,7 @@ import java.util.List;
 
 public class InvitationFeedActivity extends AppCompatActivity {
     User user;
+    private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
     InvitationAdapter mostRecent;
     InvitationAdapter leastRecent;
@@ -40,8 +44,14 @@ public class InvitationFeedActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mAuth = FirebaseAuth.getInstance();
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_invitationfeed);
+        setContentView(R.layout.activity_invitationfeed2);
+
+        RecyclerView.LayoutManager manager = new GridLayoutManager(getApplicationContext(),1);
         FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
         if (fbUser == null) {
             System.out.println("No User Logged in");
@@ -65,6 +75,13 @@ public class InvitationFeedActivity extends AppCompatActivity {
                 recyclerView = findViewById(R.id.recycler_view);
                 Date date = new Date();
                 List<Invitation> invites = new ArrayList<>();
+                List<Invitation> invites2 = new ArrayList<>();
+                List<Invitation> mostRentInvites = new ArrayList<>();
+                List<Invitation> leastRentInvites = new ArrayList<>();
+                List<Invitation> mostBedInvites = new ArrayList<>();
+                List<Invitation> leastBedInvites = new ArrayList<>();
+                List<Invitation> closestDistanceInvites = new ArrayList<>();
+                List<Invitation> furthestDistanceInvites = new ArrayList<>();
                 FirebaseFirestore.getInstance().collection("invitations")
                         .whereGreaterThan("deadline", new Timestamp(date))
                         .get()
@@ -75,40 +92,35 @@ public class InvitationFeedActivity extends AppCompatActivity {
                                             && document.contains("available")
                                             && (boolean) document.get("available")) {
                                         Invitation i = document.toObject(Invitation.class);
+                                        System.out.println("Invitation = " + i.getAddress());
                                         invites.add(i);
+                                        invites2.add(i);
+                                        mostRentInvites.add(i);
+                                        leastRentInvites.add(i);
+                                        mostBedInvites.add(i);
+                                        leastBedInvites.add(i);
+                                        closestDistanceInvites.add(i);
+                                        furthestDistanceInvites.add(i);
                                         invToRef.put(i, document.getReference());
                                     }
                                 }
                                 Collections.sort(invites);
                                 mostRecent = new InvitationAdapter(invites);
+                                recyclerView.setLayoutManager(manager);
                                 //sorted = new InvitationAdapter(invites);
                                 recyclerView.setAdapter(mostRecent);
-                            } else {
-                                System.out.println("Getting Feed Not Successful");
-                            }
-                        });
-                List<Invitation> invites2 = new ArrayList<>();
-                FirebaseFirestore.getInstance().collection("invitations")
-                        .whereGreaterThan("deadline", new Timestamp(date))
-                        .get()
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    if (!document.get("posterUid").equals(user.getUid())
-                                            && document.contains("available")
-                                            && (boolean) document.get("available")) {
-                                        Invitation i = document.toObject(Invitation.class);
-                                        invites2.add(i);
-                                    }
-                                }
+
                                 Collections.sort(invites2, Collections.reverseOrder());
                                 leastRecent = new InvitationAdapter(invites2);
+
+                                System.out.println("Got Feed For User: " + user.getUid());
+                                System.out.println("Feed is of Length: " + invites.size());
                             } else {
                                 System.out.println("Getting Feed Not Successful");
                             }
                         });
-                System.out.println("Got Feed For User: " + user.getUid());
-                System.out.println("Feed is of Length: " + invites.size());
+
+
 
             });
 
@@ -134,6 +146,12 @@ public class InvitationFeedActivity extends AppCompatActivity {
     public void signOut(View view) {
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToProfilePage(View view) {
+        Intent intent = new Intent(getApplicationContext(), ProfilePageActivity.class);
+        intent.putExtra("Uid", mAuth.getUid());
         startActivity(intent);
     }
 

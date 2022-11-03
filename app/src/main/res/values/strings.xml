@@ -2,8 +2,12 @@
 
     <string name="app_name">HomeShare</string>
     <string name="title_home">Home</string>
+    <string name="title_feed">Feed</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_roommates">Roommates</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_create_a_post">Create a Post</string>
 
     <string name="content_about">Notch is an android news application.This is demo for item on Envato</string>
 
@@ -176,7 +180,8 @@
     <string name="setting_title_rate">Rate This</string>
     <string name="setting_title_more_apps">More Apps</string>
     <string name="setting_title_intro">Introduction</string>
-    <string name="setting_title_about">About</string>
+    <string name="setting_title_about_me">About Me</string>
+    <string name="setting_title_major">Major</string>
     <string name="version_unknown">Unknown</string>
     <string name="email_copied">Email Copied to Clipboard</string>
     <string name="dialog_confirm_title">Confirmation</string>

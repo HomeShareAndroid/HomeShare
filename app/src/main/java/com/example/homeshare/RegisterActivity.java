@@ -3,6 +3,8 @@ package com.example.homeshare;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -50,6 +52,9 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         mAuth =   FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide();
 
         super.onCreate(savedInstanceState);
 
@@ -101,7 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     docData.put("Uid", user.getUid());
                                     db.collection("users").document(user.getUid()).set(docData);
 
-                                    Intent myIntent = new Intent(getApplicationContext(), HomepageActivity.class);
+                                    Intent myIntent = new Intent(getApplicationContext(), InvitationFeedActivity.class);
                                     startActivity(myIntent);
                                     /* IMPLEMENT THIS LATER*/
                                     //updateUI(user);

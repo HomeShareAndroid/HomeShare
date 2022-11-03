@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +30,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
     @NonNull
     @Override
     public InvitationAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rowItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_view, parent, false);
+        View rowItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_view2, parent, false);
         return new ViewHolder(rowItem);
     }
 
@@ -37,16 +38,34 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
     public void onBindViewHolder(InvitationAdapter.ViewHolder holder, int position) {
         Invitation invitation = data.get(position);
         holder.invitation = invitation;
-        holder.address.setText("Address: " + invitation.getAddress());
-        holder.academicFocus.setText("Academic Focus of Poster: " + invitation.getAcademicFocus());
-        holder.dailySchedule.setText("Poster's Daily Schedule: " + invitation.getDailySchedule());
-        holder.deadline.setText("Deadline to Respond: " + invitation.getDeadline().toString());
-        holder.numBeds.setText("Number of Beds Available: " + invitation.getNumBeds());
-        holder.otherDetails.setText("Other Housing Details: " + invitation.getOtherDetails());
-        holder.otherInfo.setText("Other Info about the Poster: " + invitation.getOtherInfo());
-        holder.personality.setText("Poster's Personality: " + invitation.getPersonality());
-        holder.rent.setText("Rent Details: " + invitation.getRent());
-        holder.utilities.setText("Utilities Details: " +invitation.getUtilities());
+        holder.address.setText(invitation.getAddress());
+        holder.academicFocus.setText(invitation.getAcademicFocus());
+        holder.dailySchedule.setText(invitation.getDailySchedule());
+        String year = invitation.getDeadline().getYear() + "";
+        String date = invitation.getDeadline().getMonth() + "/" + invitation.getDeadline().getDay()
+                + "/" + year.substring(1);
+        holder.deadline.setText(date);
+
+
+        holder.numBeds.setText("" + invitation.getNumBeds());
+        holder.otherDetails.setText(invitation.getOtherDetails());
+        holder.otherInfo.setText(invitation.getOtherInfo());
+        holder.personality.setText(invitation.getPersonality());
+        holder.rent.setText("" + String.format("%.2f", invitation.getRent()) + " $/month");
+        holder.utilities.setText(invitation.getUtilities());
+
+//        Invitation invitation = data.get(position);
+//        holder.invitation = invitation;
+//        holder.address.setText("Address: " + invitation.getAddress());
+//        holder.academicFocus.setText("Academic Focus of Poster: " + invitation.getAcademicFocus());
+//        holder.dailySchedule.setText("Poster's Daily Schedule: " + invitation.getDailySchedule());
+//        holder.deadline.setText("Deadline to Respond: " + invitation.getDeadline().toString());
+//        holder.numBeds.setText("Number of Beds Available: " + invitation.getNumBeds());
+//        holder.otherDetails.setText("Other Housing Details: " + invitation.getOtherDetails());
+//        holder.otherInfo.setText("Other Info about the Poster: " + invitation.getOtherInfo());
+//        holder.personality.setText("Poster's Personality: " + invitation.getPersonality());
+//        holder.rent.setText("Rent Details: " + invitation.getRent());
+//        holder.utilities.setText("Utilities Details: " +invitation.getUtilities());
     }
 
     @Override
@@ -65,8 +84,8 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
         private TextView personality;
         private TextView rent;
         private TextView utilities;
-        private Button acceptButton;
-        private Button rejectButton;
+        private ImageButton acceptButton;
+        private ImageButton rejectButton;
         private Invitation invitation;
 
         public ViewHolder(View view) {
@@ -81,8 +100,8 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
             personality = view.findViewById(R.id.personality);
             rent = view.findViewById(R.id.rent);
             utilities = view.findViewById(R.id.utilities);
-            acceptButton = view.findViewById(R.id.acceptInvitation);
-            rejectButton = view.findViewById(R.id.rejectInvitation);
+         acceptButton = view.findViewById(R.id.acceptInvitation);
+           rejectButton = view.findViewById(R.id.rejectInvitation);
             acceptButton.setOnClickListener(v -> {
                 try {
                     DocumentReference posterDoc = FirebaseFirestore

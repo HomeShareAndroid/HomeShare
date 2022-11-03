@@ -3,6 +3,8 @@ package com.example.homeshare;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -50,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide();
+
 //        binding = ActivityMainBinding.inflate(getLayoutInflater());
 //        setContentView(binding.getRoot());
         setContentView(R.layout.activity_login);
@@ -94,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                                 /* IMPLEMENT THIS LATER*/
                                 //updateUI(null);
                             } else {
-                                Intent myIntent = new Intent(getApplicationContext(), HomepageActivity.class);
+                                Intent myIntent = new Intent(getApplicationContext(), InvitationFeedActivity.class);
                                 startActivity(myIntent);
                             }
                         }
@@ -111,5 +117,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
         startActivity(intent);
     }
+
+
 
 }

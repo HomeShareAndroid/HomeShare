@@ -8,7 +8,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/recycler_viewOUTOFDATE"
         android:layout_width="265dp"
         android:layout_height="655dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

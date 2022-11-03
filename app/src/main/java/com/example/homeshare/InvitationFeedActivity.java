@@ -3,12 +3,15 @@ package com.example.homeshare;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.homeshare.Model.Invitation;
@@ -40,8 +43,13 @@ public class InvitationFeedActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitationfeed2);
+
+        RecyclerView.LayoutManager manager = new GridLayoutManager(getApplicationContext(),1);
         FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
         if (fbUser == null) {
             System.out.println("No User Logged in");
@@ -82,6 +90,7 @@ public class InvitationFeedActivity extends AppCompatActivity {
                                 }
                                 Collections.sort(invites);
                                 mostRecent = new InvitationAdapter(invites);
+                                recyclerView.setLayoutManager(manager);
                                 //sorted = new InvitationAdapter(invites);
                                 recyclerView.setAdapter(mostRecent);
                             } else {

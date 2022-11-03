@@ -24,6 +24,8 @@ public class Invitation implements Comparable<Invitation> {
 
     }
 
+
+
     @ServerTimestamp
     private Date deadline;
 

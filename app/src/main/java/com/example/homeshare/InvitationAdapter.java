@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,8 +66,8 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
         private TextView personality;
         private TextView rent;
         private TextView utilities;
-        private Button acceptButton;
-        private Button rejectButton;
+        private ImageButton acceptButton;
+        private ImageButton rejectButton;
         private Invitation invitation;
 
         public ViewHolder(View view) {
@@ -81,8 +82,8 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
             personality = view.findViewById(R.id.personality);
             rent = view.findViewById(R.id.rent);
             utilities = view.findViewById(R.id.utilities);
-            acceptButton = view.findViewById(R.id.acceptInvitation);
-            rejectButton = view.findViewById(R.id.rejectInvitation);
+         acceptButton = view.findViewById(R.id.acceptInvitation);
+           rejectButton = view.findViewById(R.id.rejectInvitation);
             acceptButton.setOnClickListener(v -> {
                 try {
                     DocumentReference posterDoc = FirebaseFirestore

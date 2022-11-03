@@ -32,13 +32,14 @@ public class Invitation implements Comparable<Invitation> {
 
     // Housing Info
     private String address;
-    private String rent;
+    private long rent;
     private String utilities;
-    private String numBeds;
+    private long numBeds;
     private String otherInfo;
 
 
     // Biography
+    private String user;
     private String dailySchedule;
     private String academicFocus;
     private String personality;
@@ -71,11 +72,11 @@ public class Invitation implements Comparable<Invitation> {
         this.address = address;
     }
 
-    public String getRent() {
+    public long getRent() {
         return rent;
     }
 
-    public void setRent(String rent) {
+    public void setRent(long rent) {
         this.rent = rent;
     }
 
@@ -87,11 +88,11 @@ public class Invitation implements Comparable<Invitation> {
         this.utilities = utilities;
     }
 
-    public String getNumBeds() {
+    public long getNumBeds() {
         return numBeds;
     }
 
-    public void setNumBeds(String numBeds) {
+    public void setNumBeds(long numBeds) {
         this.numBeds = numBeds;
     }
 

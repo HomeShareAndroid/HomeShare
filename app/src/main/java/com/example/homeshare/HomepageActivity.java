@@ -231,10 +231,10 @@ public class HomepageActivity extends AppCompatActivity {
 //        startActivity(intent);
 //    }
 //
-//    public void gotoInvitationFeed(View view) {
-//        Intent intent = new Intent(getApplicationContext(), InvitationFeedActivity.class);
-//        startActivity(intent);
-//    }
+    public void gotoInvitationFeed(View view) {
+        Intent intent = new Intent(getApplicationContext(), InvitationFeedActivity.class);
+        startActivity(intent);
+    }
 //
 //    public void gotoRoommateFeed(View view) {
 //        Intent intent = new Intent(getApplicationContext(), RoommateFeedActivity.class);

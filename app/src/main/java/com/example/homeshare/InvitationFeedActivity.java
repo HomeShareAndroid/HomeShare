@@ -41,7 +41,7 @@ public class InvitationFeedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_invitationfeed);
+        setContentView(R.layout.activity_invitationfeed2);
         FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
         if (fbUser == null) {
             System.out.println("No User Logged in");
@@ -75,6 +75,7 @@ public class InvitationFeedActivity extends AppCompatActivity {
                                             && document.contains("available")
                                             && (boolean) document.get("available")) {
                                         Invitation i = document.toObject(Invitation.class);
+                                        System.out.println("Invitation = " + i.getAddress());
                                         invites.add(i);
                                         invToRef.put(i, document.getReference());
                                     }

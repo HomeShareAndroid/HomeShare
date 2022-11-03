@@ -36,6 +36,7 @@ import java.util.List;
 
 public class InvitationFeedActivity extends AppCompatActivity {
     User user;
+    private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
     InvitationAdapter mostRecent;
     InvitationAdapter leastRecent;
@@ -43,6 +44,7 @@ public class InvitationFeedActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mAuth = FirebaseAuth.getInstance();
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
@@ -144,6 +146,12 @@ public class InvitationFeedActivity extends AppCompatActivity {
     public void signOut(View view) {
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToProfilePage(View view) {
+        Intent intent = new Intent(getApplicationContext(), ProfilePageActivity.class);
+        intent.putExtra("Uid", mAuth.getUid());
         startActivity(intent);
     }
 

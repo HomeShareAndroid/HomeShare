@@ -242,7 +242,15 @@ public class HomepageActivity extends AppCompatActivity {
 //    }
 
     public void goToProfilePage(View view) {
+        if (mAuth.getCurrentUser() == null) {
+            Toast.makeText(HomepageActivity.this, "Must Be Logged In to Visit Profile",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
         Intent intent = new Intent(getApplicationContext(), ProfilePageActivity.class);
+        intent.putExtra("Uid", mAuth.getUid());
         startActivity(intent);
     }
+
+
 }

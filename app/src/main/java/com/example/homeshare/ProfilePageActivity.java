@@ -51,7 +51,7 @@ public class ProfilePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth =   FirebaseAuth.getInstance();
-        setContentView(R.layout.include_settings_content);
+        setContentView(R.layout.activity_profilepage);
         changeProfileImage = findViewById(R.id.user_profile_photo);
 
         System.out.println("Inputted UID: "  + getIntent().getStringExtra("Uid"));
@@ -87,24 +87,30 @@ public class ProfilePageActivity extends AppCompatActivity {
                 userPage = documentSnapshot.toObject(User.class);
                 ((TextView) findViewById(R.id.userName)).setText(userPage.getName());
                 ((TextView) findViewById(R.id.profileEmail)).setText(userPage.getEmail());
-                if (userPage.getAboutMe() == null) {
-                    ((EditText) findViewById(R.id.profileAboutMe)).setHint("About Me . . .");
+                ((EditText) findViewById(R.id.profileAboutMe)).setText(userPage.getAboutMe());
+                ((EditText) findViewById(R.id.profileMajor)).setText(userPage.getMajor());
+                ((EditText) findViewById(R.id.profilePhone)).setText(userPage.getPhone());
 
-                } else {((EditText) findViewById(R.id.profileAboutMe)).setText(userPage.getAboutMe());}
+//                if (userPage.getAboutMe() == null) {
+//                    ((EditText) findViewById(R.id.profileAboutMe)).setHint("About Me . . .");
+//
+//                } else {((EditText) findViewById(R.id.profileAboutMe)).setText(userPage.getAboutMe());}
+//
+//                if (userPage.getMajor() == null) {
+//                    ((EditText) findViewById(R.id.profileMajor)).setHint("Major");
+//                } else {((EditText) findViewById(R.id.profileMajor)).setText(userPage.getMajor());}
+//
+//                if (userPage.getPhone() == null) {
+//                    ((EditText) findViewById(R.id.profilePhone)).setHint("Phone Number");
+//
+//                } else {((EditText) findViewById(R.id.profilePhone)).setText(userPage.getPhone());}
 
-                if (userPage.getMajor() == null) {
-                    ((EditText) findViewById(R.id.profileMajor)).setHint("Major");
-                } else {((EditText) findViewById(R.id.profileMajor)).setText(userPage.getMajor());}
-
-                if (userPage.getPhone() == null) {
-                    ((EditText) findViewById(R.id.profilePhone)).setHint("Phone Number");
-
-                } else {((EditText) findViewById(R.id.profilePhone)).setText(userPage.getPhone());}
-
-                if (userPage.getPhotoUri() != null) {
-                    changeProfileImage.setImageURI(Uri.parse(userPage.getPhotoUri()));
-
-                } //else {((EditText) findViewById(R.id.profileAboutMe)).setText(user.getAboutMe());}
+//                ((EditText) findViewById(R.id.profileMajor)).setText(userPage.getMajor());
+//                ((EditText) findViewById(R.id.profilePhone)).setText(userPage.getPhone());
+//                if (userPage.getPhotoUri() != null) {
+//                    changeProfileImage.setImageURI(Uri.parse(userPage.getPhotoUri()));
+//
+//                } //else {((EditText) findViewById(R.id.profileAboutMe)).setText(user.getAboutMe());}
             });
 
 
@@ -173,7 +179,7 @@ public class ProfilePageActivity extends AppCompatActivity {
         //startActivity(getIntent());
     }
     public void goHome(View view) {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), HomepageActivity.class);
         startActivity(intent);
     }
 

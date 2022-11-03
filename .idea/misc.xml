@@ -28,10 +28,10 @@
         <entry key="app/src/main/res/drawable/toggle_password_view.xml" value="0.166" />
         <entry key="app/src/main/res/layout/activity.xml" value="0.13043478260869565" />
         <entry key="app/src/main/res/layout/activity_invitationfeed.xml" value="0.36443584098158877" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.165" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2235687255859375" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_profile_page2.xml" value="0.2557291666666667" />
-        <entry key="app/src/main/res/layout/activity_profilepage.xml" value="0.2226287841796875" />
+        <entry key="app/src/main/res/layout/activity_profilepage.xml" value="0.3994650268554688" />
         <entry key="app/src/main/res/layout/activity_register_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_responsefeed.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_roommatefeed.xml" value="0.1" />
@@ -40,12 +40,14 @@
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.17675628662109377" />
         <entry key="app/src/main/res/layout/fragment_roommates.xml" value="0.20104166666666667" />
         <entry key="app/src/main/res/layout/include_banner_ad_container.xml" value="0.18333333333333332" />
-        <entry key="app/src/main/res/layout/include_settings_content.xml" value="0.25677083333333334" />
+        <entry key="app/src/main/res/layout/include_settings_content.xml" value="0.25210266113281254" />
         <entry key="app/src/main/res/layout/list_item_view.xml" value="0.37555555555555553" />
         <entry key="app/src/main/res/layout/response_item_view.xml" value="0.1" />
         <entry key="app/src/main/res/layout/roommate_item_view.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/testing.xml" value="0.14673913043478262" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.20104166666666667" />
+        <entry key="app/src/main/res/menu/top_nav_menu.xml" value="0.228125" />
       </map>
     </option>
   </component>

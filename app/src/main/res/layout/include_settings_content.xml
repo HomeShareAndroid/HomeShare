@@ -87,16 +87,35 @@
                     android:padding="@dimen/spacing_small">
 
                     <ImageView
+                        android:id="@+id/header_cover_image"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="@dimen/spacing_mlarge"
-                        app:srcCompat="@drawable/ic_photo"
-                        app:tint="@color/grey_20" />
+                        android:layout_height="200dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_home_black_24dp" />
 
-                    <ImageView
+                    <ImageButton
                         android:id="@+id/user_profile_photo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_width="231dp"
+                        android:layout_height="215dp"
+                        android:layout_below="@+id/header_cover_image"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="-155dp"
+                        android:elevation="5dp"
+                        android:padding="20dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/profile" />
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:padding="@dimen/spacing_mlarge"-->
+<!--                        app:srcCompat="@drawable/ic_photo"-->
+<!--                        app:tint="@color/grey_20" />-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/user_profile_photo"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent" />-->
 
                 </RelativeLayout>
 
@@ -132,16 +151,18 @@
 
             </LinearLayout>
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:minHeight="?attr/actionBarSize"
                 android:orientation="vertical"
+                android:clickable="true"
                 android:paddingLeft="@dimen/spacing_mlarge"
                 android:paddingRight="@dimen/spacing_mlarge">
 
-                <TextView
+                <EditText
                     android:id="@+id/profilePhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -164,13 +185,15 @@
                 android:gravity="center_vertical"
                 android:minHeight="?attr/actionBarSize"
                 android:orientation="vertical"
+                android:clickable="true"
                 android:paddingLeft="@dimen/spacing_mlarge"
                 android:paddingRight="@dimen/spacing_mlarge">
 
-                <TextView
+                <EditText
                     android:id="@+id/profileMajor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/colorTextAction" />
 
@@ -192,10 +215,12 @@
                 android:paddingLeft="@dimen/spacing_mlarge"
                 android:paddingRight="@dimen/spacing_mlarge">
 
-                <TextView
+                <EditText
                     android:id="@+id/profileAboutMe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:inputType="text"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/colorTextAction" />
 

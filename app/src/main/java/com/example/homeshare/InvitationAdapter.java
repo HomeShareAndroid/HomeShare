@@ -38,16 +38,34 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
     public void onBindViewHolder(InvitationAdapter.ViewHolder holder, int position) {
         Invitation invitation = data.get(position);
         holder.invitation = invitation;
-        holder.address.setText("Address: " + invitation.getAddress());
-        holder.academicFocus.setText("Academic Focus of Poster: " + invitation.getAcademicFocus());
-        holder.dailySchedule.setText("Poster's Daily Schedule: " + invitation.getDailySchedule());
-        holder.deadline.setText("Deadline to Respond: " + invitation.getDeadline().toString());
-        holder.numBeds.setText("Number of Beds Available: " + invitation.getNumBeds());
-        holder.otherDetails.setText("Other Housing Details: " + invitation.getOtherDetails());
-        holder.otherInfo.setText("Other Info about the Poster: " + invitation.getOtherInfo());
-        holder.personality.setText("Poster's Personality: " + invitation.getPersonality());
-        holder.rent.setText("Rent Details: " + invitation.getRent());
-        holder.utilities.setText("Utilities Details: " +invitation.getUtilities());
+        holder.address.setText(invitation.getAddress());
+        holder.academicFocus.setText(invitation.getAcademicFocus());
+        holder.dailySchedule.setText(invitation.getDailySchedule());
+        String year = invitation.getDeadline().getYear() + "";
+        String date = invitation.getDeadline().getMonth() + "/" + invitation.getDeadline().getDay()
+                + "/" + year.substring(1);
+        holder.deadline.setText(date);
+
+
+        holder.numBeds.setText("" + invitation.getNumBeds());
+        holder.otherDetails.setText(invitation.getOtherDetails());
+        holder.otherInfo.setText(invitation.getOtherInfo());
+        holder.personality.setText(invitation.getPersonality());
+        holder.rent.setText("" + invitation.getRent() + "$/month");
+        holder.utilities.setText(invitation.getUtilities());
+
+//        Invitation invitation = data.get(position);
+//        holder.invitation = invitation;
+//        holder.address.setText("Address: " + invitation.getAddress());
+//        holder.academicFocus.setText("Academic Focus of Poster: " + invitation.getAcademicFocus());
+//        holder.dailySchedule.setText("Poster's Daily Schedule: " + invitation.getDailySchedule());
+//        holder.deadline.setText("Deadline to Respond: " + invitation.getDeadline().toString());
+//        holder.numBeds.setText("Number of Beds Available: " + invitation.getNumBeds());
+//        holder.otherDetails.setText("Other Housing Details: " + invitation.getOtherDetails());
+//        holder.otherInfo.setText("Other Info about the Poster: " + invitation.getOtherInfo());
+//        holder.personality.setText("Poster's Personality: " + invitation.getPersonality());
+//        holder.rent.setText("Rent Details: " + invitation.getRent());
+//        holder.utilities.setText("Utilities Details: " +invitation.getUtilities());
     }
 
     @Override

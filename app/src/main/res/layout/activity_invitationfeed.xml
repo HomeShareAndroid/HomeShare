@@ -7,6 +7,19 @@
     tools:context=".InvitationFeedActivity">
 
 
+    <Switch
+        android:id="@+id/bedSort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Most Beds"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.009"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="265dp"
@@ -35,7 +48,7 @@
         android:id="@+id/Sort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Least Recent Deadline"
+        android:text="Furthest Deadline"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,6 +56,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.022" />
+
+    <Switch
+        android:id="@+id/furthestDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Furthest from Campus"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.061" />
+
+    <Switch
+        android:id="@+id/rentSort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Highest Rent"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.061" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -40,6 +40,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
         holder.address.setText("Address: " + invitation.getAddress());
         holder.academicFocus.setText("Academic Focus of Poster: " + invitation.getAcademicFocus());
         holder.dailySchedule.setText("Poster's Daily Schedule: " + invitation.getDailySchedule());
+        holder.miles.setText("Miles From Campus: " + invitation.getMilesFromCampus());
         holder.deadline.setText("Deadline to Respond: " + invitation.getDeadline().toString());
         holder.numBeds.setText("Number of Beds Available: " + invitation.getNumBeds());
         holder.otherDetails.setText("Other Housing Details: " + invitation.getOtherDetails());
@@ -67,7 +68,9 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
         private TextView utilities;
         private Button acceptButton;
         private Button rejectButton;
+        private TextView miles;
         private Invitation invitation;
+
 
         public ViewHolder(View view) {
             super(view);
@@ -81,6 +84,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
             personality = view.findViewById(R.id.personality);
             rent = view.findViewById(R.id.rent);
             utilities = view.findViewById(R.id.utilities);
+            miles = view.findViewById(R.id.milesFromCampusItem);
             acceptButton = view.findViewById(R.id.acceptInvitation);
             rejectButton = view.findViewById(R.id.rejectInvitation);
             acceptButton.setOnClickListener(v -> {

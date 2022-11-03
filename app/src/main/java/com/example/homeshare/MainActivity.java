@@ -149,18 +149,32 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void addInvitation(View view)  {
+
+        //http://dev.virtualearth.net/REST/V1/Routes/Walking?wp.0=11025%20NE%208th%20St%20Bellevue%20WA&wp.1=700%20Bellevue%20Way%20NE%20Bellevue WA&key=BingMapsKey
         Map<String,Object> docData = new HashMap<>();
         docData.put("deadline", getTimestamp((DatePicker) findViewById(R.id.date_picker)));
         docData.put("address",String.valueOf(((EditText)findViewById(R.id.address)).getText()));
-        docData.put("rent",String.valueOf(((EditText)findViewById(R.id.rent)).getText()));
         docData.put("utilities",String.valueOf(((EditText)findViewById(R.id.utilities)).getText()));
-        docData.put("numBeds", ((EditText) findViewById(R.id.numBeds)).getText().toString());
+
         docData.put("otherInfo",String.valueOf(((EditText)findViewById(R.id.otherInfo)).getText()));
         docData.put("dailySchedule",String.valueOf(((EditText)findViewById(R.id.dailySchedule)).getText()));
         docData.put("academicFocus",String.valueOf(((EditText)findViewById(R.id.academicFocus)).getText()));
         docData.put("personality",String.valueOf(((EditText)findViewById(R.id.personality)).getText()));
         docData.put("otherDetails",String.valueOf(((EditText)findViewById(R.id.otherDetails)).getText()));
+        docData.put("milesFromCampus",String.valueOf(((EditText)findViewById(R.id.milesFromCampus)).getText()));
         docData.put("available" , true);
+
+        try {
+            docData.put("rent", Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.rent)).getText())));
+            docData.put("numBeds", Double.parseDouble(((EditText)findViewById(R.id.numBeds)).getText().toString()));
+            docData.put("milesFromCampus",Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.milesFromCampus)).getText())));
+        } catch (Exception e) {
+            Toast.makeText(MainActivity.this, "Rent, number of beds, and miles from campus must be numbers",
+                    Toast.LENGTH_LONG).show();
+            System.out.println("Rent and number of beds must be integers");
+            return;
+
+        }
 
         FirebaseUser  fbUser = mAuth.getCurrentUser();
         if (fbUser != null) {

@@ -29,10 +29,10 @@
         <entry key="app/src/main/res/layout/activity.xml" value="0.13043478260869565" />
         <entry key="app/src/main/res/layout/activity_invitationfeed.xml" value="0.3110236220472441" />
         <entry key="app/src/main/res/layout/activity_invitationfeed2.xml" value="0.20085205078124999" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.3037037037037037" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_profile_page2.xml" value="0.2557291666666667" />
-        <entry key="app/src/main/res/layout/activity_profilepage.xml" value="0.3994650268554688" />
+        <entry key="app/src/main/res/layout/activity_profilepage.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_register_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_responsefeed.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_roommatefeed.xml" value="0.1" />

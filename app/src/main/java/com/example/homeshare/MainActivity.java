@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                                 /* IMPLEMENT THIS LATER*/
                                 //updateUI(null);
                             } else {
-                                Intent myIntent = new Intent(getApplicationContext(), HomepageActivity.class);
+                                Intent myIntent = new Intent(getApplicationContext(), InvitationFeedActivity.class);
                                 startActivity(myIntent);
                             }
                         }

@@ -184,7 +184,7 @@ public class ProfilePageActivity extends AppCompatActivity {
         //startActivity(getIntent());
     }
     public void goHome(View view) {
-        Intent intent = new Intent(getApplicationContext(), HomepageActivity.class);
+        Intent intent = new Intent(getApplicationContext(), InvitationFeedActivity.class);
         startActivity(intent);
     }
 

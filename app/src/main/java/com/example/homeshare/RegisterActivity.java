@@ -106,7 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     docData.put("Uid", user.getUid());
                                     db.collection("users").document(user.getUid()).set(docData);
 
-                                    Intent myIntent = new Intent(getApplicationContext(), HomepageActivity.class);
+                                    Intent myIntent = new Intent(getApplicationContext(), InvitationFeedActivity.class);
                                     startActivity(myIntent);
                                     /* IMPLEMENT THIS LATER*/
                                     //updateUI(user);

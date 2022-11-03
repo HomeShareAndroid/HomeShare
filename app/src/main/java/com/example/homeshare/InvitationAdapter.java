@@ -51,7 +51,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
         holder.otherDetails.setText(invitation.getOtherDetails());
         holder.otherInfo.setText(invitation.getOtherInfo());
         holder.personality.setText(invitation.getPersonality());
-        holder.rent.setText("" + invitation.getRent() + "$/month");
+        holder.rent.setText("" + String.format("%.2f", invitation.getRent()) + " $/month");
         holder.utilities.setText(invitation.getUtilities());
 
 //        Invitation invitation = data.get(position);

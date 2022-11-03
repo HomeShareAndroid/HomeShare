@@ -73,6 +73,13 @@ public class InvitationFeedActivity extends AppCompatActivity {
                 recyclerView = findViewById(R.id.recycler_view);
                 Date date = new Date();
                 List<Invitation> invites = new ArrayList<>();
+                List<Invitation> invites2 = new ArrayList<>();
+                List<Invitation> mostRentInvites = new ArrayList<>();
+                List<Invitation> leastRentInvites = new ArrayList<>();
+                List<Invitation> mostBedInvites = new ArrayList<>();
+                List<Invitation> leastBedInvites = new ArrayList<>();
+                List<Invitation> closestDistanceInvites = new ArrayList<>();
+                List<Invitation> furthestDistanceInvites = new ArrayList<>();
                 FirebaseFirestore.getInstance().collection("invitations")
                         .whereGreaterThan("deadline", new Timestamp(date))
                         .get()
@@ -85,6 +92,13 @@ public class InvitationFeedActivity extends AppCompatActivity {
                                         Invitation i = document.toObject(Invitation.class);
                                         System.out.println("Invitation = " + i.getAddress());
                                         invites.add(i);
+                                        invites2.add(i);
+                                        mostRentInvites.add(i);
+                                        leastRentInvites.add(i);
+                                        mostBedInvites.add(i);
+                                        leastBedInvites.add(i);
+                                        closestDistanceInvites.add(i);
+                                        furthestDistanceInvites.add(i);
                                         invToRef.put(i, document.getReference());
                                     }
                                 }
@@ -93,32 +107,18 @@ public class InvitationFeedActivity extends AppCompatActivity {
                                 recyclerView.setLayoutManager(manager);
                                 //sorted = new InvitationAdapter(invites);
                                 recyclerView.setAdapter(mostRecent);
-                            } else {
-                                System.out.println("Getting Feed Not Successful");
-                            }
-                        });
-                List<Invitation> invites2 = new ArrayList<>();
-                FirebaseFirestore.getInstance().collection("invitations")
-                        .whereGreaterThan("deadline", new Timestamp(date))
-                        .get()
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    if (!document.get("posterUid").equals(user.getUid())
-                                            && document.contains("available")
-                                            && (boolean) document.get("available")) {
-                                        Invitation i = document.toObject(Invitation.class);
-                                        invites2.add(i);
-                                    }
-                                }
+
                                 Collections.sort(invites2, Collections.reverseOrder());
                                 leastRecent = new InvitationAdapter(invites2);
+
+                                System.out.println("Got Feed For User: " + user.getUid());
+                                System.out.println("Feed is of Length: " + invites.size());
                             } else {
                                 System.out.println("Getting Feed Not Successful");
                             }
                         });
-                System.out.println("Got Feed For User: " + user.getUid());
-                System.out.println("Feed is of Length: " + invites.size());
+
+
 
             });
 

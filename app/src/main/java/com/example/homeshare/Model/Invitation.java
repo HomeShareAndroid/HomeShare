@@ -1,21 +1,8 @@
 package com.example.homeshare.Model;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.ServerTimestamp;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 
 public class Invitation implements Comparable<Invitation> {
@@ -23,8 +10,6 @@ public class Invitation implements Comparable<Invitation> {
     public Invitation() {
 
     }
-
-
 
     @ServerTimestamp
     private Date deadline;
@@ -34,14 +19,14 @@ public class Invitation implements Comparable<Invitation> {
 
     // Housing Info
     private String address;
-    private long rent;
+    private Double rent;
     private String utilities;
-    private long numBeds;
+    private Double numBeds;
     private String otherInfo;
+    private Double milesFromCampus;
 
 
     // Biography
-    private String user;
     private String dailySchedule;
     private String academicFocus;
     private String personality;
@@ -74,11 +59,11 @@ public class Invitation implements Comparable<Invitation> {
         this.address = address;
     }
 
-    public long getRent() {
+    public Double getRent() {
         return rent;
     }
 
-    public void setRent(long rent) {
+    public void setRent(Double rent) {
         this.rent = rent;
     }
 
@@ -90,11 +75,11 @@ public class Invitation implements Comparable<Invitation> {
         this.utilities = utilities;
     }
 
-    public long getNumBeds() {
+    public Double getNumBeds() {
         return numBeds;
     }
 
-    public void setNumBeds(long numBeds) {
+    public void setNumBeds(Double numBeds) {
         this.numBeds = numBeds;
     }
 
@@ -150,5 +135,13 @@ public class Invitation implements Comparable<Invitation> {
     @Override
     public int compareTo(Invitation invitation) {
         return deadline.compareTo(invitation.deadline);
+    }
+
+    public Double getMilesFromCampus() {
+        return milesFromCampus;
+    }
+
+    public void setMilesFromCampus(Double milesFromCampus) {
+        this.milesFromCampus = milesFromCampus;
     }
 }

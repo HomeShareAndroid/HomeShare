@@ -16,6 +16,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,11 +44,11 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
         holder.address.setText(invitation.getAddress());
         holder.academicFocus.setText(invitation.getAcademicFocus());
         holder.dailySchedule.setText(invitation.getDailySchedule());
-        String year = invitation.getDeadline().getYear() + "";
-        String date = invitation.getDeadline().getMonth() + "/" + invitation.getDeadline().getDay()
-                + "/" + year.substring(1);
-        holder.deadline.setText(date);
+        System.out.println(invitation.getDeadline().toString());
 
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        String date = formatter.format(invitation.getDeadline());
+        holder.deadline.setText(date);
 
         holder.numBeds.setText("" + invitation.getNumBeds());
         holder.otherDetails.setText(invitation.getOtherDetails());

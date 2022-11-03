@@ -166,14 +166,16 @@
             android:layout_weight="1"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
+            android:onClick="gotoCreateAPost"
             android:gravity="center"
-            android:onClick="onDrawerMenuClick"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="@dimen/spacing_mxlarge"
                 android:layout_height="@dimen/spacing_mxlarge"
                 android:padding="1dp"
+                android:clickable="true"
+                android:onClick="gotoCreateAPost"
                 app:srcCompat="@drawable/ic_plus_button"
                 app:tint="@color/colorTextAction" />
 
@@ -181,6 +183,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/title_create_a_post"
+                android:clickable="true"
+                android:onClick="gotoCreateAPost"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textColor="@color/grey_40" />
 

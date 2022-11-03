@@ -29,6 +29,7 @@
         <activity android:name=".RoommateFeedActivity"></activity>
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".HomepageActivity"></activity>
+        <activity android:name=".CreateInvitationActivity"></activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>

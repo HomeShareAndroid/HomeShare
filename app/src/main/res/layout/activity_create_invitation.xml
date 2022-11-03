@@ -6,7 +6,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fillViewport="true"
-    tools:context=".ui.dashboard.DashboardFragment">
+    tools:context=".CreateInvitationActivity">
 
     <!-- Here you put the rest of your current view-->
 
@@ -28,10 +28,10 @@
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.714"
+            app:layout_constraintHorizontal_bias="0.75"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.526" />
+            app:layout_constraintVertical_bias="0.551" />
 
         <TextView
             android:id="@+id/text_home"
@@ -70,15 +70,31 @@
             android:layout_width="171dp"
             android:layout_height="72dp"
             android:ems="10"
+            android:hint="Rent"
             android:inputType="textPersonName"
             android:text=""
-            android:hint="Rent"
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.104" />
+            app:layout_constraintVertical_bias="0.099" />
+
+        <EditText
+            android:id="@+id/milesFromCampus"
+            android:layout_width="171dp"
+            android:layout_height="72dp"
+            android:ems="10"
+            android:hint="Miles From Campus"
+            android:inputType="textPersonName"
+            android:text=""
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.15" />
 
         <EditText
             android:id="@+id/utilities"
@@ -91,10 +107,9 @@
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.17" />
+            app:layout_constraintVertical_bias="0.2" />
 
         <EditText
             android:id="@+id/numBeds"
@@ -107,15 +122,16 @@
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.242" />
+            app:layout_constraintVertical_bias="0.252" />
+
 
         <EditText
             android:id="@+id/otherInfo"
-            android:layout_width="171dp"
-            android:layout_height="51dp"
+            android:layout_width="169dp"
+            android:layout_height="68dp"
             android:ems="10"
             android:hint="Other Housing Info"
             android:inputType="textPersonName"
@@ -125,12 +141,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.296" />
+            app:layout_constraintVertical_bias="0.292" />
 
         <EditText
             android:id="@+id/dailySchedule"
-            android:layout_width="171dp"
-            android:layout_height="51dp"
+            android:layout_width="172dp"
+            android:layout_height="69dp"
             android:ems="10"
             android:hint="Your Daily Schedule"
             android:inputType="textPersonName"
@@ -138,9 +154,10 @@
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.343" />
+            app:layout_constraintVertical_bias="0.37" />
 
         <EditText
             android:id="@+id/academicFocus"
@@ -153,11 +170,10 @@
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.394" />
-
+            app:layout_constraintVertical_bias="0.416" />
 
         <EditText
             android:id="@+id/personality"
@@ -170,16 +186,15 @@
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.446" />
-
+            app:layout_constraintVertical_bias="0.457" />
 
         <EditText
             android:id="@+id/otherDetails"
-            android:layout_width="171dp"
-            android:layout_height="43dp"
+            android:layout_width="169dp"
+            android:layout_height="71dp"
             android:ems="10"
             android:hint="Other Details About You"
             android:inputType="textPersonName"
@@ -187,9 +202,9 @@
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.492" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <DatePicker
             android:id="@+id/date_picker"
@@ -198,7 +213,7 @@
             android:layout_marginStart="8dp"
 
 
-            android:layout_marginTop="796dp"
+            android:layout_marginTop="900dp"
             android:layout_weight="4"
             android:calendarViewShown="true"
             android:spinnersShown="false"

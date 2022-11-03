@@ -155,5 +155,10 @@ public class InvitationFeedActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void gotoCreateAPost(View view) {
+        Intent intent = new Intent(getApplicationContext(), CreateInvitationActivity.class);
+        startActivity(intent);
+    }
+
 
 }

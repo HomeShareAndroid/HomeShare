@@ -103,8 +103,8 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
             personality = view.findViewById(R.id.personality);
             rent = view.findViewById(R.id.rent);
             utilities = view.findViewById(R.id.utilities);
-         acceptButton = view.findViewById(R.id.acceptInvitation);
-           rejectButton = view.findViewById(R.id.rejectInvitation);
+         acceptButton = view.findViewById(R.id.acceptInvitation2);
+           rejectButton = view.findViewById(R.id.rejectInvitation2);
             acceptButton.setOnClickListener(v -> {
                 try {
                     DocumentReference posterDoc = FirebaseFirestore
@@ -127,6 +127,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
                 }
             });
             rejectButton.setOnClickListener(v -> {
+
                 try {
                     DocumentReference posterDoc = FirebaseFirestore
                             .getInstance()

@@ -33,6 +33,7 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
     private Map<ViewHolder, String> viewHolderToUID = new HashMap<>();
     private static Context con;
     public ResponseAdapter(Context con, List<InvitationResponse> data){
+        System.out.println("Making Response Feed with this many items: " + data.size());
         this.con = con;
         this.data = data;
     }

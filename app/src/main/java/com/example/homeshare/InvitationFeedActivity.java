@@ -1,12 +1,18 @@
 package com.example.homeshare;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,18 +34,28 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firestore.admin.v1.Index;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-public class InvitationFeedActivity extends AppCompatActivity {
+public class InvitationFeedActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     User user;
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
     InvitationAdapter mostRecent;
     InvitationAdapter leastRecent;
+    InvitationAdapter mostRent;
+    InvitationAdapter leastRent;
+    InvitationAdapter mostBeds;
+    InvitationAdapter leastBeds;
+    InvitationAdapter closestDistance;
+    InvitationAdapter furthestDistance;
+    Spinner sortSpinner;
+    boolean hasBeenChanged = false;
     public static HashMap<Invitation, DocumentReference> invToRef = new HashMap<>();
 
     @Override
@@ -59,6 +75,16 @@ public class InvitationFeedActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
+
+
+        sortSpinner = (Spinner) findViewById(R.id.sort_spinner);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.
+                createFromResource(this, R.array.sort_array,
+                        android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sortSpinner.setAdapter(adapter);
+        sortSpinner.setOnItemSelectedListener(this);
 
         final User[] usr = new User[1];
         try {
@@ -126,6 +152,65 @@ public class InvitationFeedActivity extends AppCompatActivity {
 
                                                         Collections.sort(invites2, Collections.reverseOrder());
                                                         leastRecent = new InvitationAdapter(invites2);
+                                                        mostRentInvites.sort((invitation, t1) -> {
+                                                            if (invitation.getRent() < t1.getRent()) {
+                                                                return 1;
+                                                            } else if (invitation.getRent() > t1.getRent()) {
+                                                                return -1;
+                                                            }
+                                                            return 0;
+                                                        });
+                                                        mostRent = new InvitationAdapter(mostRentInvites);
+
+                                                        leastRentInvites.sort((invitation, t1) -> {
+                                                            if (invitation.getRent() > t1.getRent()) {
+                                                                return 1;
+                                                            } else if (invitation.getRent() < t1.getRent()) {
+                                                                return -1;
+                                                            }
+                                                            return 0;
+                                                        });
+                                                        leastRent = new InvitationAdapter(leastRentInvites);
+
+                                                        mostBedInvites.sort((invitation, t1) -> {
+                                                            if (invitation.getNumBeds() < t1.getNumBeds()) {
+                                                                return 1;
+                                                            } else if (invitation.getNumBeds() > t1.getNumBeds()) {
+                                                                return -1;
+                                                            }
+                                                            return 0;
+                                                        });
+                                                        mostBeds = new InvitationAdapter(mostBedInvites);
+
+                                                        leastBedInvites.sort((invitation, t1) -> {
+                                                            if (invitation.getNumBeds() > t1.getNumBeds()) {
+                                                                return 1;
+                                                            } else if (invitation.getNumBeds() < t1.getNumBeds()) {
+                                                                return -1;
+                                                            }
+                                                            return 0;
+                                                        });
+                                                        leastBeds = new InvitationAdapter(leastBedInvites);
+
+                                                        closestDistanceInvites.sort((invitation, t1) -> {
+                                                            if (invitation.getMilesFromCampus() > t1.getMilesFromCampus()) {
+                                                                return 1;
+                                                            } else if (invitation.getMilesFromCampus() < t1.getMilesFromCampus()) {
+                                                                return -1;
+                                                            }
+                                                            return 0;
+                                                        });
+                                                        closestDistance = new InvitationAdapter(closestDistanceInvites);
+
+                                                        furthestDistanceInvites.sort((invitation, t1) -> {
+                                                            if (invitation.getMilesFromCampus() < t1.getMilesFromCampus()) {
+                                                                return 1;
+                                                            } else if (invitation.getMilesFromCampus() > t1.getMilesFromCampus()) {
+                                                                return -1;
+                                                            }
+                                                            return 0;
+                                                        });
+                                                        furthestDistance = new InvitationAdapter(furthestDistanceInvites);
 
                                                         System.out.println("Got Feed For User: " + user.getUid());
                                                         System.out.println("Feed is of Length: " + invites.size());
@@ -151,7 +236,7 @@ public class InvitationFeedActivity extends AppCompatActivity {
         if (usr[0] == null) {
             System.out.println("We couldn't get the User");
         }
-
+/*
         Switch sort = findViewById(R.id.Sort);
         sort.setOnCheckedChangeListener((compoundButton, b) -> {
             // sort by deadline
@@ -161,6 +246,8 @@ public class InvitationFeedActivity extends AppCompatActivity {
                 recyclerView.setAdapter(mostRecent);
             }
         });
+        */
+
     }
 
     public void signOut(View view) {
@@ -194,6 +281,58 @@ public class InvitationFeedActivity extends AppCompatActivity {
         mAuth.signOut();
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
+    }
+
+
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
+        parent.getBackground().setColorFilter(getResources().getColor(R.color.white),
+                PorterDuff.Mode.SRC_ATOP);
+        if (hasBeenChanged) {
+            System.out.println("we can change adapter now");
+
+            switch (pos) {
+                case 0:
+
+                        recyclerView.setAdapter(mostRecent);
+
+                case 1:
+
+                        recyclerView.setAdapter(leastRecent);
+
+                case 2:
+
+                        recyclerView.setAdapter(mostRent);
+
+                case 3:
+
+                        recyclerView.setAdapter(leastRent);
+
+                case 4:
+
+                        recyclerView.setAdapter(furthestDistance);
+
+                case 5:
+
+                        recyclerView.setAdapter(closestDistance);
+
+                case 6:
+
+                        recyclerView.setAdapter(mostBeds);
+
+
+                case 7:
+
+                        recyclerView.setAdapter(leastBeds);
+
+            }
+        }
+        hasBeenChanged = true;
+
+    }
+    public void onNothingSelected(AdapterView<?> parent) {
+        // we're good. This just needs to be here for interface implementation
     }
 
 }

@@ -252,4 +252,16 @@
     <string name="email">Email : </string>
     <string name="phone">Phone : </string>
 
+
+    <string-array name="sort_array">
+        <item>Most Recent Deadline</item>
+        <item>Least Recent Deadline</item>
+        <item>Most Expensive</item>
+        <item>Least Expensive</item>
+        <item>Furthest from Campus</item>
+        <item>Closest to Campus</item>
+        <item>Most Beds Available</item>
+        <item>Least Beds Available</item>
+    </string-array>
+
 </resources>

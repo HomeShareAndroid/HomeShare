@@ -200,7 +200,7 @@
         android:textSize="12dp"
         />
     <ImageButton
-        android:id="@+id/acceptInvitation"
+        android:id="@+id/acceptInvitation2"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="320dp"
@@ -214,7 +214,7 @@
         />
 
     <ImageButton
-        android:id="@+id/rejectInvitation"
+        android:id="@+id/rejectInvitation2"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="320dp"

@@ -160,5 +160,10 @@ public class InvitationFeedActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void gotoResponseFeed(View view) {
+        Intent intent = new Intent(getApplicationContext(), ResponseFeedActivity.class);
+        startActivity(intent);
+    }
+
 
 }

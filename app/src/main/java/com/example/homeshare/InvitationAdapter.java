@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.ViewHolder> {
-    private List<Invitation> data;
+   public List<Invitation> data;
     private Map<ViewHolder, String> viewHolderToUID = new HashMap<>();
     public InvitationAdapter(List<Invitation> data){
         this.data = data;

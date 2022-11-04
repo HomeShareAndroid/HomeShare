@@ -46,17 +46,13 @@ public class InvitationFeedActivity extends AppCompatActivity implements Adapter
     User user;
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
-    InvitationAdapter mostRecent;
-    InvitationAdapter leastRecent;
-    InvitationAdapter mostRent;
-    InvitationAdapter leastRent;
-    InvitationAdapter mostBeds;
-    InvitationAdapter leastBeds;
-    InvitationAdapter closestDistance;
-    InvitationAdapter furthestDistance;
+    InvitationAdapter adapt;
+
     Spinner sortSpinner;
+    List<Invitation> invites = new ArrayList<>();
     boolean hasBeenChanged = false;
     public static HashMap<Invitation, DocumentReference> invToRef = new HashMap<>();
+    RecyclerView.LayoutManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +63,7 @@ public class InvitationFeedActivity extends AppCompatActivity implements Adapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitationfeed2);
 
-        RecyclerView.LayoutManager manager = new GridLayoutManager(getApplicationContext(),1);
+         manager = new GridLayoutManager(getApplicationContext(),1);
         FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
         if (fbUser == null) {
             System.out.println("No User Logged in");
@@ -100,14 +96,6 @@ public class InvitationFeedActivity extends AppCompatActivity implements Adapter
                 user = usr[0];
                 recyclerView = findViewById(R.id.recycler_view);
                 Date date = new Date();
-                List<Invitation> invites = new ArrayList<>();
-                List<Invitation> invites2 = new ArrayList<>();
-                List<Invitation> mostRentInvites = new ArrayList<>();
-                List<Invitation> leastRentInvites = new ArrayList<>();
-                List<Invitation> mostBedInvites = new ArrayList<>();
-                List<Invitation> leastBedInvites = new ArrayList<>();
-                List<Invitation> closestDistanceInvites = new ArrayList<>();
-                List<Invitation> furthestDistanceInvites = new ArrayList<>();
                 FirebaseFirestore.getInstance().collection("invitations")
                         .whereGreaterThan("deadline", new Timestamp(date))
                         .get()
@@ -130,13 +118,6 @@ public class InvitationFeedActivity extends AppCompatActivity implements Adapter
                                                     if ((response_task.isSuccessful() && response_task.getResult().isEmpty())|| !response_task.isSuccessful()) {
                                                         System.out.println("Valid Invitation = " + i.getAddress());
                                                         invites.add(i);
-                                                        invites2.add(i);
-                                                        mostRentInvites.add(i);
-                                                        leastRentInvites.add(i);
-                                                        mostBedInvites.add(i);
-                                                        leastBedInvites.add(i);
-                                                        closestDistanceInvites.add(i);
-                                                        furthestDistanceInvites.add(i);
                                                         invToRef.put(i, document.getReference());
 
                                                     } else {
@@ -145,72 +126,11 @@ public class InvitationFeedActivity extends AppCompatActivity implements Adapter
                                                     if (iteration[0] == (task.getResult().size())) {
                                                         Collections.sort(invites);
                                                         System.out.println("Number of Invites to Be Shown: " + invites.size());
-                                                        mostRecent = new InvitationAdapter(invites);
+                                                        adapt = new InvitationAdapter(invites);
                                                         recyclerView.setLayoutManager(manager);
                                                         //sorted = new InvitationAdapter(invites);
-                                                        recyclerView.setAdapter(mostRecent);
+                                                        recyclerView.setAdapter(adapt);
 
-                                                        Collections.sort(invites2, Collections.reverseOrder());
-                                                        leastRecent = new InvitationAdapter(invites2);
-                                                        mostRentInvites.sort((invitation, t1) -> {
-                                                            if (invitation.getRent() < t1.getRent()) {
-                                                                return 1;
-                                                            } else if (invitation.getRent() > t1.getRent()) {
-                                                                return -1;
-                                                            }
-                                                            return 0;
-                                                        });
-                                                        mostRent = new InvitationAdapter(mostRentInvites);
-
-                                                        leastRentInvites.sort((invitation, t1) -> {
-                                                            if (invitation.getRent() > t1.getRent()) {
-                                                                return 1;
-                                                            } else if (invitation.getRent() < t1.getRent()) {
-                                                                return -1;
-                                                            }
-                                                            return 0;
-                                                        });
-                                                        leastRent = new InvitationAdapter(leastRentInvites);
-
-                                                        mostBedInvites.sort((invitation, t1) -> {
-                                                            if (invitation.getNumBeds() < t1.getNumBeds()) {
-                                                                return 1;
-                                                            } else if (invitation.getNumBeds() > t1.getNumBeds()) {
-                                                                return -1;
-                                                            }
-                                                            return 0;
-                                                        });
-                                                        mostBeds = new InvitationAdapter(mostBedInvites);
-
-                                                        leastBedInvites.sort((invitation, t1) -> {
-                                                            if (invitation.getNumBeds() > t1.getNumBeds()) {
-                                                                return 1;
-                                                            } else if (invitation.getNumBeds() < t1.getNumBeds()) {
-                                                                return -1;
-                                                            }
-                                                            return 0;
-                                                        });
-                                                        leastBeds = new InvitationAdapter(leastBedInvites);
-
-                                                        closestDistanceInvites.sort((invitation, t1) -> {
-                                                            if (invitation.getMilesFromCampus() > t1.getMilesFromCampus()) {
-                                                                return 1;
-                                                            } else if (invitation.getMilesFromCampus() < t1.getMilesFromCampus()) {
-                                                                return -1;
-                                                            }
-                                                            return 0;
-                                                        });
-                                                        closestDistance = new InvitationAdapter(closestDistanceInvites);
-
-                                                        furthestDistanceInvites.sort((invitation, t1) -> {
-                                                            if (invitation.getMilesFromCampus() < t1.getMilesFromCampus()) {
-                                                                return 1;
-                                                            } else if (invitation.getMilesFromCampus() > t1.getMilesFromCampus()) {
-                                                                return -1;
-                                                            }
-                                                            return 0;
-                                                        });
-                                                        furthestDistance = new InvitationAdapter(furthestDistanceInvites);
 
                                                         System.out.println("Got Feed For User: " + user.getUid());
                                                         System.out.println("Feed is of Length: " + invites.size());
@@ -236,17 +156,6 @@ public class InvitationFeedActivity extends AppCompatActivity implements Adapter
         if (usr[0] == null) {
             System.out.println("We couldn't get the User");
         }
-/*
-        Switch sort = findViewById(R.id.Sort);
-        sort.setOnCheckedChangeListener((compoundButton, b) -> {
-            // sort by deadline
-            if (b) {
-                recyclerView.setAdapter(leastRecent);
-            } else {
-                recyclerView.setAdapter(mostRecent);
-            }
-        });
-        */
 
     }
 
@@ -290,41 +199,132 @@ public class InvitationFeedActivity extends AppCompatActivity implements Adapter
         parent.getBackground().setColorFilter(getResources().getColor(R.color.white),
                 PorterDuff.Mode.SRC_ATOP);
         if (hasBeenChanged) {
+            manager = new GridLayoutManager(getApplicationContext(),1);
             System.out.println("we can change adapter now");
 
             switch (pos) {
-                case 0:
+                case 0 :{
+                    Collections.sort(adapt.data);
+                    System.out.println("Items in Feed: " + adapt.data.size());
+                    System.out.println("Sorting by Most Recent Deadline: ");
+                    for (Invitation i : adapt.data) {
+                        System.out.println(i.getDeadline().toString());
+                    }
+                    adapt.notifyDataSetChanged();
+                    recyclerView.invalidate();
+                    manager.scrollToPosition(0);
+                    recyclerView.smoothScrollToPosition(0);
+                    break;
+                }
 
-                        recyclerView.setAdapter(mostRecent);
+                case 1 : {
+                    Collections.sort(adapt.data, Collections.reverseOrder());
+                    System.out.println("Items in Feed: " + adapt.data.size());
+                    System.out.println("Sorting by Least Recent Deadline: ");
+                    for (Invitation i : adapt.data) {
+                        System.out.println(i.getDeadline().toString());
+                    }
+                    adapt.notifyDataSetChanged();
+                    recyclerView.invalidate();
+                    manager.scrollToPosition(0);
+                    recyclerView.smoothScrollToPosition(0);
+                    break;
+                }
+                case 2: {
+                    adapt.data.sort((invitation, t1) -> {
+                        if (invitation.getRent() < t1.getRent()) {
+                            return 1;
+                        } else if (invitation.getRent() > t1.getRent()) {
+                            return -1;
+                        }
+                        return 0;
+                    });
+                    adapt.notifyDataSetChanged();
+                    manager.scrollToPosition(0);
+                    recyclerView.smoothScrollToPosition(0);
+                    break;
+                }
+                case 3: {
+                    adapt.data.sort((invitation, t1) -> {
+                        if (invitation.getRent() > t1.getRent()) {
+                            return 1;
+                        } else if (invitation.getRent() < t1.getRent()) {
+                            return -1;
+                        }
+                        return 0;
+                    });
 
-                case 1:
+                    adapt.notifyDataSetChanged();
+                    manager.scrollToPosition(0);
+                    recyclerView.smoothScrollToPosition(0);
+                    break;
+                }
 
-                        recyclerView.setAdapter(leastRecent);
+                case 4: {
+                    adapt.data.sort((invitation, t1) -> {
+                        if (invitation.getMilesFromCampus() < t1.getMilesFromCampus()) {
+                            return 1;
+                        } else if (invitation.getMilesFromCampus() > t1.getMilesFromCampus()) {
+                            return -1;
+                        }
+                        return 0;
+                    });
 
-                case 2:
+                    adapt.notifyDataSetChanged();
+                    manager.scrollToPosition(0);
+                    recyclerView.smoothScrollToPosition(0);
+                    break;
+                }
 
-                        recyclerView.setAdapter(mostRent);
+                case 5: {
+                    adapt.data.sort((invitation, t1) -> {
+                        if (invitation.getMilesFromCampus() > t1.getMilesFromCampus()) {
+                            return 1;
+                        } else if (invitation.getMilesFromCampus() < t1.getMilesFromCampus()) {
+                            return -1;
+                        }
+                        return 0;
+                    });
 
-                case 3:
+                    adapt.notifyDataSetChanged();
+                    manager.scrollToPosition(0);
+                    recyclerView.smoothScrollToPosition(0);
+                    break;
+                }
 
-                        recyclerView.setAdapter(leastRent);
+                case 6: {
 
-                case 4:
+                    adapt.data.sort((invitation, t1) -> {
+                        if (invitation.getNumBeds() < t1.getNumBeds()) {
+                            return 1;
+                        } else if (invitation.getNumBeds() > t1.getNumBeds()) {
+                            return -1;
+                        }
+                        return 0;
+                    });
 
-                        recyclerView.setAdapter(furthestDistance);
-
-                case 5:
-
-                        recyclerView.setAdapter(closestDistance);
-
-                case 6:
-
-                        recyclerView.setAdapter(mostBeds);
+                    adapt.notifyDataSetChanged();
+                    manager.scrollToPosition(0);
+                    recyclerView.smoothScrollToPosition(0);
+                    break;
+                }
 
 
-                case 7:
+                case 7: {
+                    adapt.data.sort((invitation, t1) -> {
+                        if (invitation.getNumBeds() > t1.getNumBeds()) {
+                            return 1;
+                        } else if (invitation.getNumBeds() < t1.getNumBeds()) {
+                            return -1;
+                        }
+                        return 0;
+                    });
 
-                        recyclerView.setAdapter(leastBeds);
+                    adapt.notifyDataSetChanged();
+                    manager.scrollToPosition(0);
+                    recyclerView.smoothScrollToPosition(0);
+                    break;
+                }
 
             }
         }

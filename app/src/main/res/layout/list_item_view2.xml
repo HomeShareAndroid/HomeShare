@@ -199,33 +199,34 @@
         android:textColor="#FFFFFF"
         android:textSize="12dp"
         />
+
     <ImageButton
         android:id="@+id/acceptInvitation2"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginTop="320dp"
         android:layout_marginLeft="302dp"
+        android:layout_marginTop="320dp"
         android:background="@drawable/grex"
+        android:clickable="true"
         android:ellipsize="end"
         android:fontFamily="@font/lora2"
         android:textColor="#FFFFFF"
-        android:textSize="14sp"
 
-        />
+        android:textSize="14sp" />
 
     <ImageButton
         android:id="@+id/rejectInvitation2"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginTop="320dp"
         android:layout_marginLeft="330dp"
+        android:layout_marginTop="320dp"
         android:background="@drawable/greydecline"
+        android:clickable="true"
         android:ellipsize="end"
         android:fontFamily="@font/lora2"
         android:textColor="#FFFFFF"
-        android:textSize="14sp"
 
-        />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/personality"

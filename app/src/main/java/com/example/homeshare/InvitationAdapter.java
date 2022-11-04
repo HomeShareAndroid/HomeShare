@@ -1,5 +1,7 @@
 package com.example.homeshare;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +32,12 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
         this.data = data;
     }
 
+
     @NonNull
     @Override
     public InvitationAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rowItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_view2, parent, false);
+
         return new ViewHolder(rowItem);
     }
 
@@ -91,6 +95,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
         private ImageButton rejectButton;
         private Invitation invitation;
 
+
         public ViewHolder(View view) {
             super(view);
             address = view.findViewById(R.id.address);
@@ -103,8 +108,8 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
             personality = view.findViewById(R.id.personality);
             rent = view.findViewById(R.id.rent);
             utilities = view.findViewById(R.id.utilities);
-         acceptButton = view.findViewById(R.id.acceptInvitation2);
-           rejectButton = view.findViewById(R.id.rejectInvitation2);
+            acceptButton = view.findViewById(R.id.acceptInvitation2);
+            rejectButton = view.findViewById(R.id.rejectInvitation2);
             acceptButton.setOnClickListener(v -> {
                 try {
                     DocumentReference posterDoc = FirebaseFirestore
@@ -121,13 +126,16 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
                     docData.put("response", true);
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                     db.collection("invitationresponses").add(docData);
+                    Intent intent = new Intent(acceptButton.getContext(), InvitationFeedActivity.class);
+                    Toast.makeText(acceptButton.getContext(), "Sent Response to Poster!",
+                            Toast.LENGTH_LONG).show();
+                    acceptButton.getContext().startActivity(intent);
                 } catch (Exception e) {
                     System.out.println(e.toString());
                     System.out.println("Something went wrong accepting invitation");
                 }
             });
             rejectButton.setOnClickListener(v -> {
-
                 try {
                     DocumentReference posterDoc = FirebaseFirestore
                             .getInstance()
@@ -143,8 +151,10 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
                     docData.put("response", false);
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                     db.collection("invitationresponses").add(docData);
-
-
+                    Intent intent = new Intent(acceptButton.getContext(), InvitationFeedActivity.class);
+                    Toast.makeText(acceptButton.getContext(), "Rejected Invitation",
+                            Toast.LENGTH_LONG).show();
+                    acceptButton.getContext().startActivity(intent);
                 } catch (Exception e) {
                     System.out.println(e.toString());
                     System.out.println("Something went wrong rejecting invitation");

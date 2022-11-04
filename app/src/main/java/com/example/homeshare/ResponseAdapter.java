@@ -110,19 +110,23 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     DocumentSnapshot snap = task.getResult();
-                                    Integer numberOfBeds;
+                                    Double numberOfBeds;
                                     try {
-                                        numberOfBeds = Integer.parseInt((String) snap.get("numBeds"));
-                                    } catch (Exception e) {numberOfBeds = 1;}
+                                        numberOfBeds = (Double) snap.get("numBeds");
+                                    } catch (Exception e) {numberOfBeds = 1.;}
 
                                     System.out.println("Number of Beds That Were Available: " + numberOfBeds);
                                     // this was the last available slot
                                     if (numberOfBeds <= 1)  {
-                                        snap.getReference().update("numBeds", "0");
+                                        snap.getReference().update("numBeds", 0);
                                         snap.getReference().update("available", false);
                                     } else {
                                         snap.getReference().update("numBeds", numberOfBeds - 1);
                                     }
+                                    Intent intent = new Intent(acceptButton.getContext(), RoommateFeedActivity.class);
+                                    Toast.makeText(acceptButton.getContext(), "Accepted Response! New Roommate",
+                                            Toast.LENGTH_LONG).show();
+                                    acceptButton.getContext().startActivity(intent);
                                 }
                             });
 
@@ -149,6 +153,8 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
                                 } else {
                                     System.out.println("Could Not Reject Response");
                                 }
+                                Intent intent = new Intent(acceptButton.getContext(), RoommateFeedActivity.class);
+                                acceptButton.getContext().startActivity(intent);
                             });
                 } catch (Exception e) {
                     System.out.println(e.toString());

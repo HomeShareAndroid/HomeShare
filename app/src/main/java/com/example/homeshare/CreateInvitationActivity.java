@@ -86,7 +86,7 @@ public class CreateInvitationActivity extends AppCompatActivity {
 
         try {
             docData.put("rent", Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.rent)).getText())));
-            docData.put("numBeds", Double.parseDouble(((EditText)findViewById(R.id.numBeds)).getText().toString()));
+            docData.put("numBeds", Double.parseDouble((((EditText)findViewById(R.id.numBeds)).getText().toString())));
             docData.put("milesFromCampus",Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.milesFromCampus)).getText())));
         } catch (Exception e) {
             Toast.makeText(CreateInvitationActivity.this, "Rent, number of beds, and miles from campus must be numbers",

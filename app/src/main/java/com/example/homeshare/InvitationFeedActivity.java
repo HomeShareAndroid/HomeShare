@@ -87,41 +87,61 @@ public class InvitationFeedActivity extends AppCompatActivity {
                         .get()
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
+                                int[] iteration = new int[1];
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     if (!document.get("posterUid").equals(user.getUid())
                                             && document.contains("available")
                                             && (boolean) document.get("available")) {
-                                        Invitation i = document.toObject(Invitation.class);
-                                        System.out.println("Invitation = " + i.getAddress());
-                                        invites.add(i);
-                                        invites2.add(i);
-                                        mostRentInvites.add(i);
-                                        leastRentInvites.add(i);
-                                        mostBedInvites.add(i);
-                                        leastBedInvites.add(i);
-                                        closestDistanceInvites.add(i);
-                                        furthestDistanceInvites.add(i);
-                                        invToRef.put(i, document.getReference());
+                                        DocumentReference invitationRef = document.getReference();
+                                        System.out.println("Searching for Invitation Reference: /" + invitationRef.getPath());
+
+                                        FirebaseFirestore.getInstance().collection("invitationresponses")
+                                                .whereEqualTo("invitationRef", invitationRef)
+                                                .whereEqualTo("responderRef", documentReference)
+                                                .get()
+                                                .addOnCompleteListener(response_task -> {
+                                                    Invitation i = document.toObject(Invitation.class);
+                                                    if ((response_task.isSuccessful() && response_task.getResult().isEmpty())|| !response_task.isSuccessful()) {
+                                                        System.out.println("Valid Invitation = " + i.getAddress());
+                                                        invites.add(i);
+                                                        invites2.add(i);
+                                                        mostRentInvites.add(i);
+                                                        leastRentInvites.add(i);
+                                                        mostBedInvites.add(i);
+                                                        leastBedInvites.add(i);
+                                                        closestDistanceInvites.add(i);
+                                                        furthestDistanceInvites.add(i);
+                                                        invToRef.put(i, document.getReference());
+
+                                                    } else {
+                                                        System.out.println("I already responded to Invitation with Address: " + i.getAddress());
+                                                    }
+                                                    if (iteration[0] == (task.getResult().size())) {
+                                                        Collections.sort(invites);
+                                                        System.out.println("Number of Invites to Be Shown: " + invites.size());
+                                                        mostRecent = new InvitationAdapter(invites);
+                                                        recyclerView.setLayoutManager(manager);
+                                                        //sorted = new InvitationAdapter(invites);
+                                                        recyclerView.setAdapter(mostRecent);
+
+                                                        Collections.sort(invites2, Collections.reverseOrder());
+                                                        leastRecent = new InvitationAdapter(invites2);
+
+                                                        System.out.println("Got Feed For User: " + user.getUid());
+                                                        System.out.println("Feed is of Length: " + invites.size());
+                                                    }
+                                                    System.out.println("Iteration of Potential Feed Items: " + iteration[0]);
+                                                    System.out.println("Total number of potential feed items: " + task.getResult().size());
+                                                });
+
                                     }
+                                    iteration[0] = iteration[0] + 1;
                                 }
-                                Collections.sort(invites);
-                                mostRecent = new InvitationAdapter(invites);
-                                recyclerView.setLayoutManager(manager);
-                                //sorted = new InvitationAdapter(invites);
-                                recyclerView.setAdapter(mostRecent);
 
-                                Collections.sort(invites2, Collections.reverseOrder());
-                                leastRecent = new InvitationAdapter(invites2);
-
-                                System.out.println("Got Feed For User: " + user.getUid());
-                                System.out.println("Feed is of Length: " + invites.size());
                             } else {
                                 System.out.println("Getting Feed Not Successful");
                             }
                         });
-
-
-
             });
 
         } catch (Exception e) {

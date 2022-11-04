@@ -109,7 +109,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/bottom_menu_topic"
+                    android:id="@+id/top_menu_signout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

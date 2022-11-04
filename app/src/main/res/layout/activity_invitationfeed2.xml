@@ -79,13 +79,14 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/bottom_menu_topic"
+            android:id="@+id/top_menu_signout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:gravity="center"
+            android:onClick="signOutUser"
             android:orientation="vertical">
 
             <ImageView
@@ -97,7 +98,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_menu_topic"
+                android:text="Sign Out"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textColor="@color/grey_40" />
 
@@ -180,9 +181,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_create_a_post"
                 android:clickable="true"
+                android:gravity="center"
                 android:onClick="gotoCreateAPost"
+                android:text="@string/title_create_a_post"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textColor="@color/grey_40" />
 

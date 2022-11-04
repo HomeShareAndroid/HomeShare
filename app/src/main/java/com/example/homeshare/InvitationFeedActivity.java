@@ -190,5 +190,10 @@ public class InvitationFeedActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void signOutUser(View view) {
+        mAuth.signOut();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
 
 }

@@ -145,5 +145,11 @@ public class RoommateFeedActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void signOutUser(View view) {
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
+
 
 }

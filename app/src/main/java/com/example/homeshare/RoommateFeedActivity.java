@@ -3,10 +3,13 @@ package com.example.homeshare;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.homeshare.Model.Invitation;
@@ -29,15 +32,23 @@ import java.util.List;
 
 public class RoommateFeedActivity extends AppCompatActivity {
     User user;
+    FirebaseUser fbUser;
     private RecyclerView recyclerView;
     public static HashMap<InvitationResponse, DocumentReference> responseToRef = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        fbUser = FirebaseAuth.getInstance().getCurrentUser();
+        getSupportActionBar().hide();
+        RecyclerView.LayoutManager manager = new GridLayoutManager(getApplicationContext(),1);
         setContentView(R.layout.activity_roommatefeed);
 
-        FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
+
         if (fbUser == null) {
             System.out.println("No User Logged in");
             Toast.makeText(this, "Not Logged In.",
@@ -82,6 +93,7 @@ public class RoommateFeedActivity extends AppCompatActivity {
                                                         responseToRef.put(r1, document1.getReference());
                                                     }
                                                 }
+                                                recyclerView.setLayoutManager(manager);
                                                 recyclerView.setAdapter(new RoommateAdapter(getApplicationContext(), responses));
                                             } else {
                                                 System.out.println("Getting Feed Not Successful");
@@ -109,6 +121,27 @@ public class RoommateFeedActivity extends AppCompatActivity {
     public void signOut(View view) {
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToProfilePage(View view) {
+        Intent intent = new Intent(getApplicationContext(), ProfilePageActivity.class);
+        intent.putExtra("Uid", fbUser.getUid());
+        startActivity(intent);
+    }
+
+    public void goToHomePage(View view) {
+        Intent intent = new Intent(getApplicationContext(), InvitationFeedActivity.class);
+        startActivity(intent);
+    }
+
+    public void gotoCreateAPost(View view) {
+        Intent intent = new Intent(getApplicationContext(), CreateInvitationActivity.class);
+        startActivity(intent);
+    }
+
+    public void gotoResponseFeed(View view) {
+        Intent intent = new Intent(getApplicationContext(), ResponseFeedActivity.class);
         startActivity(intent);
     }
 

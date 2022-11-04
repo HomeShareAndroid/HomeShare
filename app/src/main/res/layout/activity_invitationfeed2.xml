@@ -131,12 +131,13 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/bottom_menu_setting"
+            android:id="@+id/roommateFeedMenuButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
+            android:onClick="gotoRoommateFeed"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -150,7 +151,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_menu_setting"
+                android:text="Roommates"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textColor="@color/grey_40" />
 

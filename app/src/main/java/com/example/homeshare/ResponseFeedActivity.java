@@ -127,5 +127,10 @@ public class ResponseFeedActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void gotoRoommateFeed(View view) {
+        Intent intent = new Intent(getApplicationContext(), RoommateFeedActivity.class);
+        startActivity(intent);
+    }
+
 
 }

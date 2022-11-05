@@ -112,8 +112,8 @@
             android:layout_weight="1"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:onClick="gotoRoommateFeed"
             android:gravity="center"
+            android:onClick="gotoRoommateFeed"
             android:orientation="vertical">
 
             <ImageView
@@ -127,9 +127,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Roommates"
-                android:textSize="10dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:textColor="@color/grey_40" />
+                android:textColor="@color/grey_40"
+                android:textSize="10dp" />
 
         </LinearLayout>
 
@@ -140,16 +140,16 @@
             android:layout_weight="1"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:onClick="gotoCreateAPost"
             android:gravity="center"
+            android:onClick="gotoCreateAPost"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="@dimen/spacing_mxlarge"
                 android:layout_height="@dimen/spacing_mxlarge"
-                android:padding="1dp"
                 android:clickable="true"
                 android:onClick="gotoCreateAPost"
+                android:padding="1dp"
                 app:srcCompat="@drawable/ic_plus_button"
                 app:tint="@color/colorTextAction" />
 

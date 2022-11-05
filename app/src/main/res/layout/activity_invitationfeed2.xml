@@ -79,32 +79,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/top_menu_signout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:gravity="center"
-            android:onClick="signOutUser"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="@dimen/spacing_mxlarge"
-                android:layout_height="@dimen/spacing_mxlarge"
-                app:srcCompat="@drawable/ic_topics"
-                app:tint="@color/colorTextAction" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sign Out"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:textColor="@color/grey_40" />
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/responseFeedMenuBotton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -153,6 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Roommates"
+                android:textSize="10dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textColor="@color/grey_40" />
 
@@ -201,26 +176,28 @@
     <RelativeLayout
         android:id="@+id/logo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="2dp"
+        android:layout_below="@id/lyt_bottom_bar_content"
         android:layout_alignTop="@+id/lyt_bottom_bar_content"
         android:layout_marginTop="60dp"
-        android:layout_below="@id/lyt_bottom_bar_content"
         android:fontFamily="@font/lora2">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
             android:fontFamily="@font/lora2"
-            android:layout_margin="20dp"
-            android:text="HomeShare"
             android:textColor="#FFFF"
             android:textSize="40dp" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="10dp"
         android:layout_below="@id/logo"
         android:fontFamily="@font/lora2"></RelativeLayout>
 
@@ -228,7 +205,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="100dp"
         android:fontFamily="@font/lora2"
         android:scrollbars="vertical" />
 

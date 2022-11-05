@@ -149,7 +149,10 @@ public class ProfilePageActivity extends AppCompatActivity {
         if (requestCode == 1000) {
             if (resultCode == Activity.RESULT_OK) {
                 imageUri = data.getData();
-                changeProfileImage.setImageURI(imageUri);
+                Glide.with(getApplicationContext())
+                        .load(imageUri)
+                        .circleCrop()
+                        .into(changeProfileImage);
             }
         }
     }

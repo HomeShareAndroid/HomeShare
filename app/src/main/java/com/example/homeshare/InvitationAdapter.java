@@ -48,6 +48,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
         holder.address.setText(invitation.getAddress());
         holder.academicFocus.setText(invitation.getAcademicFocus());
         holder.dailySchedule.setText(invitation.getDailySchedule());
+        holder.distance.setText(invitation.getMilesFromCampus().toString() + " miles");
         System.out.println(invitation.getDeadline().toString());
 
         DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
@@ -94,6 +95,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
         private ImageButton acceptButton;
         private ImageButton rejectButton;
         private Invitation invitation;
+        private TextView distance;
 
 
         public ViewHolder(View view) {
@@ -108,6 +110,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
             personality = view.findViewById(R.id.personality);
             rent = view.findViewById(R.id.rent);
             utilities = view.findViewById(R.id.utilities);
+            distance = view.findViewById(R.id.distance);
             acceptButton = view.findViewById(R.id.acceptInvitation2);
             rejectButton = view.findViewById(R.id.rejectInvitation2);
             acceptButton.setOnClickListener(v -> {

@@ -40,6 +40,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.firebase:firebase-storage'
+    dependencies {
+        implementation ("com.github.bumptech.glide:glide:4.14.2@aar") {
+            transitive = true
+        }
+    }
     implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -47,6 +53,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.3.1'
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
+    implementation 'com.mikhaellopez:circularimageview:4.3.1'
     testImplementation 'junit:junit:4.13.2'
     implementation "androidx.activity:activity:1.6.0-alpha05"
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

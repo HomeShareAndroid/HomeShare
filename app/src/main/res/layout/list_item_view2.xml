@@ -402,18 +402,18 @@
         android:textColor="#FFFFFF"
         android:textSize="12sp"
         />
+
     <TextView
         android:layout_width="200dp"
         android:layout_height="30dp"
-        android:text="Other Details:"
+        android:layout_marginLeft="225dp"
         android:layout_marginTop="205dp"
-        android:layout_marginLeft="200dp"
         android:ellipsize="end"
         android:fontFamily="@font/lora2"
         android:maxLines="3"
+        android:text="Other Details:"
         android:textColor="#FFFFFF"
-        android:textSize="12dp"
-        />
+        android:textSize="12dp" />
     <TextView
         android:id="@+id/otherDetails"
         android:layout_width="200dp"

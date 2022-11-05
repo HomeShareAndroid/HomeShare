@@ -63,6 +63,7 @@ public class ProfilePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
         mAuth =   FirebaseAuth.getInstance();
@@ -149,22 +150,6 @@ public class ProfilePageActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 imageUri = data.getData();
                 changeProfileImage.setImageURI(imageUri);
-                /*FirebaseFirestore
-                        .getInstance()
-                        .collection("users")
-                        .document(userPage.getUid())
-                        .get()
-                        .addOnCompleteListener((OnCompleteListener<DocumentSnapshot>) task -> {
-                            if (task.isSuccessful()) {
-                                DocumentSnapshot document = task.getResult();
-                                DocumentReference documentReference = document.getReference();
-                                documentReference.update("photoUri", imageUri.toString());
-
-
-                            } else {
-                                System.out.println("Could Not Add Profile Photo");
-                            }
-                        });*/
             }
         }
     }
@@ -181,29 +166,30 @@ public class ProfilePageActivity extends AppCompatActivity {
 
         if (imageUri != null) {
             ref.putFile(imageUri);
-            FirebaseFirestore
-                    .getInstance()
-                    .collection("users")
-                    .document(userPage.getUid())
-                    .get()
-                    .addOnCompleteListener((OnCompleteListener<DocumentSnapshot>) task -> {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            DocumentReference documentReference = document.getReference();
-                            if (!major.equals(""))
-                                documentReference.update("major", major);
-                            if (!phone.equals(""))
-                                documentReference.update("phone", phone);
-                            if (!aboutMe.equals(""))
-                                documentReference.update("aboutMe", aboutMe);
+        }
+        FirebaseFirestore
+                .getInstance()
+                .collection("users")
+                .document(userPage.getUid())
+                .get()
+                .addOnCompleteListener((OnCompleteListener<DocumentSnapshot>) task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        DocumentReference documentReference = document.getReference();
+                        if (!major.equals(""))
+                            documentReference.update("major", major);
+                        if (!phone.equals(""))
+                            documentReference.update("phone", phone);
+                        if (!aboutMe.equals(""))
+                            documentReference.update("aboutMe", aboutMe);
 
-                        } else {
-                            System.out.println("Could Not Update Info");
-                        }
-                    });
+                    } else {
+                        System.out.println("Could Not Update Info");
+                    }
+                });
             //finish();
             //startActivity(getIntent());
-        }
+
     }
     public void goHome(View view) {
         Intent intent = new Intent(getApplicationContext(), InvitationFeedActivity.class);

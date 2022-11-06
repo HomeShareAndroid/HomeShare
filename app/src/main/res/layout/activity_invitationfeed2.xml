@@ -209,6 +209,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
+            android:layout_marginTop="65dp"
             android:text="I N I V I T A T I O N   F E E D"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
             android:textColor="#FFFF"
@@ -220,7 +221,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="140dp"
         android:fontFamily="@font/lora2"
         android:scrollbars="vertical" />
 

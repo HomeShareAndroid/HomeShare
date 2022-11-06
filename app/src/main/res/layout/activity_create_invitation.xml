@@ -1,237 +1,570 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:fillViewport="true"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:id="@+id/relativeLayout"
+    android:background="@drawable/ic_launcher_foreground"
+    android:fontFamily="@font/lora2"
     tools:context=".CreateInvitationActivity">
 
-    <!-- Here you put the rest of your current view-->
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:id="@+id/lyt_bottom_bar_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingVertical="@dimen/spacing_medium">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.1" />
+
+        <LinearLayout
+            android:id="@+id/bottom_menu_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/spacing_mxlarge"
+                android:layout_height="@dimen/spacing_mxlarge"
+                app:srcCompat="@drawable/ic_home"
+                app:tint="@color/colorTextAction" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_menu_home"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/grey_40" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/top_menu_profile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="goToProfilePage"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/spacing_mxlarge"
+                android:layout_height="@dimen/spacing_mxlarge"
+                android:clickable="true"
+                android:onClick="goToProfilePage"
+                app:srcCompat="@drawable/ic_person"
+                app:tint="@color/colorTextAction" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="goToProfilePage"
+                android:text="@string/title_profile"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/grey_40" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/responseFeedMenuBotton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="gotoResponseFeed"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/spacing_mxlarge"
+                android:layout_height="@dimen/spacing_mxlarge"
+                android:padding="1dp"
+                app:srcCompat="@drawable/ic_bookmark_border"
+                app:tint="@color/colorTextAction" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Responses"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/grey_40" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/roommateFeedMenuButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="gotoRoommateFeed"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/spacing_mxlarge"
+                android:layout_height="@dimen/spacing_mxlarge"
+                android:padding="1dp"
+                app:srcCompat="@drawable/ic_menu"
+                app:tint="@color/colorTextAction" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Roommates"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/grey_40"
+                android:textSize="10dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/top_menu_create_a_post"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="gotoCreateAPost"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/spacing_mxlarge"
+                android:layout_height="@dimen/spacing_mxlarge"
+                android:clickable="true"
+                android:onClick="gotoCreateAPost"
+                android:padding="1dp"
+                app:srcCompat="@drawable/ic_plus_button"
+                app:tint="@color/colorTextAction" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="gotoCreateAPost"
+                android:text="@string/title_create_a_post"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/grey_40" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.1" />
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/lyt_bottom_bar_content"
+        android:layout_alignTop="@+id/lyt_bottom_bar_content"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/lora2">
 
         <TextView
-            android:id="@+id/deadlineBanner"
-            android:layout_width="367dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
-            android:text="Set A Deadline For This Invitation to Expire:"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.75"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.551" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/lora2"
+            android:textColor="#FFFF"
+            android:textSize="40dp" />
+    </RelativeLayout>
 
-        <TextView
-            android:id="@+id/text_home"
-            android:layout_width="367dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="Invite Someone to Share Housing With You!"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.005" />
-
-        <EditText
-            android:id="@+id/address"
-            android:layout_width="171dp"
-            android:layout_height="65dp"
-            android:layout_marginTop="24dp"
-            android:ems="10"
-            android:hint="Address"
-            android:inputType="textPersonName"
-            android:text=""
-            android:textSize="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.039" />
-
-        <EditText
-            android:id="@+id/rent"
-            android:layout_width="171dp"
-            android:layout_height="72dp"
-            android:ems="10"
-            android:hint="Rent"
-            android:inputType="textPersonName"
-            android:text=""
-            android:textSize="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.099" />
-
-        <EditText
-            android:id="@+id/milesFromCampus"
-            android:layout_width="171dp"
-            android:layout_height="72dp"
-            android:ems="10"
-            android:hint="Miles From Campus"
-            android:inputType="textPersonName"
-            android:text=""
-            android:textSize="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.504"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.15" />
-
-        <EditText
-            android:id="@+id/utilities"
-            android:layout_width="171dp"
-            android:layout_height="81dp"
-            android:ems="10"
-            android:hint="Utilities"
-            android:inputType="textPersonName"
-            android:text=""
-            android:textSize="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.2" />
-
-        <EditText
-            android:id="@+id/numBeds"
-            android:layout_width="171dp"
-            android:layout_height="56dp"
-            android:ems="10"
-            android:hint="Number of Beds"
-            android:inputType="textPersonName"
-            android:text=""
-            android:textSize="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.504"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.252" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@id/logo"
+        android:fontFamily="@font/lora2"></RelativeLayout>
 
 
-        <EditText
-            android:id="@+id/otherInfo"
-            android:layout_width="169dp"
-            android:layout_height="68dp"
-            android:ems="10"
-            android:hint="Other Housing Info"
-            android:inputType="textPersonName"
-            android:text=""
-            android:textSize="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.292" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="5dp"
+        android:fillViewport="true"
+        tools:context=".CreateInvitationActivity">
 
-        <EditText
-            android:id="@+id/dailySchedule"
-            android:layout_width="172dp"
-            android:layout_height="69dp"
-            android:ems="10"
-            android:hint="Your Daily Schedule"
-            android:inputType="textPersonName"
-            android:text=""
-            android:textSize="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.37" />
+        <!-- Here you put the rest of your current view-->
 
-        <EditText
-            android:id="@+id/academicFocus"
-            android:layout_width="171dp"
-            android:layout_height="62dp"
-            android:ems="10"
-            android:hint="Your Academic Focus"
-            android:inputType="textPersonName"
-            android:text=""
-            android:textSize="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.416" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/personality"
-            android:layout_width="171dp"
-            android:layout_height="56dp"
-            android:ems="10"
-            android:hint="Your Personality"
-            android:inputType="textPersonName"
-            android:text=""
-            android:textSize="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.457" />
+            <TextView
+                android:layout_width="181dp"
+                android:layout_height="136dp"
+                android:background="@color/grey_80"
+                android:padding="@dimen/spacing_medium"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+                android:textColor="@color/grey_60"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.423"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.072" />
 
-        <EditText
-            android:id="@+id/otherDetails"
-            android:layout_width="169dp"
-            android:layout_height="71dp"
-            android:ems="10"
-            android:hint="Other Details About You"
-            android:inputType="textPersonName"
-            android:text=""
-            android:textSize="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <ImageButton
+                android:id="@+id/user_profile_photo"
+                android:layout_width="152dp"
+                android:layout_height="132dp"
+                android:background="@drawable/ic_photo"
+                android:elevation="5dp"
+                android:padding="0dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.447"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.074"
 
-        <DatePicker
-            android:id="@+id/date_picker"
-            android:layout_width="388dp"
-            android:layout_height="628dp"
-            android:layout_marginStart="8dp"
+                />
+
+            <TextView
+                android:layout_width="356dp"
+                android:layout_height="44dp"
+                android:background="?attr/selectableItemBackground"
+                android:padding="@dimen/spacing_medium"
+                android:text="Set a Deadline for this Invite to Expire"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+                android:textColor="@color/colorTextAction"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.61"
 
 
-            android:layout_marginTop="900dp"
-            android:layout_weight="4"
-            android:calendarViewShown="true"
-            android:spinnersShown="false"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="176dp"
-            android:layout_height="90dp"
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="149dp"
+                android:layout_height="31dp"
+                android:background="?attr/selectableItemBackground"
+                android:padding="@dimen/spacing_medium"
+                android:text="Post Description"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+                android:textColor="@color/grey_60"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.454"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.486" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="355dp"
+                android:layout_height="31dp"
+                android:background="?attr/selectableItemBackground"
+                android:padding="@dimen/spacing_medium"
+                android:text="C R E A T E   I N V I T A T I O N    P O S T"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+                android:textColor="@color/grey_60"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.04" />
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.041"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.226" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="355dp"
+                android:layout_height="31dp"
+                android:background="?attr/selectableItemBackground"
+                android:padding="@dimen/spacing_medium"
+                android:text="Enter Housing and Personal Information"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+                android:textColor="@color/grey_60"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.857"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.171" />
+
+            <EditText
+                android:id="@+id/address"
+                android:layout_width="394dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/edit_text_round"
+                android:elevation="-1dp"
+                android:ems="10"
+                android:hint="Address"
+                android:inputType="textPersonName"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/grey_60"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.352"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.179" />
+
+            <EditText
+                android:id="@+id/rent"
+                android:layout_width="398dp"
+                android:layout_height="34dp"
+                android:background="@drawable/edit_text_round"
+                android:ems="10"
+                android:hint="Rent"
+                android:inputType="textPersonName"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/grey_60"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.615"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.292" />
+
+            <EditText
+                android:id="@+id/milesFromCampus"
+                android:layout_width="395dp"
+                android:layout_height="35dp"
+                android:background="@drawable/edit_text_round"
+                android:ems="10"
+                android:hint="Miles From Campus"
+                android:inputType="textPersonName"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/grey_60"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.375"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.227" />
+
+            <EditText
+                android:id="@+id/utilities"
+                android:layout_width="395dp"
+                android:layout_height="34dp"
+                android:background="@drawable/edit_text_round"
+                android:ems="10"
+                android:hint="Utilities"
+                android:inputType="textPersonName"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/grey_60"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.261" />
+
+            <EditText
+                android:id="@+id/numBeds"
+                android:layout_width="399dp"
+                android:layout_height="35dp"
+                android:background="@drawable/edit_text_round"
+                android:ems="10"
+                android:hint="Number of Beds"
+                android:inputType="textPersonName"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/grey_60"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.666"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.322" />
+
+            <EditText
+                android:id="@+id/dailySchedule"
+                android:layout_width="393dp"
+                android:layout_height="39dp"
+                android:background="@drawable/edit_text_round"
+                android:ems="10"
+                android:hint="Your Daily Schedule"
+                android:inputType="textPersonName"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/grey_60"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.722"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.385" />
+
+            <EditText
+                android:id="@+id/academicFocus"
+                android:layout_width="398dp"
+                android:layout_height="39dp"
+                android:background="@drawable/edit_text_round"
+                android:ems="10"
+                android:hint="Your Academic Focus"
+                android:inputType="textPersonName"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/grey_60"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.214"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.42" />
+
+            <EditText
+                android:id="@+id/personality"
+                android:layout_width="394dp"
+                android:layout_height="133dp"
+                android:background="@drawable/edit_text_round"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/grey_60"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.235"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.545" />
+
+            <EditText
+                android:id="@+id/otherInfo"
+                android:layout_width="393dp"
+                android:layout_height="34dp"
+                android:background="@drawable/edit_text_round"
+                android:ems="10"
+                android:hint="Property Description"
+                android:inputType="textPersonName"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/grey_60"
+                android:textSize="13dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.555"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.353" />
+
+            <EditText
+                android:id="@+id/otherDetails"
+                android:layout_width="398dp"
+                android:layout_height="44dp"
+                android:background="@drawable/edit_text_round"
+                android:ems="10"
+                android:hint="Your Personality"
+                android:inputType="textPersonName"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/grey_60"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.166"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.454" />
+
+            <DatePicker
+                android:id="@+id/date_picker"
+                android:layout_width="393dp"
+                android:layout_height="562dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="944dp"
+                android:layout_weight="4"
+                android:calendarViewShown="true"
+                android:datePickerMode="spinner"
+                android:spinnersShown="false"
+                android:yearListSelectorColor="#1F2123"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="176dp"
+                android:layout_height="90dp"
 
 
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="1300dp"
-            android:onClick="addInvitation"
-            android:text="Create Invitation"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginStart="104dp"
+                android:layout_marginTop="1292dp"
+                android:onClick="addInvitation"
+                android:text="Create Invitation"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <!--<Switch
+        android:id="@+id/Sort"
+        android:layout_width="131dp"
+        android:layout_height="wrap_content"
+        android:text="Least Recent Deadline"
+        android:textSize="10sp"
+        android:textColor="@color/white"
+        android:layout_below="@id/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.022" />-->
+
+
+
+</RelativeLayout>
+
+
+
+
+

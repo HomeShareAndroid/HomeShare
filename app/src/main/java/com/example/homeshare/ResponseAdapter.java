@@ -130,6 +130,20 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
                                 }
                             });
 
+                    Mail mail1 = new Mail(FirebaseAuth.getInstance().getCurrentUser().getEmail(),
+                            FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
+                            "jamesmccoll7@gmail.com",
+                            "Matched name",
+                            "Matched Phone Number");
+                    mail1.youMatchedWithARoommate();
+
+                    Mail mail2 = new Mail("jamesmccoll7@gmail.com",
+                            "Matched name",
+                            FirebaseAuth.getInstance().getCurrentUser().getEmail(),
+                            FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
+                            FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
+                    mail2.youMatchedWithARoommate();
+
                 } catch (Exception e) {
                     System.out.println(e.toString());
                     System.out.println("Something went wrong accepting invitation");

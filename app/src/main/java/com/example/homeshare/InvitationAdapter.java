@@ -133,6 +133,15 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
                     Toast.makeText(acceptButton.getContext(), "Sent Response to Poster!",
                             Toast.LENGTH_LONG).show();
                     acceptButton.getContext().startActivity(intent);
+
+
+                    //Send Invitation Email
+                    Mail mail1 = new Mail("jamesmccoll7@gmail.com", "James",
+                            FirebaseAuth.getInstance().getCurrentUser().getEmail(),
+                            FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
+                            FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
+                    mail1.someoneAcceptedYourInvitation();
+
                 } catch (Exception e) {
                     System.out.println(e.toString());
                     System.out.println("Something went wrong accepting invitation");

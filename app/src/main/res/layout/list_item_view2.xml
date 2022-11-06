@@ -23,7 +23,6 @@
         android:background="#303234"
         android:orientation="vertical"
         >
-
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"

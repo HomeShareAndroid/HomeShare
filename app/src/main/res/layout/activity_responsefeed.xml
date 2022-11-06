@@ -30,8 +30,8 @@
             android:layout_weight="1"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:onClick="goToHomePage"
             android:gravity="center"
+            android:onClick="goToHomePage"
             android:orientation="vertical">
 
             <ImageView
@@ -80,32 +80,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/top_menu_signout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:gravity="center"
-            android:onClick="signOutUser"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="@dimen/spacing_mxlarge"
-                android:layout_height="@dimen/spacing_mxlarge"
-                app:srcCompat="@drawable/ic_topics"
-                app:tint="@color/colorTextAction" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sign Out"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:textColor="@color/grey_40" />
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/responseFeedMenuButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -138,8 +112,8 @@
             android:layout_weight="1"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:onClick="gotoRoommateFeed"
             android:gravity="center"
+            android:onClick="gotoRoommateFeed"
             android:orientation="vertical">
 
             <ImageView
@@ -165,16 +139,16 @@
             android:layout_weight="1"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:onClick="gotoCreateAPost"
             android:gravity="center"
+            android:onClick="gotoCreateAPost"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="@dimen/spacing_mxlarge"
                 android:layout_height="@dimen/spacing_mxlarge"
-                android:padding="1dp"
                 android:clickable="true"
                 android:onClick="gotoCreateAPost"
+                android:padding="1dp"
                 app:srcCompat="@drawable/ic_plus_button"
                 app:tint="@color/colorTextAction" />
 
@@ -197,7 +171,6 @@
 
     </LinearLayout>
     <RelativeLayout
-        android:id="@+id/logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -207,19 +180,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:fontFamily="@font/lora2"
-            android:layout_margin="20dp"
-            android:text="Response Feed"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="R E S P O N S E    F E E D"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
             android:textColor="#FFFF"
-            android:textSize="40dp" />
+            android:textSize="20dp" />
+
     </RelativeLayout>
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/logo"
-        android:fontFamily="@font/lora2"></RelativeLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/response_recycler_view"

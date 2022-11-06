@@ -78,6 +78,7 @@
 
         </LinearLayout>
 
+
         <LinearLayout
             android:id="@+id/responseFeedMenuBotton"
             android:layout_width="0dp"
@@ -197,15 +198,29 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_below="@id/logo"
-        android:fontFamily="@font/lora2"></RelativeLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/lora2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="I N I V I T A T I O N   F E E D"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+            android:textColor="#FFFF"
+            android:textSize="20dp" />
+
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="120dp"
         android:fontFamily="@font/lora2"
         android:scrollbars="vertical" />
 

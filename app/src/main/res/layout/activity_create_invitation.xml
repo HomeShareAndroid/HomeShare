@@ -9,6 +9,7 @@
     android:fontFamily="@font/lora2"
     tools:context=".CreateInvitationActivity">
 
+
     <LinearLayout
         android:id="@+id/lyt_bottom_bar_content"
         android:layout_width="match_parent"
@@ -175,33 +176,6 @@
 
 
 
-    <RelativeLayout
-        android:id="@+id/logo"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@id/lyt_bottom_bar_content"
-        android:layout_alignTop="@+id/lyt_bottom_bar_content"
-        android:layout_marginTop="60dp"
-        android:fontFamily="@font/lora2">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:fontFamily="@font/lora2"
-            android:textColor="#FFFF"
-            android:textSize="40dp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_below="@id/logo"
-        android:fontFamily="@font/lora2"></RelativeLayout>
 
 
     <ScrollView
@@ -546,6 +520,66 @@
                 android:text="Create Invitation"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="85dp"
+                android:layout_height="40dp"
+
+                android:padding="@dimen/spacing_medium"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+                android:textColor="@color/grey_60"
+                android:textStyle="bold"
+                android:onClick="gotoInvitationFeed"
+                tools:layout_editor_absoluteX="20"
+                tools:layout_editor_absoluteY="10"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+
+                android:padding="@dimen/spacing_medium"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+                android:textColor="@color/grey_60"
+                android:textStyle="bold"
+                android:onClick="goToProfilePage"
+                tools:layout_editor_absoluteX="40"
+                android:layout_marginLeft="90dp"
+                tools:layout_editor_absoluteY="10"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+
+                android:padding="@dimen/spacing_medium"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+                android:textColor="@color/grey_60"
+                android:textStyle="bold"
+                android:onClick="gotoResponseFeed"
+                tools:layout_editor_absoluteX="40"
+                android:layout_marginLeft="170dp"
+                tools:layout_editor_absoluteY="10"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+
+                android:padding="@dimen/spacing_medium"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+                android:textColor="@color/grey_60"
+                android:textStyle="bold"
+                android:onClick="gotoRoommateFeed"
+                tools:layout_editor_absoluteX="40"
+                android:layout_marginLeft="250dp"
+                tools:layout_editor_absoluteY="10"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

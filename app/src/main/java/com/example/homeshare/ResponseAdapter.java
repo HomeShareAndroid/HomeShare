@@ -98,7 +98,21 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         DocumentReference documentReference = document.getReference();
                                         documentReference.update("accepted", true);
+
+                                        DocumentSnapshot posterSnap = documentReference.get().getResult();
+                                        User poster = posterSnap.toObject(User.class);
+                                        Mail mail1 = new Mail(poster.getEmail(), poster.getName(),
+                                                FirebaseAuth.getInstance().getCurrentUser().getEmail(),
+                                                FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
+                                                FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
+                                        mail1.execute((Object)null);
+
+                                        Mail mail2 = new Mail(FirebaseAuth.getInstance().getCurrentUser().getEmail(),
+                                                FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
+                                                poster.getEmail(), poster.getName(), poster.getPhone());
+                                        mail2.execute((Object)null);
                                     }
+
                                 } else {
                                     System.out.println("Could Not Accept Response");
                                 }
@@ -129,20 +143,6 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
                                     acceptButton.getContext().startActivity(intent);
                                 }
                             });
-
-                    Mail mail1 = new Mail(FirebaseAuth.getInstance().getCurrentUser().getEmail(),
-                            FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
-                            "jamesmccoll7@gmail.com",
-                            "Matched name",
-                            "Matched Phone Number");
-                    mail1.youMatchedWithARoommate();
-
-                    Mail mail2 = new Mail("jamesmccoll7@gmail.com",
-                            "Matched name",
-                            FirebaseAuth.getInstance().getCurrentUser().getEmail(),
-                            FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
-                            FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
-                    mail2.youMatchedWithARoommate();
 
                 } catch (Exception e) {
                     System.out.println(e.toString());

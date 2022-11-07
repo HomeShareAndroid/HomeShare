@@ -14,8 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.homeshare.Model.Invitation;
+import com.example.homeshare.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
@@ -134,14 +136,14 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
                             Toast.LENGTH_LONG).show();
                     acceptButton.getContext().startActivity(intent);
 
-
+                    DocumentSnapshot posterSnap = responderDoc.get().getResult();
+                    User poster = posterSnap.toObject(User.class);
                     //Send Invitation Email
                     System.out.println("CHECKPOINT 1: RIGHT BEFORE MAIL METHOD");
-                    Mail mail1 = new Mail("jamesmccoll7@gmail.com", "James",
+                    Mail mail1 = new Mail(poster.getEmail(), poster.getName(),
                             FirebaseAuth.getInstance().getCurrentUser().getEmail(),
                             FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
                             FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
-//                    mail1.someoneAcceptedYourInvitation();
                     mail1.execute((Object)null);
 
                 } catch (Exception e) {

@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import java.io.IOException;
 import java.util.Properties;
 
+import javax.activation.CommandMap;
+import javax.activation.MailcapCommandMap;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -124,7 +126,7 @@ public class Mail extends AsyncTask
         MimeMultipart multiPart = new MimeMultipart();
         multiPart.addBodyPart(bodyPart);
         mimeMessage.setContent(multiPart);
-        mimeMessage.setFrom(new InternetAddress("sharehome@myyahoo.com"));
+        mimeMessage.setFrom(new InternetAddress("homesharehub@zohomail.com"));
 
         return mimeMessage;
     }
@@ -155,20 +157,20 @@ public class Mail extends AsyncTask
         MimeMultipart multiPart = new MimeMultipart();
         multiPart.addBodyPart(bodyPart);
         mimeMessage.setContent(multiPart);
-        mimeMessage.setFrom(new InternetAddress("sharehome@myyahoo.com"));
+        mimeMessage.setFrom(new InternetAddress("homesharehub@zohomail.com"));
         return mimeMessage;
     }
 
     private void setupServerProperties() {
-        final String username = "sharehome@myyahoo.com";
-        final String password = "Degree08_";
+        final String username = "homesharehub@zohomail.com";
+        final String password = "Degree08";
 
 
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host", "smtp.mail.yahoo.com");
-        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.host", "smtp.zoho.com");
+        properties.put("mail.smtp.port", "587");
 //        properties.put("mail.smtp.socketFactory.port", "25");
 //        properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 //        properties.put("mail.smtp.socketFactory.fallback", "true");
@@ -183,6 +185,13 @@ public class Mail extends AsyncTask
 
     @Override
     protected Object doInBackground(Object[] objects) {
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+        MailcapCommandMap mc = (MailcapCommandMap) CommandMap.getDefaultCommandMap();
+        mc.addMailcap("text/html;; x-java-content-handler=com.sun.mail.handlers.text_html");
+        mc.addMailcap("text/xml;; x-java-content-handler=com.sun.mail.handlers.text_xml");
+        mc.addMailcap("text/plain;; x-java-content-handler=com.sun.mail.handlers.text_plain");
+        mc.addMailcap("multipart/*;; x-java-content-handler=com.sun.mail.handlers.multipart_mixed");
+        mc.addMailcap("message/rfc822;; x-java-content- handler=com.sun.mail.handlers.message_rfc822");
         try {
             someoneAcceptedYourInvitation();
         } catch (MessagingException e) {

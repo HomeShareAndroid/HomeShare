@@ -14,8 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.homeshare.Model.Invitation;
+import com.example.homeshare.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
@@ -129,12 +131,33 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
                     docData.put("response", true);
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                     db.collection("invitationresponses").add(docData);
+
+                    FirebaseFirestore
+                            .getInstance()
+                            .document(String.valueOf(posterDoc.getPath()))
+                            .get()
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    System.out.println("CHECKPOINT 1: INSIDE METHOD");
+                                    DocumentSnapshot posterSnap = task.getResult();
+                                    User poster = posterSnap.toObject(User.class);
+                                    Mail mail1 = new Mail(poster.getEmail(), poster.getName(),
+                                            FirebaseAuth.getInstance().getCurrentUser().getEmail(),
+                                            FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
+                                            FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber(), "A");
+                                    mail1.execute((Object) null);
+                                }
+                            });
+
                     Intent intent = new Intent(acceptButton.getContext(), InvitationFeedActivity.class);
                     Toast.makeText(acceptButton.getContext(), "Sent Response to Poster!",
                             Toast.LENGTH_LONG).show();
                     acceptButton.getContext().startActivity(intent);
+
+
+
                 } catch (Exception e) {
-                    System.out.println(e.toString());
+                    e.printStackTrace();
                     System.out.println("Something went wrong accepting invitation");
                 }
             });

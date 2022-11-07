@@ -30,12 +30,14 @@ public class Mail extends AsyncTask
     String name;
     String matchedName;
     String matchedPhone;
+    String x;
     String matchedEmail;
     Session newSession = null;
     MimeMessage mimeMessage = null;
 
-    public Mail(String email, String name, String matchedEmail, String matchedName, String matchedPhone) {
+    public Mail(String email, String name, String matchedEmail, String matchedName, String matchedPhone,String x) {
         this.email=email;
+        this.x =x;
         this.name=name;
         this.matchedEmail=matchedEmail;
         this.matchedName=matchedName;
@@ -192,7 +194,12 @@ public class Mail extends AsyncTask
         mc.addMailcap("multipart/*;; x-java-content-handler=com.sun.mail.handlers.multipart_mixed");
         mc.addMailcap("message/rfc822;; x-java-content- handler=com.sun.mail.handlers.message_rfc822");
         try {
-            someoneAcceptedYourInvitation();
+            if(x.equals("A") ) {
+                someoneAcceptedYourInvitation();
+            }
+            else{
+                youMatchedWithARoommate();
+            }
         } catch (MessagingException e) {
             e.printStackTrace();
         } catch (IOException e) {

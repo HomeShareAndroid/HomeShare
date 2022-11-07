@@ -98,19 +98,6 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         DocumentReference documentReference = document.getReference();
                                         documentReference.update("accepted", true);
-
-                                        DocumentSnapshot posterSnap = documentReference.get().getResult();
-                                        User poster = posterSnap.toObject(User.class);
-                                        Mail mail1 = new Mail(poster.getEmail(), poster.getName(),
-                                                FirebaseAuth.getInstance().getCurrentUser().getEmail(),
-                                                FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
-                                                FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
-                                        mail1.execute((Object)null);
-
-                                        Mail mail2 = new Mail(FirebaseAuth.getInstance().getCurrentUser().getEmail(),
-                                                FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
-                                                poster.getEmail(), poster.getName(), poster.getPhone());
-                                        mail2.execute((Object)null);
                                     }
 
                                 } else {
@@ -124,6 +111,19 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     DocumentSnapshot snap = task.getResult();
+
+                                    User poster = snap.toObject(User.class);
+                                    Mail mail1 = new Mail(poster.getEmail(), poster.getName(),
+                                            FirebaseAuth.getInstance().getCurrentUser().getEmail(),
+                                            FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
+                                            FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber(), "B");
+                                    mail1.execute((Object)null);
+
+                                    Mail mail2 = new Mail(FirebaseAuth.getInstance().getCurrentUser().getEmail(),
+                                            FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
+                                            poster.getEmail(), poster.getName(), poster.getPhone(), "B");
+                                    mail2.execute((Object)null);
+
                                     Double numberOfBeds;
                                     try {
                                         numberOfBeds = (Double) snap.get("numBeds");

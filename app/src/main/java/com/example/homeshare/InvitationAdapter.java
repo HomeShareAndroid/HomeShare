@@ -131,20 +131,30 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
                     docData.put("response", true);
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                     db.collection("invitationresponses").add(docData);
+
+                    FirebaseFirestore
+                            .getInstance()
+                            .document(String.valueOf(posterDoc.getPath()))
+                            .get()
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    System.out.println("CHECKPOINT 1: INSIDE METHOD");
+                                    DocumentSnapshot posterSnap = task.getResult();
+                                    User poster = posterSnap.toObject(User.class);
+                                    Mail mail1 = new Mail(poster.getEmail(), poster.getName(),
+                                            FirebaseAuth.getInstance().getCurrentUser().getEmail(),
+                                            FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
+                                            FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber(), "A");
+                                    mail1.execute((Object) null);
+                                }
+                            });
+
                     Intent intent = new Intent(acceptButton.getContext(), InvitationFeedActivity.class);
                     Toast.makeText(acceptButton.getContext(), "Sent Response to Poster!",
                             Toast.LENGTH_LONG).show();
                     acceptButton.getContext().startActivity(intent);
 
-                    DocumentSnapshot posterSnap = responderDoc.get().getResult();
-                    User poster = posterSnap.toObject(User.class);
-                    //Send Invitation Email
-                    System.out.println("CHECKPOINT 1: RIGHT BEFORE MAIL METHOD");
-                    Mail mail1 = new Mail(poster.getEmail(), poster.getName(),
-                            FirebaseAuth.getInstance().getCurrentUser().getEmail(),
-                            FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
-                            FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
-                    mail1.execute((Object)null);
+
 
                 } catch (Exception e) {
                     e.printStackTrace();

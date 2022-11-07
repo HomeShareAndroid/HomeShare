@@ -136,14 +136,16 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
 
 
                     //Send Invitation Email
+                    System.out.println("CHECKPOINT 1: RIGHT BEFORE MAIL METHOD");
                     Mail mail1 = new Mail("jamesmccoll7@gmail.com", "James",
                             FirebaseAuth.getInstance().getCurrentUser().getEmail(),
                             FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
                             FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
-                    mail1.someoneAcceptedYourInvitation();
+//                    mail1.someoneAcceptedYourInvitation();
+                    mail1.execute((Object)null);
 
                 } catch (Exception e) {
-                    System.out.println(e.toString());
+                    e.printStackTrace();
                     System.out.println("Something went wrong accepting invitation");
                 }
             });

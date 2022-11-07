@@ -1,7 +1,10 @@
 package com.example.homeshare;
 
+import android.os.AsyncTask;
+
 import java.io.IOException;
 import java.util.Properties;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -14,7 +17,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 
-public class Mail
+public class Mail extends AsyncTask
 {
 
     //SETUP MAIL SERVER PROPERTIES
@@ -38,60 +41,63 @@ public class Mail
         this.matchedPhone=matchedPhone;
     }
 
-    public void someoneAcceptedYourInvitation()
-    {
+    public void someoneAcceptedYourInvitation() throws MessagingException, IOException {
+        System.out.println("CHECKPOINT 2: INSIDE MAIL METHOD");
         setupServerProperties();
-        try {
+//        try {
             draftInvitationEmail();
-        } catch (AddressException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (MessagingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        try {
+//        } catch (AddressException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        } catch (MessagingException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        try {
             sendEmail();
-        } catch (MessagingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+//        } catch (MessagingException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
         System.out.println("Request Email Sent.");
     }
 
-    public void youMatchedWithARoommate() {
+    public void youMatchedWithARoommate() throws MessagingException, IOException {
         setupServerProperties();
-        try {
+//        try {
             draftRoommateEmail();
-        } catch (AddressException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (MessagingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        try {
+//        } catch (AddressException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        } catch (MessagingException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        try {
             sendEmail();
-        } catch (MessagingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+//        } catch (MessagingException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
         System.out.println("Accept Email Sent.");
 
     }
 
     private void sendEmail() throws MessagingException {
+        System.out.println("CHECKPOINT 5");
         Transport.send(mimeMessage);
+        System.out.println("CHECKPOINT 6");
         System.out.println("Email successfully sent!!!");
     }
 
     private MimeMessage draftInvitationEmail() throws AddressException, MessagingException, IOException {
+        System.out.println("CHECKPOINT 3: SEND EMAIL TO " + sendEmail);
         String[] emailReceipients = {sendEmail};  //Enter list of email recepients
         String emailSubject = "HomeShare - Someone has Accepted Your Invitation!";
         String emailBody = "Hello " + ourName +",\n\n" + "Your Invitation has been accepted by"+ matchedName +"\n"+
@@ -103,6 +109,7 @@ public class Mail
             mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(emailReceipients[i]));
         }
         mimeMessage.setSubject(emailSubject);
+        System.out.println("CHECKPOINT 4");
 
         // CREATE MIMEMESSAGE
         // CREATE MESSAGE BODY PARTS
@@ -117,7 +124,7 @@ public class Mail
         MimeMultipart multiPart = new MimeMultipart();
         multiPart.addBodyPart(bodyPart);
         mimeMessage.setContent(multiPart);
-        mimeMessage.setFrom(new InternetAddress("shairporthub@outlook.com"));
+        mimeMessage.setFrom(new InternetAddress("sharehome@myyahoo.com"));
 
         return mimeMessage;
     }
@@ -148,20 +155,23 @@ public class Mail
         MimeMultipart multiPart = new MimeMultipart();
         multiPart.addBodyPart(bodyPart);
         mimeMessage.setContent(multiPart);
-        mimeMessage.setFrom(new InternetAddress("shairporthub@outlook.com"));
+        mimeMessage.setFrom(new InternetAddress("sharehome@myyahoo.com"));
         return mimeMessage;
     }
 
     private void setupServerProperties() {
-        final String username = "shairporthub@outlook.com";
+        final String username = "sharehome@myyahoo.com";
         final String password = "Degree08_";
 
 
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host", "smtp-mail.outlook.com");
-        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.host", "smtp.mail.yahoo.com");
+        properties.put("mail.smtp.port", "465");
+//        properties.put("mail.smtp.socketFactory.port", "25");
+//        properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+//        properties.put("mail.smtp.socketFactory.fallback", "true");
 
         newSession = Session.getInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -171,4 +181,15 @@ public class Mail
     }
 
 
+    @Override
+    protected Object doInBackground(Object[] objects) {
+        try {
+            someoneAcceptedYourInvitation();
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

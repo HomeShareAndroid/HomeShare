@@ -28,10 +28,12 @@
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:fontFamily="@font/lora2"
+            android:background="@drawable/home"
             android:scaleType="centerCrop" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="3dp"
+
             android:background="#FFFF"
             ></TextView>
         <TextView

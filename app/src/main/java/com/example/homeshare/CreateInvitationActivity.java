@@ -63,12 +63,7 @@ public class CreateInvitationActivity extends AppCompatActivity {
 
     }
 
-    public void gotoProfilePage(View view) {
-        if (mAuth.getCurrentUser() == null) {
-            Toast.makeText(CreateInvitationActivity.this, "Must Be Logged In to Visit Profile",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
+    public void goToProfilePage(View view) {
         Intent intent = new Intent(getApplicationContext(), ProfilePageActivity.class);
         intent.putExtra("Uid", mAuth.getUid());
         startActivity(intent);
@@ -143,4 +138,11 @@ public class CreateInvitationActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), RoommateFeedActivity.class);
         startActivity(intent);
     }
+
+    public void gotoCreateAPost(View view) {
+        Intent intent = new Intent(getApplicationContext(), CreateInvitationActivity.class);
+        startActivity(intent);
+    }
+
+
 }

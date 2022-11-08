@@ -46,7 +46,7 @@ public class Mail extends AsyncTask
         System.out.println("CHECKPOINT 2: INSIDE MAIL METHOD");
         setupServerProperties();
 //        try {
-            draftInvitationEmail();
+        draftInvitationEmail();
 //        } catch (AddressException e) {
 //            // TODO Auto-generated catch block
 //            e.printStackTrace();
@@ -58,7 +58,7 @@ public class Mail extends AsyncTask
 //            e.printStackTrace();
 //        }
 //        try {
-            sendEmail();
+        sendEmail();
 //        } catch (MessagingException e) {
 //            // TODO Auto-generated catch block
 //            e.printStackTrace();
@@ -69,7 +69,7 @@ public class Mail extends AsyncTask
     public void youMatchedWithARoommate() throws MessagingException, IOException {
         setupServerProperties();
 //        try {
-            draftRoommateEmail();
+        draftRoommateEmail();
 //        } catch (AddressException e) {
 //            // TODO Auto-generated catch block
 //            e.printStackTrace();
@@ -81,12 +81,36 @@ public class Mail extends AsyncTask
 //            e.printStackTrace();
 //        }
 //        try {
-            sendEmail();
+        sendEmail();
 //        } catch (MessagingException e) {
 //            // TODO Auto-generated catch block
 //            e.printStackTrace();
 //        }
         System.out.println("Accept Email Sent.");
+
+    }
+
+    public void someoneRejectedYourInvitation() throws MessagingException, IOException {
+        setupServerProperties();
+//        try {
+        draftRejectionEmail();
+//        } catch (AddressException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        } catch (MessagingException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        try {
+        sendEmail();
+//        } catch (MessagingException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+        System.out.println("Reject Email Sent.");
 
     }
 
@@ -102,7 +126,7 @@ public class Mail extends AsyncTask
         String[] emailReceipients = {email};  //Enter list of email recepients
         String emailSubject = "HomeShare - Someone has Accepted Your Invitation!";
         String emailBody = "Hello " + name +",\n\n" + "Your Invitation has been accepted by "+ matchedName +"\n"+
-               "Accept or decline this request on the 'Response Feed' page of the HomeShare App. Good luck finding your future roommate! - HomeShare";
+                "Accept or decline this request on the 'Response Feed' page of the HomeShare App. Good luck finding your future roommate! - HomeShare";
         mimeMessage = new MimeMessage(newSession);
 
         for (int i =0 ;i<emailReceipients.length;i++)
@@ -134,7 +158,40 @@ public class Mail extends AsyncTask
         String[] emailReceipients = {email};  //Enter list of email recepients
         String emailSubject = "HomeShare - You Have a New Roommate Pairing!";
         String emailBody = "Hello " + name +",\n\n" + "You have a new roommate pairing! Roommate Info: \nName: "+ matchedName + "\n"
-                 + "\n" + "Email: "+ matchedEmail +"\n\n"+ "To see all of the Roommate information, go to the 'Roommate Feed' page on the HomeShare App. - HomeShare";
+                + "\n" + "Email: "+ matchedEmail +"\n\n"+ "To see all of the Roommate information, go to the 'Roommate Feed' page on the HomeShare App. - HomeShare";
+        System.out.println(emailBody);
+        mimeMessage = new MimeMessage(newSession);
+
+        for (int i =0 ;i<emailReceipients.length;i++)
+        {
+            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(emailReceipients[i]));
+        }
+        mimeMessage.setSubject(emailSubject);
+
+        // CREATE MIMEMESSAGE
+        // CREATE MESSAGE BODY PARTS
+        // CREATE MESSAGE MULTIPART
+        // ADD MESSAGE BODY PARTS ----> MULTIPART
+        // FINALLY ADD MULTIPART TO MESSAGECONTENT i.e. mimeMessage object
+
+
+        MimeBodyPart bodyPart = new MimeBodyPart();
+        // bodyPart.setContent(emailBody,"text/html; charset=utf-8\"");
+        bodyPart.setText(emailBody);
+        MimeMultipart multiPart = new MimeMultipart();
+        multiPart.addBodyPart(bodyPart);
+        mimeMessage.setContent(multiPart);
+        mimeMessage.setFrom(new InternetAddress("homesharehub@zohomail.com"));
+        return mimeMessage;
+    }
+
+    private MimeMessage draftRejectionEmail() throws AddressException, MessagingException, IOException {
+        System.out.println("CHECKPOINT 8");
+        String[] emailReceipients = {email};  //Enter list of email recepients
+        String emailSubject = "HomeShare - Your invitation request was denied ";
+        String emailBody = "Hello " + name +",\n\n" + "The invitation request you sent to the person with the following information " +
+                "was denied \nName: "+ matchedName + "\n"
+                + "\n" + "Email: "+ matchedEmail +"\n\n"+ "To request more invitations, go to the 'Invitation Feed' page on the HomeShare App. - HomeShare";
         mimeMessage = new MimeMessage(newSession);
 
         for (int i =0 ;i<emailReceipients.length;i++)
@@ -195,8 +252,12 @@ public class Mail extends AsyncTask
             if(x.equals("A") ) {
                 someoneAcceptedYourInvitation();
             }
-            else{
+            else if(x.equals("B")){
                 youMatchedWithARoommate();
+            }
+            else{
+                System.out.println("CHECKPOINT 7");
+                someoneRejectedYourInvitation();
             }
         } catch (MessagingException e) {
             e.printStackTrace();

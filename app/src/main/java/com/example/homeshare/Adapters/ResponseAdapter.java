@@ -99,11 +99,46 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
                                         DocumentReference documentReference = document.getReference();
                                         documentReference.update("accepted", true);
                                     }
-
                                 } else {
                                     System.out.println("Could Not Accept Response");
                                 }
                             });
+
+                    FirebaseFirestore
+                            .getInstance()
+                            .collection("invitationresponses")
+                            .whereEqualTo("invitationRef", response.getInvitationRef())
+                            .get()
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    System.out.println("PLEASE");
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        DocumentReference documentReference = document.getReference();
+                                        documentReference.get().addOnSuccessListener(task2 -> {
+                                            InvitationResponse requesterInv = task2.toObject(InvitationResponse.class);
+                                            System.out.println(" MY PATHH " +requesterInv.getResponderRef().getPath().substring(6));
+                                            DocumentReference userReference = FirebaseFirestore
+                                                    .getInstance()
+                                                    .collection("users")
+                                                    .document(requesterInv.getResponderRef().getPath().substring(6));
+                                            userReference.get().addOnSuccessListener(user->{
+                                                User userPage = user.toObject(User.class);
+                                                String rejectEmail =userPage.getEmail();
+                                                if(!rejectEmail.equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+                                                    Mail mail1 = new Mail(rejectEmail, userPage.getName(),
+                                                            FirebaseAuth.getInstance().getCurrentUser().getEmail(),
+                                                            FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), "C");
+                                                    mail1.execute((Object) null);
+                                                }
+                                            });
+                                        });
+
+                                    }
+                                } else {
+                                    System.out.println("Could Not Send Rejection Response");
+                                }
+                            });
+
                     FirebaseFirestore
                             .getInstance()
                             .document(String.valueOf(response.getInvitationRef().getPath()))

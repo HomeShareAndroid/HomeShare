@@ -134,7 +134,6 @@ public class Mail extends AsyncTask
             mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(emailReceipients[i]));
         }
         mimeMessage.setSubject(emailSubject);
-        System.out.println("CHECKPOINT 4");
 
         // CREATE MIMEMESSAGE
         // CREATE MESSAGE BODY PARTS
@@ -186,7 +185,6 @@ public class Mail extends AsyncTask
     }
 
     private MimeMessage draftRejectionEmail() throws AddressException, MessagingException, IOException {
-        System.out.println("CHECKPOINT 8");
         String[] emailReceipients = {email};  //Enter list of email recepients
         String emailSubject = "HomeShare - Your invitation request was denied ";
         String emailBody = "Hello " + name +",\n\n" + "The invitation requestion you sent to the person with the following infor" +
@@ -256,7 +254,6 @@ public class Mail extends AsyncTask
                 youMatchedWithARoommate();
             }
             else{
-                System.out.println("CHECKPOINT 7");
                 someoneRejectedYourInvitation();
             }
         } catch (MessagingException e) {

@@ -87,6 +87,7 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
             acceptButton.setOnClickListener(v -> {
                 try {
 
+                    //Marking that specific invitation response as accepted
                     FirebaseFirestore
                             .getInstance()
                             .collection("invitationresponses")
@@ -104,6 +105,7 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
                                 }
                             });
 
+                    //Sending emails to everyone that accepted that invitation that got rejected
                     FirebaseFirestore
                             .getInstance()
                             .collection("invitationresponses")
@@ -116,11 +118,7 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         DocumentReference documentReference = document.getReference();
                                         documentReference.get().addOnSuccessListener(task2 -> {
-                                            InvitationResponse requesterInv = task2.toObject(InvitationResponse.class);
-                                            DocumentReference documentReference1 = requesterInv.getResponderRef();
-                                            documentReference1.get().getResult();
-
-
+                                            User requester = task2.toObject(User.class);
                                             System.out.println("SENDING REJECTION EMAIL TO " + requester.getEmail());
                                             Mail mail1 = new Mail(requester.getEmail(), requester.getName(),
                                                     FirebaseAuth.getInstance().getCurrentUser().getEmail(),
@@ -136,6 +134,7 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
                                 }
                             });
 
+                    //Sending an "You matched with a roommate" email to both people on the accepted invitation response
                     FirebaseFirestore
                             .getInstance()
                             .document(String.valueOf(response.getInvitationRef().getPath()))

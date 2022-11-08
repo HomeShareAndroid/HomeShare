@@ -7,7 +7,7 @@
     android:id="@+id/relativeLayout"
     android:background="@drawable/ic_launcher_foreground"
     android:fontFamily="@font/lora2"
-    tools:context=".CreateInvitationActivity">
+    tools:context=".NonFeedActivites.CreateInvitationActivity">
 
 
     <LinearLayout
@@ -183,7 +183,7 @@
         android:layout_height="fill_parent"
         android:layout_marginTop="5dp"
         android:fillViewport="true"
-        tools:context=".CreateInvitationActivity">
+        tools:context=".NonFeedActivites.CreateInvitationActivity">
 
         <!-- Here you put the rest of your current view-->
 

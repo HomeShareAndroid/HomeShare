@@ -1,4 +1,4 @@
-package com.example.homeshare;
+package com.example.homeshare.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,20 +9,20 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.homeshare.Util.Mail;
 import com.example.homeshare.Model.Invitation;
 import com.example.homeshare.Model.InvitationResponse;
 import com.example.homeshare.Model.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.homeshare.NonFeedActivites.ProfilePageActivity;
+import com.example.homeshare.R;
+import com.example.homeshare.FeedActivities.RoommateFeedActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.List;

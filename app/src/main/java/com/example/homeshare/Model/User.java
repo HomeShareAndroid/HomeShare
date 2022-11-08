@@ -1,24 +1,13 @@
 package com.example.homeshare.Model;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class User {
-    //private String userImageLink;
-    // private String graduationClass;
-    //private String major;
+
     private String name;
     private String email;
     private String Uid;
@@ -114,41 +103,6 @@ public class User {
     public void setPhotoUri(String photoUri) {
         this.photoUri = photoUri;
     }
-/*
-    public String getUserImageLink() {
-        return userImageLink;
-    }
 
-    public String getGraduationClass() {
-        return graduationClass;
-    }
-
-    public String getMajor() {
-        return major;
-    }
-    public void setUserImageLink(String userImageLink) {
-        this.userImageLink = userImageLink;
-        db.collection("users")
-                .document(getUid())
-                .update("userImageLink",userImageLink);
-    }
-
-
-
-
-    public void setGraduationClass(String graduationClass) {
-        this.graduationClass = graduationClass;
-        db.collection("users")
-                .document(getUid())
-                .update("graduationClass",graduationClass);
-    }
-
-    public void setMajor(String major) {
-        this.major = major;
-        db.collection("users")
-                .document(getUid())
-                .update("major",major);
-    }
-    */
 
 }

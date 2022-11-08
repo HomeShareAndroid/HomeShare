@@ -37,28 +37,6 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/spacing_mlarge" />
 
-            <RelativeLayout
-                android:id="@+id/lyt_avatar"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@drawable/avatar_placeholder_click"
-                android:clickable="true"
-                android:padding="@dimen/spacing_medium">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="@dimen/spacing_mlarge"
-                    app:srcCompat="@drawable/ic_photo"
-                    app:tint="@color/grey_20" />
-
-                <ImageView
-                    android:id="@+id/avatar"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </RelativeLayout>
-
             <EditText
                 android:id="@+id/reg_name"
                 android:layout_width="match_parent"

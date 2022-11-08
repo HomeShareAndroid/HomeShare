@@ -15,7 +15,7 @@
             android:theme="@style/Theme.HomeShare"
             tools:targetApi="31">
             <activity
-                android:name=".MainActivity"
+                android:name=".NonFeedActivites.MainActivity"
                 android:exported="true"
                 android:label="@string/app_name">
                 <intent-filter>
@@ -24,13 +24,12 @@
                     <category android:name="android.intent.category.LAUNCHER" />
                 </intent-filter>
             </activity>
-            <activity android:name=".InvitationFeedActivity"></activity>
-            <activity android:name=".ProfilePageActivity"></activity>
-            <activity android:name=".ResponseFeedActivity"></activity>
-            <activity android:name=".RoommateFeedActivity"></activity>
-            <activity android:name=".RegisterActivity"></activity>
-            <activity android:name=".HomepageActivity"></activity>
-            <activity android:name=".CreateInvitationActivity"></activity>
+            <activity android:name=".FeedActivities.InvitationFeedActivity"></activity>
+            <activity android:name=".NonFeedActivites.ProfilePageActivity"></activity>
+            <activity android:name=".FeedActivities.ResponseFeedActivity"></activity>
+            <activity android:name=".FeedActivities.RoommateFeedActivity"></activity>
+            <activity android:name=".NonFeedActivites.RegisterActivity"></activity>
+            <activity android:name=".NonFeedActivites.CreateInvitationActivity"></activity>
         </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>

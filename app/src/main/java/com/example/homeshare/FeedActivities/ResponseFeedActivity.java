@@ -1,4 +1,4 @@
-package com.example.homeshare;
+package com.example.homeshare.FeedActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.homeshare.Adapters.ResponseAdapter;
+import com.example.homeshare.NonFeedActivites.CreateInvitationActivity;
+import com.example.homeshare.NonFeedActivites.MainActivity;
 import com.example.homeshare.Model.InvitationResponse;
 import com.example.homeshare.Model.User;
+import com.example.homeshare.NonFeedActivites.ProfilePageActivity;
+import com.example.homeshare.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

@@ -7,7 +7,7 @@
     android:id="@+id/relativeLayout"
     android:background="#1F2123"
     android:fontFamily="@font/lora2"
-    tools:context=".ResponseFeedActivity">
+    tools:context=".FeedActivities.ResponseFeedActivity">
 
     <LinearLayout
         android:id="@+id/lyt_bottom_bar_content"

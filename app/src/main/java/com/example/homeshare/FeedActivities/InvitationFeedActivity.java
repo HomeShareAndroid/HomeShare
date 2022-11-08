@@ -1,4 +1,4 @@
-package com.example.homeshare;
+package com.example.homeshare.FeedActivities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,32 +9,27 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.homeshare.NonFeedActivites.CreateInvitationActivity;
+import com.example.homeshare.Adapters.InvitationAdapter;
+import com.example.homeshare.NonFeedActivites.MainActivity;
 import com.example.homeshare.Model.Invitation;
 import com.example.homeshare.Model.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.homeshare.NonFeedActivites.ProfilePageActivity;
+import com.example.homeshare.R;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firestore.admin.v1.Index;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;

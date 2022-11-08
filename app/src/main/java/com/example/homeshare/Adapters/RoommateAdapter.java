@@ -1,4 +1,4 @@
-package com.example.homeshare;
+package com.example.homeshare.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.homeshare.Model.Invitation;
 import com.example.homeshare.Model.InvitationResponse;
 import com.example.homeshare.Model.User;
+import com.example.homeshare.NonFeedActivites.ProfilePageActivity;
+import com.example.homeshare.R;
 
 import java.util.HashMap;
 import java.util.List;

@@ -108,16 +108,6 @@
                     android:textColor="@android:color/black"
                     android:textColorHint="@color/grey_60" />
 
-                <ImageButton
-                    android:id="@+id/show_pass"
-                    android:layout_width="@dimen/spacing_xmlarge"
-                    android:layout_height="@dimen/spacing_xmlarge"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:background="?attr/selectableItemBackground"
-                    android:src="@drawable/toggle_password_view"
-                    app:tint="@color/grey_40" />
-
             </RelativeLayout>
 
             <RelativeLayout

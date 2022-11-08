@@ -99,11 +99,40 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
                                         DocumentReference documentReference = document.getReference();
                                         documentReference.update("accepted", true);
                                     }
-
                                 } else {
                                     System.out.println("Could Not Accept Response");
                                 }
                             });
+
+                    FirebaseFirestore
+                            .getInstance()
+                            .collection("invitationresponses")
+                            .whereEqualTo("invitationRef", response.getInvitationRef())
+                            .whereNotEqualTo("accepted", true)
+                            .get()
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    System.out.println("PLEASE");
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        DocumentReference documentReference = document.getReference();
+
+                                        documentReference.get().addOnSuccessListener(task2 -> {
+                                            User requester = task2.toObject(User.class);
+                                            System.out.println("SENDING REJECTION EMAIL TO " + requester.getEmail());
+                                            Mail mail1 = new Mail(requester.getEmail(), requester.getName(),
+                                                    FirebaseAuth.getInstance().getCurrentUser().getEmail(),
+                                                    FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), "C");
+                                            mail1.execute((Object) null);
+                                        });
+
+
+
+                                    }
+                                } else {
+                                    System.out.println("Could Not Send Rejection Response");
+                                }
+                            });
+
                     FirebaseFirestore
                             .getInstance()
                             .document(String.valueOf(response.getInvitationRef().getPath()))

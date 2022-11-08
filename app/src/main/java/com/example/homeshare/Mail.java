@@ -29,19 +29,17 @@ public class Mail extends AsyncTask
     String email;
     String name;
     String matchedName;
-    String matchedPhone;
     String x;
     String matchedEmail;
     Session newSession = null;
     MimeMessage mimeMessage = null;
 
-    public Mail(String email, String name, String matchedEmail, String matchedName, String matchedPhone,String x) {
+    public Mail(String email, String name, String matchedEmail, String matchedName,String x) {
         this.email=email;
         this.x =x;
         this.name=name;
         this.matchedEmail=matchedEmail;
         this.matchedName=matchedName;
-        this.matchedPhone=matchedPhone;
     }
 
     public void someoneAcceptedYourInvitation() throws MessagingException, IOException {
@@ -103,7 +101,7 @@ public class Mail extends AsyncTask
         System.out.println("CHECKPOINT 3: SEND EMAIL TO " + email);
         String[] emailReceipients = {email};  //Enter list of email recepients
         String emailSubject = "HomeShare - Someone has Accepted Your Invitation!";
-        String emailBody = "Hello " + name +",\n\n" + "Your Invitation has been accepted by"+ matchedName +"\n"+
+        String emailBody = "Hello " + name +",\n\n" + "Your Invitation has been accepted by "+ matchedName +"\n"+
                "Accept or decline this request on the 'Response Feed' page of the HomeShare App. Good luck finding your future roommate! - HomeShare";
         mimeMessage = new MimeMessage(newSession);
 
@@ -135,8 +133,8 @@ public class Mail extends AsyncTask
     private MimeMessage draftRoommateEmail() throws AddressException, MessagingException, IOException {
         String[] emailReceipients = {email};  //Enter list of email recepients
         String emailSubject = "HomeShare - You Have a New Roommate Pairing!";
-        String emailBody = "Hello " + name +",\n\n" + "You have a new roommate pairing! Roommate Info \nName: "+ matchedName + "\n"
-                + "Phone Number: " + matchedPhone + "\n" + "Email: "+ matchedEmail +"\n\n"+ "To see all of the Roommate information, go to the 'Roommate Feed' page on the HomeShare App. - HomeShare";
+        String emailBody = "Hello " + name +",\n\n" + "You have a new roommate pairing! Roommate Info: \nName: "+ matchedName + "\n"
+                 + "\n" + "Email: "+ matchedEmail +"\n\n"+ "To see all of the Roommate information, go to the 'Roommate Feed' page on the HomeShare App. - HomeShare";
         mimeMessage = new MimeMessage(newSession);
 
         for (int i =0 ;i<emailReceipients.length;i++)

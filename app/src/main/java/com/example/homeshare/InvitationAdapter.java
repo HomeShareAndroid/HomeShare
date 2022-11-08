@@ -143,8 +143,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
                                     User poster = posterSnap.toObject(User.class);
                                     Mail mail1 = new Mail(poster.getEmail(), poster.getName(),
                                             FirebaseAuth.getInstance().getCurrentUser().getEmail(),
-                                            FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
-                                            FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber(), "A");
+                                            FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), "A");
                                     mail1.execute((Object) null);
                                 }
                             });

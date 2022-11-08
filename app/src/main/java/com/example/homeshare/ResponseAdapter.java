@@ -111,18 +111,18 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     DocumentSnapshot snap = task.getResult();
+                                    String rName = responderName.getText().toString().substring(18);
+                                    String rEmail = responderEmail.getText().toString().substring(19);
 
-                                    User poster = snap.toObject(User.class);
-                                    Mail mail1 = new Mail(poster.getEmail(), poster.getName(),
+                                    Mail mail1 = new Mail(rEmail, rName,
                                             FirebaseAuth.getInstance().getCurrentUser().getEmail(),
-                                            FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
-                                            FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber(), "B");
-                                    mail1.execute((Object)null);
+                                            FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), "B");
+                                    mail1.execute((Object) null);
 
                                     Mail mail2 = new Mail(FirebaseAuth.getInstance().getCurrentUser().getEmail(),
                                             FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
-                                            poster.getEmail(), poster.getName(), poster.getPhone(), "B");
-                                    mail2.execute((Object)null);
+                                            rEmail, rName, "B");
+                                    mail2.execute((Object) null);
 
                                     Double numberOfBeds;
                                     try {

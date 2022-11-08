@@ -115,9 +115,12 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
                                     System.out.println("PLEASE");
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         DocumentReference documentReference = document.getReference();
-
                                         documentReference.get().addOnSuccessListener(task2 -> {
-                                            User requester = task2.toObject(User.class);
+                                            InvitationResponse requesterInv = task2.toObject(InvitationResponse.class);
+                                            DocumentReference documentReference1 = requesterInv.getResponderRef();
+                                            documentReference1.get().getResult();
+
+
                                             System.out.println("SENDING REJECTION EMAIL TO " + requester.getEmail());
                                             Mail mail1 = new Mail(requester.getEmail(), requester.getName(),
                                                     FirebaseAuth.getInstance().getCurrentUser().getEmail(),

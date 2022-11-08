@@ -183,7 +183,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
-            android:text="R O O M A T E  F E E D"
+            android:text="R O O M M A T E  F E E D"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
             android:textColor="#FFFF"
             android:textSize="20dp" />

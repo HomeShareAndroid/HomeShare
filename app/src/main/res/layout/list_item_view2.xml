@@ -69,7 +69,7 @@
 
                     android:ellipsize="end"
                     android:fontFamily="@font/lora2"
-                    android:maxLines="3"
+                    android:maxLines="6"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
                     android:textSize="12sp" />
@@ -94,7 +94,7 @@
                     android:layout_marginLeft="20dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/lora2"
-                    android:maxLines="3"
+                    android:maxLines="6"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
                     android:textSize="12sp" />
@@ -119,7 +119,7 @@
                     android:layout_marginLeft="20dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/lora2"
-                    android:maxLines="3"
+                    android:maxLines="6"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
                     android:textSize="12sp" />
@@ -144,7 +144,7 @@
                     android:layout_marginLeft="20dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/lora2"
-                    android:maxLines="3"
+                    android:maxLines="6"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
                     android:textSize="12sp" />
@@ -169,7 +169,7 @@
                     android:layout_marginLeft="20dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/lora2"
-                    android:maxLines="3"
+                    android:maxLines="6"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
                     android:textSize="12sp" />
@@ -201,7 +201,7 @@
                     android:layout_marginLeft="20dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/lora2"
-                    android:maxLines="3"
+                    android:maxLines="6"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
                     android:textSize="11sp" />
@@ -226,7 +226,7 @@
                     android:layout_marginLeft="20dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/lora2"
-                    android:maxLines="3"
+                    android:maxLines="6"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
                     android:textSize="12dp" />
@@ -251,7 +251,7 @@
                     android:layout_marginLeft="20dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/lora2"
-                    android:maxLines="3"
+                    android:maxLines="6"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
                     android:textSize="12dp" />
@@ -276,7 +276,7 @@
                     android:layout_marginLeft="20dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/lora2"
-                    android:maxLines="3"
+                    android:maxLines="6"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
                     android:textSize="12dp" />
@@ -301,7 +301,7 @@
                     android:layout_marginLeft="20dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/lora2"
-                    android:maxLines="3"
+                    android:maxLines="6"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
                     android:textSize="12sp" />
@@ -326,7 +326,7 @@
                     android:layout_marginLeft="20dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/lora2"
-                    android:maxLines="3"
+                    android:maxLines="6"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
                     android:textSize="12dp" />

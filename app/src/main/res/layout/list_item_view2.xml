@@ -59,7 +59,8 @@
                     android:text="Deadline: "
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
-                    android:textSize="13dp" />
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/deadline"
@@ -85,7 +86,8 @@
                     android:text="Address: "
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
-                    android:textSize="13dp" />
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/address"
@@ -110,7 +112,8 @@
                     android:text="Personality: "
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
-                    android:textSize="13dp" />
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/personality"
@@ -135,7 +138,8 @@
                     android:text="Academic Focus: "
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
-                    android:textSize="13dp" />
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/academicFocus"
@@ -160,7 +164,8 @@
                     android:text="Description: "
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
-                    android:textSize="13dp" />
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/otherInfo"
@@ -192,7 +197,8 @@
                     android:text="Rent:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
-                    android:textSize="13sp" />
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/rent"
@@ -217,7 +223,8 @@
                     android:text="Utilties:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
-                    android:textSize="12dp" />
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/utilities"
@@ -242,7 +249,8 @@
                     android:text="Bedspace:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
-                    android:textSize="12dp" />
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/numBeds"
@@ -267,7 +275,8 @@
                     android:text="Distance From Campus:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
-                    android:textSize="12dp" />
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/distance"
@@ -292,7 +301,8 @@
                     android:text="Daily Schedule:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
-                    android:textSize="12dp" />
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/dailySchedule"
@@ -317,7 +327,8 @@
                     android:text="Other Details:"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textColor="#FFFFFF"
-                    android:textSize="12dp" />
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/otherDetails"

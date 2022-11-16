@@ -159,12 +159,9 @@ public class ProfilePageActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         DocumentReference documentReference = document.getReference();
-                        if (!major.equals(""))
-                            documentReference.update("major", major);
-                        if (!phone.equals(""))
-                            documentReference.update("phone", phone);
-                        if (!aboutMe.equals(""))
-                            documentReference.update("aboutMe", aboutMe);
+                        documentReference.update("major", major);
+                        documentReference.update("phone", phone);
+                        documentReference.update("aboutMe", aboutMe);
 
                     } else {
                         System.out.println("Could Not Update Info");

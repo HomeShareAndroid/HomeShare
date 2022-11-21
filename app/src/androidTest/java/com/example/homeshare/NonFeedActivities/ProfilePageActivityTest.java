@@ -1,4 +1,4 @@
-package com.example.homeshare;
+package com.example.homeshare.NonFeedActivities;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.clearText;
@@ -12,12 +12,14 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import androidx.test.espresso.intent.Intents;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 import com.example.homeshare.FeedActivities.InvitationFeedActivity;
 import com.example.homeshare.NonFeedActivites.CreateInvitationActivity;
 import com.example.homeshare.NonFeedActivites.MainActivity;
 import com.example.homeshare.NonFeedActivites.ProfilePageActivity;
+import com.example.homeshare.R;
 
 import org.junit.After;
 import org.junit.Before;
@@ -31,7 +33,7 @@ public class ProfilePageActivityTest {
 
     @Before
     public void setUp(){
-        onView(withId(R.id.login_email))
+        onView(ViewMatchers.withId(R.id.login_email))
                 .perform(typeText("testuser1@usc.edu"), closeSoftKeyboard());
         onView(withId(R.id.login_password))
                 .perform(typeText("123456"), closeSoftKeyboard());
@@ -53,7 +55,7 @@ public class ProfilePageActivityTest {
     }
 
     @Test
-    public void emailAndNamePopulateTest(){
+    public void emailAndNamePopulate(){
         onView(withId(R.id.userName))
                 .check(matches(withText("Test User")));
         onView(withId(R.id.profileEmail))
@@ -62,7 +64,7 @@ public class ProfilePageActivityTest {
 
 
     @Test
-    public void fillTextBoxesTest() {
+    public void fillTextBoxes() {
         onView(withId(R.id.profilePhone))
                 .perform(typeText("123-456-7890"), closeSoftKeyboard());
         onView(withId(R.id.profilePhone))
@@ -78,21 +80,21 @@ public class ProfilePageActivityTest {
     }
 
     @Test
-    public void navigateToInvitationFeedTest(){
+    public void navigateToInvitationFeed(){
         onView(withId(R.id.profileGoHome))
                 .perform(click());
         intended(hasComponent(InvitationFeedActivity.class.getName()));
     }
 
     @Test
-    public void logOutTest(){
+    public void logOut(){
         onView(withId(R.id.login_logout))
                 .perform(click());
         intended(hasComponent(MainActivity.class.getName()));
     }
 
     @Test
-    public void saveButtonTest() {
+    public void profileInformationNotSaved() {
 //        onView(withId(R.id.profilePhone))
 //                .perform(clearText());
 //        onView(withId(R.id.profilePhone))
@@ -117,6 +119,26 @@ public class ProfilePageActivityTest {
                 .perform(click());
         onView(withId(R.id.profilePhone))
                 .check(matches(withText("")));
+    }
+
+    @Test
+    public void saveButtonSuccess() {
+//        onView(withId(R.id.profilePhone))
+//                .perform(clearText());
+//        onView(withId(R.id.profilePhone))
+//                .perform(typeText(""));
+//        onView(withId(R.id.edit_profile))
+//                .perform(click());
+//        onView(withId(R.id.profileGoHome))
+//                .perform(click());
+//        onView(withId(R.id.top_menu_profile))
+//                .perform(click());
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
 
         onView(withId(R.id.profilePhone))
                 .perform(typeText("123-456-7890"), closeSoftKeyboard());

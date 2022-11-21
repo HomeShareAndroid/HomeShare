@@ -1,33 +1,27 @@
-package com.example.homeshare;
+package com.example.homeshare.NonFeedActivities;
 
 
 
-import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.intent.Intents;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.rule.ActivityTestRule;
 
-import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import java.util.Random;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.*;
 
 import com.example.homeshare.FeedActivities.InvitationFeedActivity;
-import com.example.homeshare.NonFeedActivites.CreateInvitationActivity;
-import com.example.homeshare.NonFeedActivites.MainActivity;
 import com.example.homeshare.NonFeedActivites.RegisterActivity;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import com.example.homeshare.R;
+import com.example.homeshare.Util.MobileViewMatchers;
 
 
 import static androidx.test.espresso.Espresso.onView;
@@ -37,11 +31,9 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static com.google.android.material.internal.ContextUtils.getActivity;
 
 
 /**
@@ -70,8 +62,8 @@ public class RegistrationActivityTest {
 
 
     @Test
-    public void signUpPasswordTooShortTest(){
-        onView(withId(R.id.reg_name))
+    public void signUpPasswordTooShort(){
+        onView(ViewMatchers.withId(R.id.reg_name))
                 .perform(typeText("Test User 1"), closeSoftKeyboard());
         onView(withId(R.id.reg_email))
                 .perform(typeText("testUser@usc.edu"), closeSoftKeyboard());
@@ -85,7 +77,7 @@ public class RegistrationActivityTest {
     }
 
     @Test
-    public void signUpInvalidEmailTest(){
+    public void signUpInvalidEmail(){
         onView(withId(R.id.reg_name))
                 .perform(typeText("Test User 1"), closeSoftKeyboard());
         onView(withId(R.id.reg_email))
@@ -100,7 +92,7 @@ public class RegistrationActivityTest {
     }
 
     @Test
-    public void signUpEmptyDataTest(){
+    public void signUpEmptyData(){
         onView(withId(R.id.btn_register))
                 .perform(click());
 
@@ -113,8 +105,13 @@ public class RegistrationActivityTest {
         onView(withId(R.id.reg_name))
                 .perform(typeText("Test User 1"), closeSoftKeyboard());
 
+        Random rand = new Random(); //instance of random class
+        int upperbound = Integer.MAX_VALUE;
+        //generate random values from 0-24
+        int emailNum = rand.nextInt(upperbound);
+
         onView(withId(R.id.reg_email))
-                .perform(typeText("testUser4756475@usc.edu"), closeSoftKeyboard());
+                .perform(typeText("testUser" + emailNum + "@usc.edu"), closeSoftKeyboard());
         onView(withId(R.id.reg_password))
                 .perform(typeText("123456"), closeSoftKeyboard());
         onView(withId(R.id.btn_register))
@@ -124,7 +121,6 @@ public class RegistrationActivityTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        //Will only be able to find the home button if login was successful
         intended(hasComponent(InvitationFeedActivity.class.getName()));
 //        try {
 //            Thread.sleep(2000);
@@ -133,7 +129,6 @@ public class RegistrationActivityTest {
 //        }
 
     }
-
 
     public void isToastMessageDisplayed(String text) {
         onView(withText(text)).inRoot(MobileViewMatchers.isToast()).check(matches(isDisplayed()));

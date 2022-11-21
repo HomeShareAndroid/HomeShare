@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 
 import java.io.IOException;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 import javax.activation.CommandMap;
 import javax.activation.MailcapCommandMap;
@@ -26,20 +27,26 @@ public class Mail extends AsyncTask
     //DRAFT AN EMAIL
     //SEND EMAIL
 
-    String email;
-    String name;
-    String matchedName;
-    String x;
-    String matchedEmail;
-    Session newSession = null;
-    MimeMessage mimeMessage = null;
+    public String email;
+    public String name;
+    public String matchedName;
+    public String x;
+    public String matchedEmail;
+    public Session newSession = null;
+    public MimeMessage mimeMessage = null;
 
     public Mail(String email, String name, String matchedEmail, String matchedName,String x) {
+
         this.email=email;
         this.x =x;
         this.name=name;
         this.matchedEmail=matchedEmail;
         this.matchedName=matchedName;
+        String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+                + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+        if(!Pattern.compile(regexPattern).matcher(this.email).matches()){
+            throw new RuntimeException("Invalid Email");
+        }
     }
 
     public void someoneAcceptedYourInvitation() throws MessagingException, IOException {
@@ -115,14 +122,10 @@ public class Mail extends AsyncTask
     }
 
     private void sendEmail() throws MessagingException {
-        System.out.println("CHECKPOINT 5");
         Transport.send(mimeMessage);
-        System.out.println("CHECKPOINT 6");
-        System.out.println("Email successfully sent!!!");
     }
 
-    private MimeMessage draftInvitationEmail() throws AddressException, MessagingException, IOException {
-        System.out.println("CHECKPOINT 3: SEND EMAIL TO " + email);
+    public MimeMessage draftInvitationEmail() throws AddressException, MessagingException, IOException {
         String[] emailReceipients = {email};  //Enter list of email recepients
         String emailSubject = "HomeShare - Someone has Accepted Your Invitation!";
         String emailBody = "Hello " + name +",\n\n" + "Your Invitation has been accepted by "+ matchedName +"\n"+
@@ -154,7 +157,7 @@ public class Mail extends AsyncTask
         return mimeMessage;
     }
 
-    private MimeMessage draftRoommateEmail() throws AddressException, MessagingException, IOException {
+    public MimeMessage draftRoommateEmail() throws AddressException, MessagingException, IOException {
         String[] emailReceipients = {email};  //Enter list of email recepients
         String emailSubject = "HomeShare - You Have a New Roommate Pairing!";
         String emailBody = "Hello " + name +",\n\n" + "You have a new roommate pairing! Roommate Info: \nName: "+ matchedName + "\n"
@@ -185,7 +188,7 @@ public class Mail extends AsyncTask
         return mimeMessage;
     }
 
-    private MimeMessage draftRejectionEmail() throws AddressException, MessagingException, IOException {
+    public MimeMessage draftRejectionEmail() throws AddressException, MessagingException, IOException {
         System.out.println("CHECKPOINT 8");
         String[] emailReceipients = {email};  //Enter list of email recepients
         String emailSubject = "HomeShare - Your invitation request was denied ";
@@ -217,7 +220,7 @@ public class Mail extends AsyncTask
         return mimeMessage;
     }
 
-    private void setupServerProperties() {
+    public void setupServerProperties() {
         final String username = "homesharehub@zohomail.com";
         final String password = "Degree08";
 

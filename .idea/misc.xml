@@ -9,6 +9,8 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/avatar_placeholder_click.xml" value="0.2205" />
         <entry key="app/src/main/res/drawable/btn_dark.xml" value="0.166" />
+        <entry key="app/src/main/res/drawable/circle.xml" value="0.1515" />
+        <entry key="app/src/main/res/drawable/custom_button1.xml" value="0.1515" />
         <entry key="app/src/main/res/drawable/edit_text_round.xml" value="0.166" />
         <entry key="app/src/main/res/drawable/ic_bookmark_border.xml" value="0.1915" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1" />
@@ -29,7 +31,7 @@
         <entry key="app/src/main/res/drawable/shape_gradient_soft.xml" value="0.1925" />
         <entry key="app/src/main/res/drawable/toggle_password_view.xml" value="0.166" />
         <entry key="app/src/main/res/layout/activity.xml" value="0.13043478260869565" />
-        <entry key="app/src/main/res/layout/activity_create_invitation.xml" value="0.32514880952380953" />
+        <entry key="app/src/main/res/layout/activity_create_invitation.xml" value="0.21107266435986158" />
         <entry key="app/src/main/res/layout/activity_invitationfeed.xml" value="0.3110236220472441" />
         <entry key="app/src/main/res/layout/activity_invitationfeed2.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.3037037037037037" />
@@ -47,8 +49,8 @@
         <entry key="app/src/main/res/layout/include_banner_ad_container.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/layout/include_settings_content.xml" value="0.25210266113281254" />
         <entry key="app/src/main/res/layout/list_item_view.xml" value="0.37555555555555553" />
-        <entry key="app/src/main/res/layout/list_item_view2.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/response_item_view.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/list_item_view2.xml" value="0.35060975609756095" />
+        <entry key="app/src/main/res/layout/response_item_view.xml" value="0.21661987304687502" />
         <entry key="app/src/main/res/layout/roommate_item_view.xml" value="0.25" />
         <entry key="app/src/main/res/layout/testing.xml" value="0.14673913043478262" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.18333333333333332" />

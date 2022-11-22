@@ -203,6 +203,7 @@
         android:fontFamily="@font/lora2">
 
         <TextView
+            android:id="@+id/invitationFeedText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

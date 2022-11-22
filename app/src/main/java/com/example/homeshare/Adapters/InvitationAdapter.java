@@ -135,6 +135,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
                     Map<String, Object> docData = new HashMap<>();
                     docData.put("invitationRef", InvitationFeedActivity.invToRef.get(invitation));
                     docData.put("posterRef", posterDoc);
+                    System.out.println("CORRECT POSTER DOC " + posterDoc);
                     docData.put("responderRef", responderDoc);
                     docData.put("response", true);
                     FirebaseFirestore db = FirebaseFirestore.getInstance();

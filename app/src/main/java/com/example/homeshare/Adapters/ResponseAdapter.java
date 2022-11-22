@@ -94,6 +94,7 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
                             .whereEqualTo("responderRef", response.getResponderRef())
                             .get()
                             .addOnCompleteListener(task -> {
+                                System.out.println("RESPONDER REF " + response.getResponderRef());
                                 if (task.isSuccessful()) {
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         DocumentReference documentReference = document.getReference();
@@ -116,7 +117,7 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
                                         DocumentReference documentReference = document.getReference();
                                         documentReference.get().addOnSuccessListener(task2 -> {
                                             InvitationResponse requesterInv = task2.toObject(InvitationResponse.class);
-                                            System.out.println(" MY PATHH " +requesterInv.getResponderRef().getPath().substring(6));
+                                            System.out.println(" MY PATH " +requesterInv.getResponderRef().getPath().substring(6));
                                             DocumentReference userReference = FirebaseFirestore
                                                     .getInstance()
                                                     .collection("users")

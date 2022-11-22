@@ -78,10 +78,8 @@ public class RegisterActivity extends AppCompatActivity {
                                     startActivity(myIntent);
 
                                 } else {
-
                                     Toast.makeText(RegisterActivity.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
-
                                 }
                             }
                             catch(Exception e) {
@@ -96,9 +94,6 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
             System.out.println(e.toString());
         }
-
-
-
     }
 
     public void goToLoginPage(View view) {

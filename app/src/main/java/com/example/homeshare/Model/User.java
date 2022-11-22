@@ -16,8 +16,15 @@ public class User {
     private String aboutMe;
     private String photoUri;
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    public User(String name, String email, String uid, String major, String phone, String aboutMe, String photoUri) {
+        this.name = name;
+        this.email = email;
+        this.Uid = uid;
+        this.major = major;
+        this.phone = phone;
+        this.aboutMe = aboutMe;
+        this.photoUri = photoUri;
+    }
 
     public User(){
 

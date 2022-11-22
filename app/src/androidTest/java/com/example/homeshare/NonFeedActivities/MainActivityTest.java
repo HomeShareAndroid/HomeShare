@@ -72,26 +72,25 @@ public class MainActivityTest {
     }
 
     @Test
-    public void loginEmptyData(){
+    public void loginEmptyData() throws InterruptedException {
+        Thread.sleep(1000);
         onView(withId(R.id.btn_login))
                 .perform(click());
+        Thread.sleep(1000);
         //check if correct toast message was displayed
         isToastMessageDisplayed("Email / Password Fields Cannot Be Empty");
+        Thread.sleep(1000);
     }
 
     @Test
-    public void loginSuccess(){
+    public void loginSuccess() throws InterruptedException {
         onView(withId(R.id.login_email))
                 .perform(typeText("testuser1@usc.edu"), closeSoftKeyboard());
         onView(withId(R.id.login_password))
                 .perform(typeText("123456"), closeSoftKeyboard());
         onView(withId(R.id.btn_login))
                 .perform(click());
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(2000);
         intended(hasComponent(InvitationFeedActivity.class.getName()));
 
     }

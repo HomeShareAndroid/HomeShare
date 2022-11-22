@@ -20,6 +20,9 @@ import com.example.homeshare.Util.MyViewAction;
 import com.example.homeshare.NonFeedActivites.CreateInvitationActivity;
 import com.example.homeshare.NonFeedActivites.ProfilePageActivity;
 import com.example.homeshare.R;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 
 import static androidx.test.espresso.Espresso.onView;
@@ -52,81 +55,60 @@ public class InvitationFeedActivityTest {
     }
 
     @Test
-    public void navigateToProfilePage(){
+    public void navigateToProfilePage() throws InterruptedException {
         onView(ViewMatchers.withId(R.id.top_menu_profile))
                 .perform(click());
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(2000);
         intended(hasComponent(ProfilePageActivity.class.getName()));
     }
 
     @Test
-    public void navigateToResponseFeed(){
+    public void navigateToResponseFeed() throws InterruptedException {
         onView(withId(R.id.responseFeedMenuBotton))
                 .perform(click());
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(2000);
         intended(hasComponent(ResponseFeedActivity.class.getName()));
     }
 
     @Test
-    public void navigateToRoommateFeed(){
+    public void navigateToRoommateFeed() throws InterruptedException {
         onView(withId(R.id.roommateFeedMenuButton))
                 .perform(click());
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(2000);
         intended(hasComponent(RoommateFeedActivity.class.getName()));
     }
 
     @Test
-    public void navigateToCreateInvitationPage(){
+    public void navigateToCreateInvitationPage() throws InterruptedException {
         onView(withId(R.id.top_menu_create_a_post))
                 .perform(click());
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(2000);
         intended(hasComponent(CreateInvitationActivity.class.getName()));
     }
 
     @Test
-    public void clickOnNotAcceptOrRejectButton(){
+    public void clickOnNotAcceptOrRejectButton() throws InterruptedException {
         createInvitationForTesting();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(2000);
 
         onView(allOf(withId(R.id.otherInfo), withText("Testing other info"))).perform(scrollTo(), click());
         isToastMessageDisplayed("Must Click Accept or Reject");
+        deleteInvitationAfterTesting();
     }
 
     @Test
-    public void clickOnInvitationAcceptButton(){
+    public void clickOnInvitationAcceptButton() throws InterruptedException {
         createInvitationForTesting();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(2000);
         onView(withId(R.id.recycler_view)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.acceptInvitation2)));
         isToastMessageDisplayed("Sent Response to Poster!");
+        deleteInvitationAfterTesting();
+        deleteInvitationResponseAfterTesting();
     }
 
 
-    public void createInvitationForTesting(){
+    public void createInvitationForTesting() throws InterruptedException {
         onView(withId(R.id.top_menu_profile))
                 .perform(click());
         onView(withId(R.id.login_logout))
@@ -138,11 +120,7 @@ public class InvitationFeedActivityTest {
         onView(withId(R.id.btn_login))
                 .perform(click());
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(2000);
         onView(withId(R.id.top_menu_create_a_post))
                 .perform(click());
         onView(withId(R.id.address))
@@ -167,11 +145,7 @@ public class InvitationFeedActivityTest {
         onView(withId(R.id.button))
                 .perform(scrollTo(), click());
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(2000);
         onView(withId(R.id.top_menu_profile))
                 .perform(click());
         onView(withId(R.id.login_logout))
@@ -182,6 +156,47 @@ public class InvitationFeedActivityTest {
                 .perform(typeText("123456"), closeSoftKeyboard());
         onView(withId(R.id.btn_login))
                 .perform(click());
+    }
+
+    public void deleteInvitationAfterTesting(){
+        FirebaseFirestore
+                .getInstance()
+                .collection("invitations")
+                .whereEqualTo("academicFocus", "Testing Major")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            DocumentReference documentReference = document.getReference();
+                            documentReference.delete();
+                        }
+                    } else {
+                        System.out.println("Could Not Accept Response");
+                    }
+                });
+    }
+
+    public void deleteInvitationResponseAfterTesting(){
+        DocumentReference posterDoc = FirebaseFirestore
+                .getInstance()
+                .collection("users")
+                .document("1o7RnvvZRtgiWN54DAleGIvPSwN2");
+
+        FirebaseFirestore
+                .getInstance()
+                .collection("invitationresponses")
+                .whereEqualTo("posterRef", posterDoc)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            DocumentReference documentReference = document.getReference();
+                            documentReference.delete();
+                        }
+                    } else {
+                        System.out.println("Could Not Accept Response");
+                    }
+                });
     }
 
     public void isToastMessageDisplayed(String text) {

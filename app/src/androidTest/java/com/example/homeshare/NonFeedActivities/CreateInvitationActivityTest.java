@@ -17,6 +17,9 @@ import static org.hamcrest.Matchers.not;
 import com.example.homeshare.NonFeedActivites.CreateInvitationActivity;
 import com.example.homeshare.R;
 import com.example.homeshare.Util.MobileViewMatchers;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 
 import static androidx.test.espresso.Espresso.onView;
@@ -117,7 +120,7 @@ public class CreateInvitationActivityTest {
 
 
     @Test
-    public void successfullyCreateInvitation(){
+    public void successfullyCreateInvitation() throws InterruptedException {
         onView(withId(R.id.top_menu_profile))
                 .perform(click());
         onView(withId(R.id.login_logout))
@@ -129,11 +132,7 @@ public class CreateInvitationActivityTest {
         onView(withId(R.id.btn_login))
                 .perform(click());
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(2000);
         onView(withId(R.id.top_menu_create_a_post))
                 .perform(click());
         onView(withId(R.id.address))
@@ -158,11 +157,7 @@ public class CreateInvitationActivityTest {
         onView(withId(R.id.button))
                 .perform(scrollTo(), click());
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(2000);
         onView(withId(R.id.top_menu_profile))
                 .perform(click());
         onView(withId(R.id.login_logout))
@@ -174,71 +169,31 @@ public class CreateInvitationActivityTest {
         onView(withId(R.id.btn_login))
                 .perform(click());
 
-        try {
-            Thread.sleep(7000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(2000);
         //Check post was successfully created
         onView(allOf(withId(R.id.otherInfo), withText("Testing other info")))
                 .check(matches(withText("Testing other info")));
 
+        deleteInvitationAfterTesting();
     }
 
-//    @Test
-//    public void calendarTest(){
-//        onView(withId(R.id.address))
-//                .perform(typeText(""), closeSoftKeyboard());
-//        onView(withId(R.id.academicFocus)).perform(ViewActions.swipeUp());
-//        onView(withId(R.id.academicFocus)).perform(ViewActions.swipeUp());
-//        onView(withId(R.id.academicFocus)).perform(ViewActions.swipeUp());
-//        onView(withId(R.id.academicFocus)).perform(ViewActions.swipeUp());
-//        onView(withId(R.id.academicFocus)).perform(ViewActions.swipeUp());
-//        onView(withId(R.id.academicFocus)).perform(ViewActions.swipeUp());
-//        onView(withId(R.id.academicFocus)).perform(ViewActions.swipeUp());
-//        onView(withId(R.id.academicFocus)).perform(ViewActions.swipeUp());
-//        onView(withId(R.id.academicFocus)).perform(ViewActions.swipeUp());
-//        onView(withId(R.id.academicFocus)).perform(ViewActions.swipeUp());
-//        onView(withId(R.id.academicFocus)).perform(ViewActions.swipeUp());
-//        onView(withId(R.id.academicFocus)).perform(ViewActions.swipeUp());
-//        onView(withId(R.id.academicFocus)).perform(ViewActions.swipeUp());
-//        onView(withId(R.id.academicFocus)).perform(ViewActions.swipeUp());
-//        onView(withId(R.id.academicFocus)).perform(ViewActions.swipeUp());
-//        try {
-//            Thread.sleep(2000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        onView(withId(R.id.date_picker)).perform(PickerActions.setDate(2022, 12, 24));
-//        try {
-//            Thread.sleep(2000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        onView(withId(R.id.date_picker)).check(matches(matchesDate(2022, 12, 24)));
-//        try {
-//            Thread.sleep(2000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//
-//    public static Matcher<View> matchesDate(final int year, final int month, final int day) {
-//        return new BoundedMatcher<View, DatePicker>(DatePicker.class) {
-//
-//            @Override
-//            public void describeTo(Description description) {
-//                description.appendText("matches date:");
-//            }
-//
-//            @Override
-//            protected boolean matchesSafely(DatePicker item) {
-//                return (year == item.getYear() && month == item.getMonth() && day == item.getDayOfMonth());
-//            }
-//        };
-//    }
+    public void deleteInvitationAfterTesting(){
+        FirebaseFirestore
+                .getInstance()
+                .collection("invitations")
+                .whereEqualTo("academicFocus", "Testing Major")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            DocumentReference documentReference = document.getReference();
+                            documentReference.delete();
+                        }
+                    } else {
+                        System.out.println("Could Not Accept Response");
+                    }
+                });
+    }
 
     public void isToastMessageDisplayed(String text) {
         onView(withText(text)).inRoot(MobileViewMatchers.isToast()).check(matches(isDisplayed()));

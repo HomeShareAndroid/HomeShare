@@ -101,7 +101,7 @@ public class RegistrationActivityTest {
     }
 
     @Test
-    public void signUpAccountSuccess(){
+    public void signUpAccountSuccess() throws InterruptedException {
         onView(withId(R.id.reg_name))
                 .perform(typeText("Test User 1"), closeSoftKeyboard());
 
@@ -116,17 +116,9 @@ public class RegistrationActivityTest {
                 .perform(typeText("123456"), closeSoftKeyboard());
         onView(withId(R.id.btn_register))
                 .perform(click());
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(2000);
         intended(hasComponent(InvitationFeedActivity.class.getName()));
-//        try {
-//            Thread.sleep(2000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+
 
     }
 

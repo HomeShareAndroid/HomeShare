@@ -32,18 +32,14 @@ public class ProfilePageActivityTest {
             = new ActivityScenarioRule<>(MainActivity.class);
 
     @Before
-    public void setUp(){
+    public void setUp() throws InterruptedException {
         onView(ViewMatchers.withId(R.id.login_email))
                 .perform(typeText("testuser1@usc.edu"), closeSoftKeyboard());
         onView(withId(R.id.login_password))
                 .perform(typeText("123456"), closeSoftKeyboard());
         onView(withId(R.id.btn_login))
                 .perform(click());
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(2000);
         onView(withId(R.id.top_menu_profile))
                 .perform(click());
         Intents.init();
@@ -95,22 +91,6 @@ public class ProfilePageActivityTest {
 
     @Test
     public void profileInformationNotSaved() {
-//        onView(withId(R.id.profilePhone))
-//                .perform(clearText());
-//        onView(withId(R.id.profilePhone))
-//                .perform(typeText(""));
-//        onView(withId(R.id.edit_profile))
-//                .perform(click());
-//        onView(withId(R.id.profileGoHome))
-//                .perform(click());
-//        onView(withId(R.id.top_menu_profile))
-//                .perform(click());
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-
         onView(withId(R.id.profilePhone))
                 .perform(typeText("123-456-7890"), closeSoftKeyboard());
         onView(withId(R.id.profileGoHome))
@@ -123,22 +103,6 @@ public class ProfilePageActivityTest {
 
     @Test
     public void saveButtonSuccess() {
-//        onView(withId(R.id.profilePhone))
-//                .perform(clearText());
-//        onView(withId(R.id.profilePhone))
-//                .perform(typeText(""));
-//        onView(withId(R.id.edit_profile))
-//                .perform(click());
-//        onView(withId(R.id.profileGoHome))
-//                .perform(click());
-//        onView(withId(R.id.top_menu_profile))
-//                .perform(click());
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-
 
         onView(withId(R.id.profilePhone))
                 .perform(typeText("123-456-7890"), closeSoftKeyboard());

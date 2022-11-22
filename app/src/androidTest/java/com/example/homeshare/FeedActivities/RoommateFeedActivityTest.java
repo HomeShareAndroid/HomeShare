@@ -21,6 +21,9 @@ import com.example.homeshare.Util.MyViewAction;
 import com.example.homeshare.NonFeedActivites.CreateInvitationActivity;
 import com.example.homeshare.NonFeedActivites.ProfilePageActivity;
 import com.example.homeshare.R;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 
 import static androidx.test.espresso.Espresso.onView;
@@ -57,7 +60,6 @@ public class RoommateFeedActivityTest {
         createInvitationForTestingAndAcceptItAndAcceptResponse();
         Thread.sleep(2000);
 
-
         onView(withId(R.id.visitResponderRoommateProfile))
                 .perform(click());
         onView(withId(R.id.userName))
@@ -65,10 +67,8 @@ public class RoommateFeedActivityTest {
         onView(withId(R.id.profileEmail))
                 .check(matches(withText("testuser1@usc.edu")));
 
-//        onView(withId(R.id.responderRoommateEmail))
-//                .check(matches(withText("Responder's Email: testUser1@usc.edu")));
-//        onView(withId(R.id.posterRoommateEmail))
-//                .check(matches(withText("Poster's Email: createInvTestUser@usc.edu")));
+        deleteInvitationAfterTesting();
+        deleteInvitationResponseAfterTesting();
     }
 
     @Test
@@ -98,10 +98,9 @@ public class RoommateFeedActivityTest {
                 .check(matches(withText("Invitation Test")));
         onView(withId(R.id.profileEmail))
                 .check(matches(withText("createInvTestUser@usc.edu")));
-//        onView(withId(R.id.responderRoommateEmail))
-//                .check(matches(withText("Responder's Email: testUser1@usc.edu")));
-//        onView(withId(R.id.posterRoommateEmail))
-//                .check(matches(withText("Poster's Email: createInvTestUser@usc.edu")));
+
+        deleteInvitationAfterTesting();
+        deleteInvitationResponseAfterTesting();
     }
 
 
@@ -169,6 +168,47 @@ public class RoommateFeedActivityTest {
         Thread.sleep(2000);
         onView(withId(R.id.acceptResponse))
                 .perform(click());
+    }
+
+    public void deleteInvitationAfterTesting(){
+        FirebaseFirestore
+                .getInstance()
+                .collection("invitations")
+                .whereEqualTo("academicFocus", "Testing Major")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            DocumentReference documentReference = document.getReference();
+                            documentReference.delete();
+                        }
+                    } else {
+                        System.out.println("Could Not Accept Response");
+                    }
+                });
+    }
+
+    public void deleteInvitationResponseAfterTesting(){
+        DocumentReference posterDoc = FirebaseFirestore
+                .getInstance()
+                .collection("users")
+                .document("1o7RnvvZRtgiWN54DAleGIvPSwN2");
+
+        FirebaseFirestore
+                .getInstance()
+                .collection("invitationresponses")
+                .whereEqualTo("posterRef", posterDoc)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            DocumentReference documentReference = document.getReference();
+                            documentReference.delete();
+                        }
+                    } else {
+                        System.out.println("Could Not Accept Response");
+                    }
+                });
     }
 
     public void isToastMessageDisplayed(String text) {

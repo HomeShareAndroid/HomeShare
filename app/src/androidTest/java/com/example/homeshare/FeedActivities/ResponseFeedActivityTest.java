@@ -21,6 +21,9 @@ import com.example.homeshare.Util.MyViewAction;
 import com.example.homeshare.NonFeedActivites.CreateInvitationActivity;
 import com.example.homeshare.NonFeedActivites.ProfilePageActivity;
 import com.example.homeshare.R;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 
 import static androidx.test.espresso.Espresso.onView;
@@ -50,45 +53,43 @@ public class ResponseFeedActivityTest {
     @After
     public void tearDown(){
         Intents.release();
+
     }
 
     @Test
-    public void clickOnRoommateProfile(){
+    public void clickOnRoommateProfile() throws InterruptedException {
         createInvitationForTestingAndAcceptIt();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(2000);
         onView(withId(R.id.visitResponderProfile))
                 .perform(click());
 
 //        intended(hasComponent(ProfilePageActivity.class.getName()));
+        Thread.sleep(2000);
 
         onView(withId(R.id.userName))
                 .check(matches(withText("Test User")));
         onView(withId(R.id.profileEmail))
                 .check(matches(withText("testuser1@usc.edu")));
+        deleteInvitationAfterTesting();
+        deleteInvitationResponseAfterTesting();
     }
 
     @Test
-    public void clickOnInvitationResponseAcceptButton(){
+    public void clickOnInvitationResponseAcceptButton() throws InterruptedException {
         createInvitationForTestingAndAcceptIt();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(2000);
         onView(withId(R.id.acceptResponse))
                 .perform(click());
 
-//        onView(withId(R.id.recycler_view)).perform(
-//                RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.acceptResponse)));
-        isToastMessageDisplayed("Accepted Response! New Roommate");
+        Thread.sleep(2000);
+        intended(hasComponent(RoommateFeedActivity.class.getName()));
+//        isToastMessageDisplayed("Accepted Response! New Roommate");
+        deleteInvitationAfterTesting();
+        deleteInvitationResponseAfterTesting();
     }
 
 
-    public void createInvitationForTestingAndAcceptIt(){
+    public void createInvitationForTestingAndAcceptIt() throws InterruptedException {
         onView(withId(R.id.login_email))
                 .perform(typeText("createInvTestUser@usc.edu"), closeSoftKeyboard());
         onView(withId(R.id.login_password))
@@ -96,11 +97,7 @@ public class ResponseFeedActivityTest {
         onView(withId(R.id.btn_login))
                 .perform(click());
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(2000);
         onView(withId(R.id.top_menu_create_a_post))
                 .perform(click());
         onView(withId(R.id.address))
@@ -125,11 +122,7 @@ public class ResponseFeedActivityTest {
         onView(withId(R.id.button))
                 .perform(scrollTo(), click());
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(2000);
         onView(withId(R.id.top_menu_profile))
                 .perform(click());
         onView(withId(R.id.login_logout))
@@ -140,11 +133,7 @@ public class ResponseFeedActivityTest {
                 .perform(typeText("123456"), closeSoftKeyboard());
         onView(withId(R.id.btn_login))
                 .perform(click());
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(2000);
         onView(withId(R.id.recycler_view)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.acceptInvitation2)));
 
@@ -158,13 +147,50 @@ public class ResponseFeedActivityTest {
                 .perform(typeText("123456"), closeSoftKeyboard());
         onView(withId(R.id.btn_login))
                 .perform(click());
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(2000);
         onView(withId(R.id.responseFeedMenuBotton))
                 .perform(click());
+    }
+
+    public void deleteInvitationAfterTesting(){
+        FirebaseFirestore
+                .getInstance()
+                .collection("invitations")
+                .whereEqualTo("academicFocus", "Testing Major")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            DocumentReference documentReference = document.getReference();
+                            documentReference.delete();
+                        }
+                    } else {
+                        System.out.println("Could Not Accept Response");
+                    }
+                });
+    }
+
+    public void deleteInvitationResponseAfterTesting(){
+        DocumentReference posterDoc = FirebaseFirestore
+                .getInstance()
+                .collection("users")
+                .document("1o7RnvvZRtgiWN54DAleGIvPSwN2");
+
+        FirebaseFirestore
+                .getInstance()
+                .collection("invitationresponses")
+                .whereEqualTo("posterRef", posterDoc)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            DocumentReference documentReference = document.getReference();
+                            documentReference.delete();
+                        }
+                    } else {
+                        System.out.println("Could Not Accept Response");
+                    }
+                });
     }
 
     public void isToastMessageDisplayed(String text) {

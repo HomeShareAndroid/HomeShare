@@ -1,33 +1,46 @@
 package com.example.homeshare.NonFeedActivites;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.homeshare.FeedActivities.InvitationFeedActivity;
 import com.example.homeshare.FeedActivities.ResponseFeedActivity;
 import com.example.homeshare.FeedActivities.RoommateFeedActivity;
 import com.example.homeshare.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.grpc.Context;
+
 public class CreateInvitationActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+    Uri housingPicUri;
 
 
     @Override
@@ -69,6 +82,8 @@ public class CreateInvitationActivity extends AppCompatActivity {
         docData.put("milesFromCampus",String.valueOf(((EditText)findViewById(R.id.milesFromCampus)).getText()));
         docData.put("available" , true);
 
+
+
         try {
             docData.put("rent", Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.rent)).getText())));
             docData.put("numBeds", Double.parseDouble((((EditText)findViewById(R.id.numBeds)).getText().toString())));
@@ -84,7 +99,16 @@ public class CreateInvitationActivity extends AppCompatActivity {
         FirebaseUser  fbUser = mAuth.getCurrentUser();
         docData.put("posterUid", fbUser.getUid());
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("invitations").add(docData);
+        db.collection("invitations").add(docData).addOnSuccessListener(documentReference -> {
+            String invitePath = documentReference.getPath();
+            System.out.println("We are adding an invitation image with the path: " + "images/" + invitePath);
+            StorageReference ref = FirebaseStorage.getInstance().getReference().child("images/" + invitePath);
+            if (housingPicUri != null) {
+                ref.putFile(housingPicUri);
+                documentReference.update("imageURI","images/" + invitePath);
+            }
+
+        });
         Intent intent = new Intent(getApplicationContext(), InvitationFeedActivity.class);
         intent.putExtra("InvitationToast", "Toast");
         startActivity(intent);
@@ -104,6 +128,17 @@ public class CreateInvitationActivity extends AppCompatActivity {
         date.setTime(calendar.getTimeInMillis());
         return new Timestamp(date);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1000) {
+            if (resultCode == Activity.RESULT_OK) {
+                housingPicUri = data.getData();
+                ((ImageButton) findViewById(R.id.housing_photo)).setImageURI(housingPicUri);
+            }
+        }
     }
 
 
@@ -128,4 +163,9 @@ public class CreateInvitationActivity extends AppCompatActivity {
     }
 
 
+    public void addInvitePhoto(View view) {
+        Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(openGallery, 1000);
+
+    }
 }

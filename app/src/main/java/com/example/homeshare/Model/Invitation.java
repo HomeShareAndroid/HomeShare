@@ -16,6 +16,8 @@ public class Invitation implements Comparable<Invitation> {
 
     private String posterUid;
 
+    private String imageURI;
+
 
     // Housing Info
     private String address;
@@ -143,5 +145,13 @@ public class Invitation implements Comparable<Invitation> {
 
     public void setMilesFromCampus(Double milesFromCampus) {
         this.milesFromCampus = milesFromCampus;
+    }
+
+    public String getImageURI() {
+        return imageURI;
+    }
+
+    public void setImageURI(String imageURI) {
+        this.imageURI = imageURI;
     }
 }

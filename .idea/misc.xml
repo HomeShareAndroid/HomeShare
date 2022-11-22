@@ -49,8 +49,8 @@
         <entry key="app/src/main/res/layout/include_banner_ad_container.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/layout/include_settings_content.xml" value="0.25210266113281254" />
         <entry key="app/src/main/res/layout/list_item_view.xml" value="0.37555555555555553" />
-        <entry key="app/src/main/res/layout/list_item_view2.xml" value="0.35060975609756095" />
-        <entry key="app/src/main/res/layout/response_item_view.xml" value="0.21661987304687502" />
+        <entry key="app/src/main/res/layout/list_item_view2.xml" value="0.4940658569335938" />
+        <entry key="app/src/main/res/layout/response_item_view.xml" value="0.1" />
         <entry key="app/src/main/res/layout/roommate_item_view.xml" value="0.25" />
         <entry key="app/src/main/res/layout/testing.xml" value="0.14673913043478262" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.18333333333333332" />

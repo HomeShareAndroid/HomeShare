@@ -1,16 +1,20 @@
 package com.example.homeshare.Adapters;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.homeshare.FeedActivities.InvitationFeedActivity;
 import com.example.homeshare.Util.Mail;
 import com.example.homeshare.Model.Invitation;
@@ -20,6 +24,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,10 +34,14 @@ import java.util.List;
 import java.util.Map;
 
 public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.ViewHolder> {
-   public List<Invitation> data;
+    public List<Invitation> data;
+    FirebaseStorage storage =FirebaseStorage.getInstance();
+    StorageReference storageReference = storage.getReference();
     private Map<ViewHolder, String> viewHolderToUID = new HashMap<>();
-    public InvitationAdapter(List<Invitation> data){
+    Context context;
+    public InvitationAdapter(List<Invitation> data, Context context){
         this.data = data;
+        this.context = context;
     }
 
 
@@ -46,6 +56,14 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
     @Override
     public void onBindViewHolder(InvitationAdapter.ViewHolder holder, int position) {
         Invitation invitation = data.get(position);
+        if (invitation.getImageURI() != null) {
+            System.out.println("IMAGE URI IS NOT NULL. It is: " + invitation.getImageURI());
+            storageReference.child(invitation.getImageURI()).getDownloadUrl().addOnSuccessListener(uri -> {
+                if (uri != null) {
+                    Glide.with(context).load(uri).into(holder.housingImage);
+                }
+            });
+        }
         holder.invitation = invitation;
         holder.address.setText(invitation.getAddress());
         holder.academicFocus.setText(invitation.getAcademicFocus());
@@ -64,18 +82,6 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
         holder.rent.setText("" + String.format("%.2f", invitation.getRent()) + " $/month");
         holder.utilities.setText(invitation.getUtilities());
 
-//        Invitation invitation = data.get(position);
-//        holder.invitation = invitation;
-//        holder.address.setText("Address: " + invitation.getAddress());
-//        holder.academicFocus.setText("Academic Focus of Poster: " + invitation.getAcademicFocus());
-//        holder.dailySchedule.setText("Poster's Daily Schedule: " + invitation.getDailySchedule());
-//        holder.deadline.setText("Deadline to Respond: " + invitation.getDeadline().toString());
-//        holder.numBeds.setText("Number of Beds Available: " + invitation.getNumBeds());
-//        holder.otherDetails.setText("Other Housing Details: " + invitation.getOtherDetails());
-//        holder.otherInfo.setText("Other Info about the Poster: " + invitation.getOtherInfo());
-//        holder.personality.setText("Poster's Personality: " + invitation.getPersonality());
-//        holder.rent.setText("Rent Details: " + invitation.getRent());
-//        holder.utilities.setText("Utilities Details: " +invitation.getUtilities());
     }
 
     @Override
@@ -98,6 +104,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
         private ImageButton rejectButton;
         private Invitation invitation;
         private TextView distance;
+        private ImageView housingImage;
 
 
         public ViewHolder(View view) {
@@ -115,6 +122,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
             distance = view.findViewById(R.id.distance);
             acceptButton = view.findViewById(R.id.acceptInvitation2);
             rejectButton = view.findViewById(R.id.rejectInvitation2);
+            housingImage = view.findViewById(R.id.housingImage);
             acceptButton.setOnClickListener(v -> {
                 try {
                     DocumentReference posterDoc = FirebaseFirestore

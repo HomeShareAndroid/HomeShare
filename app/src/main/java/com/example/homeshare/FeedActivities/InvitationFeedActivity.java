@@ -58,7 +58,7 @@ public class InvitationFeedActivity extends AppCompatActivity implements Adapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitationfeed2);
 
-         manager = new GridLayoutManager(getApplicationContext(),1);
+        manager = new GridLayoutManager(getApplicationContext(),1);
         FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
         if (fbUser == null) {
             System.out.println("No User Logged in");
@@ -121,7 +121,7 @@ public class InvitationFeedActivity extends AppCompatActivity implements Adapter
                                                     if (iteration[0] == (task.getResult().size())) {
                                                         Collections.sort(invites);
                                                         System.out.println("Number of Invites to Be Shown: " + invites.size());
-                                                        adapt = new InvitationAdapter(invites);
+                                                        adapt = new InvitationAdapter(invites, getApplicationContext());
                                                         recyclerView.setLayoutManager(manager);
                                                         //sorted = new InvitationAdapter(invites);
                                                         recyclerView.setAdapter(adapt);

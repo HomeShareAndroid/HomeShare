@@ -115,7 +115,7 @@ public class RoommateFeedActivityTest {
         onView(withId(R.id.top_menu_create_a_post))
                 .perform(click());
         onView(withId(R.id.address))
-                .perform(typeText("Testing address"), closeSoftKeyboard());
+                .perform(typeText("505 W 31st Street, Los Angeles, CA"), closeSoftKeyboard());
         onView(withId(R.id.utilities))
                 .perform(typeText("Testing Utilities"), closeSoftKeyboard());
         onView(withId(R.id.rent))

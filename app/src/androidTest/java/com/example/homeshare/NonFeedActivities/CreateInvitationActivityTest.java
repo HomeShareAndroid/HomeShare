@@ -54,9 +54,9 @@ public class CreateInvitationActivityTest {
     @Test
     public void fillTextBoxesCorrectly(){
         onView(ViewMatchers.withId(R.id.address))
-                .perform(typeText("2116 Beechwood"), closeSoftKeyboard());
+                .perform(typeText("505 W 31st Street, Los Angeles, CA"), closeSoftKeyboard());
         onView(withId(R.id.address))
-                .check(matches(withText("2116 Beechwood")));
+                .check(matches(withText("505 W 31st Street, Los Angeles, CA")));
         onView(withId(R.id.utilities))
                 .perform(typeText("Basketball Court"), closeSoftKeyboard());
         onView(withId(R.id.utilities))
@@ -90,7 +90,7 @@ public class CreateInvitationActivityTest {
     @Test
     public void numBedsRentNotNumbers(){
         onView(withId(R.id.address))
-                .perform(typeText("2116 Beechwood"), closeSoftKeyboard());
+                .perform(typeText("505 W 31st Street, Los Angeles, CA"), closeSoftKeyboard());
         onView(withId(R.id.utilities))
                 .perform(typeText("Basketball Court"), closeSoftKeyboard());
         onView(withId(R.id.rent))
@@ -130,7 +130,7 @@ public class CreateInvitationActivityTest {
         onView(withId(R.id.top_menu_create_a_post))
                 .perform(click());
         onView(withId(R.id.address))
-                .perform(typeText("Testing address"), closeSoftKeyboard());
+                .perform(typeText("505 W 31st Street, Los Angeles, CA"), closeSoftKeyboard());
         onView(withId(R.id.utilities))
                 .perform(typeText("Testing Utilities"), closeSoftKeyboard());
         onView(withId(R.id.rent))

@@ -125,8 +125,11 @@ public class ResponseAdapter extends RecyclerView.Adapter<ResponseAdapter.ViewHo
                                             userReference.get().addOnSuccessListener(user->{
                                                 User userPage = user.toObject(User.class);
                                                 String rejectEmail =userPage.getEmail();
+                                                System.out.println("REJECT EMAIL: " + rejectEmail);
+                                                System.out.println("CURRENT USER EMAIL: " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                                                System.out.println("RESPONDER EMAIL: " + responderEmail);
                                                 if(!rejectEmail.equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())
-                                                    && !rejectEmail.equals(responderEmail)){
+                                                    && !rejectEmail.equals(responderEmail.getText())){
                                                     Mail mail1 = new Mail(rejectEmail, userPage.getName(),
                                                             FirebaseAuth.getInstance().getCurrentUser().getEmail(),
                                                             FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), "C");

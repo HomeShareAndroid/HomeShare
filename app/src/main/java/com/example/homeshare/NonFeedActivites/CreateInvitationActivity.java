@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.Window;
@@ -30,6 +31,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -66,6 +73,53 @@ public class CreateInvitationActivity extends AppCompatActivity {
     }
 
 
+    public String getMilesFromCampus(String sourceAddress){
+        System.out.println("TESTING123");
+        System.out.println(sourceAddress);
+        String translatedAddress = sourceAddress.replace(" ","+");
+        String url ="https://maps.googleapis.com/maps/api/distancematrix/json?destinations=3501+Trousdale+Pkwy,+Los Angeles,+CA+90089&origins="+translatedAddress+"&units=imperial&key=AIzaSyB2ZRiF2Q21nkCor-aakdFJl_6XRpcLV1o";
+        StringBuffer response = null;
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new
+                    StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        try {
+            URL obj = new URL(url);
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            // optional default is GET
+            con.setRequestMethod("GET");
+            //add request header
+            con.setRequestProperty("User-Agent", "Mozilla/5.0");
+            int responseCode = con.getResponseCode();
+            System.out.println("\nSending 'GET' request to URL : " + url);
+            System.out.println("Response Code : " + responseCode);
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            response = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+        }catch (Exception e){
+            System.out.println("ERROR ++++");
+            System.out.println(e.getMessage());
+        }
+        JSONObject jsonObject = null;
+        String miles = null;
+        try {
+            jsonObject = new JSONObject(response.toString());
+            System.out.println(jsonObject.getJSONArray("rows").getJSONObject(0).getJSONArray("elements").getJSONObject(0).getJSONObject("distance").getString("text"));
+            miles= jsonObject.getJSONArray("rows").getJSONObject(0).getJSONArray("elements").getJSONObject(0).getJSONObject("distance").getString("text");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return miles;
+
+    }
+
     public void addInvitation(View view)  {
 
         //http://dev.virtualearth.net/REST/V1/Routes/Walking?wp.0=11025%20NE%208th%20St%20Bellevue%20WA&wp.1=700%20Bellevue%20Way%20NE%20Bellevue WA&key=BingMapsKey
@@ -79,39 +133,48 @@ public class CreateInvitationActivity extends AppCompatActivity {
         docData.put("academicFocus",String.valueOf(((EditText)findViewById(R.id.academicFocus)).getText()));
         docData.put("personality",String.valueOf(((EditText)findViewById(R.id.personality)).getText()));
         docData.put("otherDetails",String.valueOf(((EditText)findViewById(R.id.otherDetails)).getText()));
-        docData.put("milesFromCampus",String.valueOf(((EditText)findViewById(R.id.milesFromCampus)).getText()));
         docData.put("available" , true);
-
-
-
+        String parseInt = null;
+        double milesParsed = 0;
         try {
-            docData.put("rent", Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.rent)).getText())));
-            docData.put("numBeds", Double.parseDouble((((EditText)findViewById(R.id.numBeds)).getText().toString())));
-            docData.put("milesFromCampus",Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.milesFromCampus)).getText())));
-        } catch (Exception e) {
-            Toast.makeText(CreateInvitationActivity.this, "Rent, number of beds, and miles from campus must be numbers",
-                    Toast.LENGTH_LONG).show();
-            System.out.println("Rent and number of beds must be integers");
-            return;
+            parseInt = getMilesFromCampus(String.valueOf(((EditText)findViewById(R.id.address)).getText()));
+            parseInt = parseInt.replace(",", ".");
+             milesParsed = Double.parseDouble(parseInt.substring(0,parseInt.length()-3));
 
-        }
+            try {
+                docData.put("rent", Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.rent)).getText())));
+                docData.put("numBeds", Double.parseDouble((((EditText)findViewById(R.id.numBeds)).getText().toString())));
+                docData.put("milesFromCampus",milesParsed);
+            } catch (Exception e) {
+                Toast.makeText(CreateInvitationActivity.this, "Rent, number of beds, and miles from campus must be numbers",
+                        Toast.LENGTH_LONG).show();
+                System.out.println("Rent and number of beds must be integers");
+                return;
 
-        FirebaseUser  fbUser = mAuth.getCurrentUser();
-        docData.put("posterUid", fbUser.getUid());
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("invitations").add(docData).addOnSuccessListener(documentReference -> {
-            String invitePath = documentReference.getPath();
-            System.out.println("We are adding an invitation image with the path: " + "images/" + invitePath);
-            StorageReference ref = FirebaseStorage.getInstance().getReference().child("images/" + invitePath);
-            if (housingPicUri != null) {
-                ref.putFile(housingPicUri);
-                documentReference.update("imageURI","images/" + invitePath);
             }
 
-        });
-        Intent intent = new Intent(getApplicationContext(), InvitationFeedActivity.class);
-        intent.putExtra("InvitationToast", "Toast");
-        startActivity(intent);
+            FirebaseUser  fbUser = mAuth.getCurrentUser();
+            docData.put("posterUid", fbUser.getUid());
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("invitations").add(docData).addOnSuccessListener(documentReference -> {
+                String invitePath = documentReference.getPath();
+                System.out.println("We are adding an invitation image with the path: " + "images/" + invitePath);
+                StorageReference ref = FirebaseStorage.getInstance().getReference().child("images/" + invitePath);
+                if (housingPicUri != null) {
+                    ref.putFile(housingPicUri);
+                    documentReference.update("imageURI","images/" + invitePath);
+                }
+
+            });
+            Intent intent = new Intent(getApplicationContext(), InvitationFeedActivity.class);
+            intent.putExtra("InvitationToast", "Toast");
+            startActivity(intent);
+        }catch (Exception e){
+            Toast.makeText(CreateInvitationActivity.this, "Invalid Address",
+                    Toast.LENGTH_LONG).show();
+        }
+
+
 
     }
 
@@ -169,3 +232,4 @@ public class CreateInvitationActivity extends AppCompatActivity {
 
     }
 }
+

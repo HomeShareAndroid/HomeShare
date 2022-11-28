@@ -150,7 +150,6 @@ public class CreateInvitationActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
                 System.out.println("Rent and number of beds must be integers");
                 return;
-
             }
 
             FirebaseUser  fbUser = mAuth.getCurrentUser();
@@ -170,7 +169,7 @@ public class CreateInvitationActivity extends AppCompatActivity {
             intent.putExtra("InvitationToast", "Toast");
             startActivity(intent);
         }catch (Exception e){
-            Toast.makeText(CreateInvitationActivity.this, "Invalid Address",
+            Toast.makeText(CreateInvitationActivity.this, "Invalid Address. Format Must follow - 'Street Address, City, State'",
                     Toast.LENGTH_LONG).show();
         }
 

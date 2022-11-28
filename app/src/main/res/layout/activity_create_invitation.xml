@@ -312,7 +312,7 @@
                 android:background="@drawable/edit_text_round"
                 android:elevation="-1dp"
                 android:ems="10"
-                android:hint="Address"
+                android:hint="Address (Street Address, City, State)"
                 android:inputType="textPersonName"
                 android:text=""
                 android:textColor="@android:color/black"

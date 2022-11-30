@@ -56,7 +56,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.Vi
     @Override
     public void onBindViewHolder(InvitationAdapter.ViewHolder holder, int position) {
         Invitation invitation = data.get(position);
-        if (invitation.getImageURI() != null) {
+        if (invitation.getImageURI() != null && !invitation.getImageURI().equals("")) {
             System.out.println("IMAGE URI IS NOT NULL. It is: " + invitation.getImageURI());
             storageReference.child(invitation.getImageURI()).getDownloadUrl().addOnSuccessListener(uri -> {
                 if (uri != null) {

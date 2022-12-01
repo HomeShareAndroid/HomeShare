@@ -1,5 +1,28 @@
 HOMESHARE
 
+CHANGES MADE SINCE PROJECT 2.4
+
+We had three major ares we were interested in working on for step 2.5. They are as follows:
+
+1) Property Images
+- We were already allowing users to update their profile picture to be a photo of themselves, but we
+  wanted to do the same for invitations as well. Now, when users are creating a post, they can upload
+  a picture of their property to display instead of a default image.
+
+2) Google Maps API
+- The way we currently measured how far a person was from USC's campus was just having them enter
+  it manually when creating a post (the "Mile from campus" text box). We wanted to try to improve
+  this feature. As a result, we implemented the google maps API, which we use to parse the given
+  address and tell us exactly how far that user is from campus.
+
+3) Rejection Email Bug fixes
+- For our current email sending, when a user accepted an invitation response, there was a rejection
+  email that was sent to all users attached to that invitation instead of just the ones whose
+  invitation response got rejected. We implemented the fix to this issue so it is not a problem anymore.
+
+
+---------------------------------------------------------------------------------------------------
+
 Steps to run the app
 
 Upon running the app, the user should be brought to our login screen, which we have designated

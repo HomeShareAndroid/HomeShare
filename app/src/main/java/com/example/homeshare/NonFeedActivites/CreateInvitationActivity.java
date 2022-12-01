@@ -162,7 +162,10 @@ public class CreateInvitationActivity extends AppCompatActivity {
                 if (housingPicUri != null) {
                     ref.putFile(housingPicUri);
                     documentReference.update("imageURI","images/" + invitePath);
+                } else {
+                    documentReference.update("imageURI", "images/invitations/bettercroppedhouse.png");
                 }
+
 
             });
             Intent intent = new Intent(getApplicationContext(), InvitationFeedActivity.class);

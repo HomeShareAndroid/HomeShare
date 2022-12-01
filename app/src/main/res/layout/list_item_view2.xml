@@ -26,7 +26,7 @@
         <ImageView
             android:id="@+id/housingImage"
             android:layout_width="450dp"
-            android:layout_height="160dp"
+            android:layout_height="208dp"
             android:background="@drawable/home2"
             android:fontFamily="@font/lora2"
             android:scaleType="centerCrop" />

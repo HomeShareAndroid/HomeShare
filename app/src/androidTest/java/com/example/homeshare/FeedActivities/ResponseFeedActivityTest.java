@@ -116,7 +116,7 @@ public class ResponseFeedActivityTest {
                 .perform(scrollTo(), typeText("Testing Personality"), closeSoftKeyboard());
         onView(withId(R.id.otherInfo))
                 .perform(scrollTo(), typeText("Testing other info"), closeSoftKeyboard());
-        onView(withId(R.id.date_picker)).perform(scrollTo(), PickerActions.setDate(2022, 11, 30));
+        onView(withId(R.id.date_picker)).perform(scrollTo(), PickerActions.setDate(2022, 12, 14));
         onView(withId(R.id.button))
                 .perform(scrollTo(), click());
 

@@ -120,7 +120,7 @@ public class InvitationFeedActivityTest {
         onView(withId(R.id.btn_login))
                 .perform(click());
 
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         onView(withId(R.id.top_menu_create_a_post))
                 .perform(click());
         onView(withId(R.id.address))
@@ -139,7 +139,7 @@ public class InvitationFeedActivityTest {
                 .perform(scrollTo(), typeText("Testing Personality"), closeSoftKeyboard());
         onView(withId(R.id.otherInfo))
                 .perform(scrollTo(), typeText("Testing other info"), closeSoftKeyboard());
-        onView(withId(R.id.date_picker)).perform(scrollTo(), PickerActions.setDate(2022, 11, 30));
+        onView(withId(R.id.date_picker)).perform(scrollTo(), PickerActions.setDate(2022, 12, 14));
         onView(withId(R.id.button))
                 .perform(scrollTo(), click());
 
